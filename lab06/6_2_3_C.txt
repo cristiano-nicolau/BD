@@ -1,0 +1,50 @@
+a)
+
+SELECT Prescrições.Paciente.numUtente,Prescrições.Paciente.Nome,DataNasc,Endereço
+FROM (Prescrições.Paciente LEFT OUTER JOIN Prescrições.prescrição ON Prescrições.Paciente.numUtente=Prescrições.prescrição.numUtente) 
+WHERE NumPresc IS NULL;
+
+
+b)
+
+SELECT Especialidade,count(Especialidade) as NumeroPrescricoes
+FROM (Prescrições.Medico JOIN Prescrições.Prescrição ON numSNS != NumMedico)
+GROUP BY Especialidade
+
+c)
+
+SELECT Prescrições.Farmacia.Nome,count(Prescrições.Farmacia.Nome) as NumeroPrescricoes
+FROM (Prescrições.Farmacia JOIN Prescrições.prescrição ON Prescrições.Farmacia.Nome=Prescrições.prescrição.farmacia)
+GROUP BY Prescrições.Farmacia.Nome;
+
+
+d)
+
+SELECT Nome,Formula,.Prescrições.Farmaco.NumRegFarm
+FROM (Prescrições.Farmaco LEFT OUTER JOIN Prescrições.presc_farmaco ON Nome = NomeFarmaco)
+Where Prescrições.Farmaco.NumRegFarm = 906 AND NumPresc IS NULL;
+
+e)
+
+SELECT Prescrições.Farmacia.Nome, Prescrições.Farmaceutica.Nome,count(Prescrições.Farmaco.Nome) as NumFarmacos
+FROM (Prescrições.Farmaceutica JOIN 
+								(Prescrições.Farmaco JOIN
+														(Prescrições.presc_farmaco JOIN 
+																					(Prescrições.Farmacia JOIN Prescrições.prescrição ON Prescrições.Farmacia.Nome = Prescrições.prescrição.farmacia)
+														ON Prescrições.presc_farmaco.NumPresc = Prescrições.prescrição.NumPresc)
+								ON Prescrições.Farmaco.Nome = Prescrições.presc_farmaco.NomeFarmaco)	
+		ON NumReg = Prescrições.Farmaco.NumRegFarm)
+GROUP BY  Prescrições.Farmacia.Nome, Prescrições.Farmaceutica.Nome
+
+
+
+
+f)
+
+
+SELECT Prescrições.Paciente.Nome,Prescrições.Paciente.NumUtente,count(Prescrições.Medico.NumSNS) AS NumMedicos
+FROM Prescrições.Medico JOIN
+		(Prescrições.Paciente JOIN Prescrições.prescrição ON Paciente.NumUtente = prescrição.numUtente)
+ON Prescrições.Medico.numSNS = Prescrições.prescrição.numMedico
+GROUP BY Prescrições.Paciente.Nome,Prescrições.Paciente.NumUtente
+HAVING count(Prescrições.Medico.numSNS) > 1

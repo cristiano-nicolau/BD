@@ -1,0 +1,61 @@
+
+
+a)
+
+select Ssn, Fname, Minit, Lname, Pno
+from (Empresa.Employee join Empresa.Works_on on Ssn=Essn);
+
+b)
+
+select E.Fname, E.Minit, E.Lname
+from (Empresa.Employee as E join Empresa.Employee as S on E.Super_ssn=S.Ssn)
+where S.Fname='Carlos' and S.Minit='D' and S.Lname='Gomes';
+
+
+c)
+select Pname, sum([Hours]) as Total_hours
+from (Empresa.Project join Empresa.Works_on on Pnumber=Pno)
+group by Pname;
+
+d)
+
+select Fname,Minit,Lname
+from ((Empresa.Project join Empresa.Works_on on Pnumber=Pno) join Empresa.Employee on Ssn=Essn)
+where Hours>20 and Dno=3;
+
+
+e)
+
+select Fname,Minit,Lname
+from (Empresa.Employee left outer join Empresa.Works_on on Ssn=Essn)
+where Essn is null
+
+
+f)
+
+select Dname, avg(Salary) as Avg_salary
+from (Empresa.Department join Empresa.Employee on Dno=Dnumber)
+where Sex='F'
+group by Dname;
+
+
+g)
+
+select Fname, Minit, Lname, count(Dependent_name) as DependentsNumber
+from (Empresa.Employee join [Empresa.Dependent] on Ssn=Essn)
+group by  Fname, Minit, Lname
+having count(Dependent_name) > 2;
+
+
+h)
+
+select Fname, Minit, Lname
+from ((Empresa.Employee join Empresa.Department on Ssn=Msr_ssn) left outer join [Empresa.Dependent] on Ssn=Essn)
+where Essn is null
+
+
+i)
+
+select distinct Fname, Minit,Lname,Adress
+from (((Empresa.Works_on join Empresa.Employee on Ssn=Essn) join Empresa.Project on Pno=Pnumber) join Empresa.Dept_locations on Dno=Dnumber)
+where Plocation='Aveiro' and Dlocation!='Aveiro'
