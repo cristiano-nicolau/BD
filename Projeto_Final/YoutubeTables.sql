@@ -6,9 +6,10 @@ CREATE SCHEMA Youtube;
 go
 
 
-CREATE TABLE Youtube.Estado (
+CREATE TABLE Youtube.Estados (
 
-
+	state_id TINYINT PRIMARY KEY,
+	state_name VARCHAR(20),
 
 );
 
@@ -65,7 +66,6 @@ CREATE TABLE Youtube.Conteúdo (
 	Num_Likes int,
 	Num_Visualizações int,
 	Data_Publicação date not null,
-	Data_Visualização date not null,
 		
 	UNIQUE(codigo),
 
@@ -107,6 +107,7 @@ CREATE TABLE Youtube.Comentários (
 
 	Autor varchar(30) not null,
 	Texto varchar(300) not null,
+	Data_Comentário date not null,
 
 
 	PRIMARY KEY(Autor),
@@ -119,8 +120,41 @@ CREATE TABLE Youtube.Histórico (
 	Titulo varchar(30) not null,
 	Codigo int,
 	Data_de_Visualização date not null,
-	Utilizador varchar(30) not null,
+	Nome_Utilizador varchar(30) not null,
+
+	PRIMARY KEY (Codigo),
 
 );
+
+
+ALTER TABLE Youtube.Canal ADD CONSTRAINT Nome_Utilizador FOREIGN KEY (Nome_Utilizador) REFERENCES Youtube.Utilizador;
+
+ALTER TABLE Youtube.Conteúdo ADD CONSTRAINT Autor FOREIGN KEY (Nome_Utilizador) REFERENCES Youtube.Canal;
+
+ALTER TABLE Youtube.Descrição ADD CONSTRAINT Codigo FOREIGN KEY (Codigo) REFERENCES Youtube.Conteudo;
+
+ALTER TABLE Youtube.Descrição ADD CONSTRAINT Num_Likes FOREIGN KEY (Num_Likes) REFERENCES Youtube.Conteudo;
+
+ALTER TABLE Youtube.Descrição ADD CONSTRAINT Num_Visualizações FOREIGN KEY (Num_Visualizações) REFERENCES Youtube.Conteudo;
+
+ALTER TABLE Youtube.Descrição ADD CONSTRAINT Data_Publicação FOREIGN KEY (Data_Publicação) REFERENCES Youtube.Conteudo;
+
+ALTER TABLE Youtube.Playlist ADD CONSTRAINT Autor FOREIGN KEY (Nome_Utilizador) REFERENCES Youtube.Utilizador;
+
+ALTER TABLE Youtube.Playlist ADD CONSTRAINT Estado FOREIGN KEY (state_id) REFERENCES Youtube.Estados;
+
+ALTER TABLE Youtube.Comentários ADD CONSTRAINT Autor FOREIGN KEY (Nome_Utilizador) REFERENCES Youtube.Utilizador;
+
+ALTER TABLE Youtube.Histórico ADD CONSTRAINT Codigo FOREIGN KEY (Codigo) REFERENCES Youtube.Conteudo;
+
+ALTER TABLE Youtube.Histórico ADD CONSTRAINT Nome_Utilizador FOREIGN KEY (Nome_Utilizador) REFERENCES Youtube.Utilizador;
+
+
+
+
+
+INSERT INTO Youtube.Estados (state_id, state_name) VALUES (0,'Private'), (1,'Public');
+
+
 
 
