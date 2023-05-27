@@ -290,6 +290,41 @@ namespace Proj_BD
                 return null;
             }
         }
+
+
+      public DataTable ListarConteudoPlaylist(int CodigoP){
+
+        //by the code of the playlist we can see the content of the playlist
+        try
+        {
+            if (!verifyConnection())
+            {
+                Console.WriteLine("No Connection!");
+                return null;
+            }
+
+            string query= "SELECT C.Codigo, C.Titulo, C.Autor, C.Tipo, C.Estado, C.Duração, C.Num_Likes, C.Num_Visualizações, C.Data_Publicação FROM Youtube.Conteúdo AS C INNER JOIN Youtube.PlaylistVideo AS PV ON C.Codigo = PV.VideoID WHERE PV.PlaylistID = @playlistID";
+
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@CodigoP", CodigoP);
+                using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                {
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+                    return dataTable;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Erro ao obter conteudo da playlist: " + ex.Message);
+            return null;
+        }
+
+      }
+
          // Historicos
         public bool InserirHistorico()
         {
@@ -312,8 +347,6 @@ namespace Proj_BD
 
                     int rowsAffected = command.ExecuteNonQuery();
                 
-                    // apagar a proxima linha de codigo esta ca so para testes
-                    int rowsAffected = 0;
                     return rowsAffected > 0;
                 }
             }

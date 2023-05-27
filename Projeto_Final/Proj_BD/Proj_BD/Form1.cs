@@ -30,6 +30,7 @@ namespace Proj_BD
         private Button enviarPlayList;
         private Button verPlayLists;
         private DataRepository dataRepository;
+        private Button verPlayListCodigo;
 
 
         // Campos de texto para capturar os valores do utilizador
@@ -61,12 +62,15 @@ namespace Proj_BD
         private TextBox txtTituloPlay;
         private TextBox idPlayList;
         private TextBox EstadoPlayList;
+        private TextBox CodigoP;
+
 
 
         // Campos de texto para capturar os valores do Historico
         private TextBox VideosHistorico;
         private TextBox textUserHistoricpOwner;
         private TextBox DataHistorico;
+        
 
 
 
@@ -834,6 +838,30 @@ namespace Proj_BD
             verPlayList.Click += verPlayList_Click;
             pnlContent.Controls.Add(verPlayList);
 
+           Label lblCodigoP = new Label();
+            lblCodigoP.Text = "Codigo Playlist:";
+            lblCodigoP.ForeColor = Color.White;
+            lblCodigoP.Font = new Font(lblCodigoP.Font, FontStyle.Bold);
+            lblCodigoP.Location = new Point(20,300);
+            lblCodigoP.Size = new Size(180, 30);
+            pnlContent.Controls.Add(lblCodigoP);
+
+            CodigoP = new TextBox();
+            CodigoP.Location = new Point(50,300);
+            CodigoP.Size = new Size(300, 40);
+            pnlContent.Controls.Add(CodigoP);
+
+            Button verPlayListCodigo = new Button();
+            verPlayListCodigo.Text = "Ver PlayList Codigo";
+            verPlayListCodigo.Font = new Font(verPlayListCodigo.Font, FontStyle.Bold);
+            verPlayListCodigo.Size = new Size(200, 30);
+            verPlayListCodigo.Location = new Point(20, 500);
+            verPlayListCodigo.BackColor = Color.White;
+            verPlayListCodigo.FlatStyle = FlatStyle.Flat;
+            verPlayListCodigo.FlatAppearance.BorderColor = Color.Black;
+            verPlayListCodigo.Click += verPlayListCodigo_Click;
+            pnlContent.Controls.Add(verPlayListCodigo);
+
             Button clearPnlContent = new Button();
             clearPnlContent.Text = "Close";
             clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
@@ -844,6 +872,12 @@ namespace Proj_BD
             clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
             clearPnlContent.Click += ClearPnlContent_Click;
             pnlContent.Controls.Add(clearPnlContent);
+
+
+            //label and button in the left corner of the panel that ask for CodigoP and the button when click show the content from that CodigoP Playlist 
+
+            
+
         }
         public void enviarPlayList_Click(object sender, EventArgs e)
         {
@@ -880,6 +914,9 @@ namespace Proj_BD
         }
         public void verPlayList_Click(object sender, EventArgs e)
         {
+            String CodigoPlayList = idPlayList.Text;
+            int CodigoP = int.Parse(CodigoPlayList);
+
             pnlContent.Controls.Clear();
 
             Button clearPnlContent = new Button();
@@ -901,6 +938,35 @@ namespace Proj_BD
             dgvUtilizadores.DataSource = playlists;
             dgvUtilizadores.Dock = DockStyle.Fill;
             pnlContent.Controls.Add(dgvUtilizadores);
+        }
+
+        public void verPlayListCodigo_Click(object sender, EventArgs e){
+
+            int CodigoP = int.Parse(verPlayListCodigo.Text);
+
+            pnlContent.Controls.Clear();
+
+            Button clearPnlContent = new Button();
+            clearPnlContent.Text = "Close";
+            clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
+            clearPnlContent.BackColor = Color.White;
+            clearPnlContent.FlatStyle = FlatStyle.Flat;
+            clearPnlContent.FlatAppearance.BorderColor = Color.Black;
+            clearPnlContent.Size = new Size(80, 30);
+            clearPnlContent.Location = new Point(pnlContent.Width - 100, pnlContent.Height - 90);
+            clearPnlContent.Click += ClearPnlContent_Click;
+            pnlContent.Controls.Add(clearPnlContent);
+
+
+            // Retrieve playlists from the database
+            DataTable playlists2 = dataRepository.ListarConteudoPlaylist(CodigoP);
+
+            // Create a DataGridView to display the playlists
+            DataGridView dgvUtilizadores = new DataGridView();
+            dgvUtilizadores.DataSource = playlists2;
+            dgvUtilizadores.Dock = DockStyle.Fill;
+            pnlContent.Controls.Add(dgvUtilizadores);
+
         }
 
         
