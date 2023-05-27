@@ -107,7 +107,7 @@ namespace Proj_BD
             this.Controls.Add(btnConteudo);
 
             btnComentario = new Button();
-            btnComentario.Text = "Comentário";
+            btnComentario.Text = "Comentários";
             btnComentario.Font = new Font(btnComentario.Font, FontStyle.Bold);
             btnComentario.Size = new Size(this.Width / 5, 50);
             btnComentario.Location = new Point(btnConteudo.Right, 0);
@@ -317,7 +317,7 @@ namespace Proj_BD
             clearPnlContent.FlatStyle = FlatStyle.Flat;
             clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
             clearPnlContent.Size = new Size(80, 30);
-            clearPnlContent.Location = new Point(pnlContent.Width - 130, pnlContent.Height - 50);
+            clearPnlContent.Location = new Point(pnlContent.Width - 250, pnlContent.Height - 300);
             clearPnlContent.Click += ClearPnlContent_Click;
             pnlContent.Controls.Add(clearPnlContent);
 
@@ -556,7 +556,7 @@ namespace Proj_BD
             clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
             clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
             clearPnlContent.Size = new Size(80, 30);
-            clearPnlContent.Location = new Point(pnlContent.Width - 100, pnlContent.Height - 70);
+            clearPnlContent.Location = new Point(pnlContent.Width - 100, pnlContent.Height - 90);
             clearPnlContent.Click += ClearPnlContent_Click;
             pnlContent.Controls.Add(clearPnlContent);
 
@@ -805,23 +805,12 @@ namespace Proj_BD
             lblEstadoPlayList.Size = new Size(180, 30);
             pnlContent.Controls.Add(lblEstadoPlayList);
 
+
             EstadoPlayList = new TextBox();
             EstadoPlayList.Location = new Point(200, 130);
             EstadoPlayList.Size = new Size(450, 40);
             pnlContent.Controls.Add(EstadoPlayList);
 
-            Label lblVideos = new Label();
-            lblVideos.Text = "Conteudo PlayList:\nInserir Ids separados ';' :";
-            lblVideos.ForeColor = Color.White;
-            lblVideos.Font = new Font(lblVideos.Font, FontStyle.Bold);
-            lblVideos.Location = new Point(20, 170);
-            lblVideos.Size = new Size(180, 30);
-            pnlContent.Controls.Add(lblVideos);
-
-            VideosPlayList = new TextBox();
-            VideosPlayList.Location = new Point(200, 170);
-            VideosPlayList.Size = new Size(450, 40);
-            pnlContent.Controls.Add(VideosPlayList);
 
             Button enviarPlayList = new Button();
             enviarPlayList.Text = "Criar PlayList";
@@ -861,72 +850,64 @@ namespace Proj_BD
             //apos o user clicar no criar em vez de dar clear a tudo como fazia antes mostrar a playlist ou seja dar clear dos buttons e das labels e dar print de uma tabela do comentario
             string UserPlaylistAutor = textUserPlaylistAutor.Text;
             string TituloPlayList = txtTituloPlay.Text;
-            string id = idPlayList.Text;
-            string EstadoPlayList = ComentDataText.Text;
-            string videos = VideosPlayList.Text;
+            string CodigoPlayList = idPlayList.Text;
+            string EstadoP = EstadoPlayList.Text;
 
             // Verificar se todos os campos foram preenchidos
-            if (string.IsNullOrWhiteSpace(UserPlaylistAutor) || string.IsNullOrWhiteSpace(TituloPlayList) ||
-                string.IsNullOrWhiteSpace(id) || string.IsNullOrWhiteSpace(EstadoPlayList) || string.IsNullOrWhiteSpace(videos))
+           if (string.IsNullOrWhiteSpace(UserPlaylistAutor) || string.IsNullOrWhiteSpace(TituloPlayList) ||
+                string.IsNullOrWhiteSpace(CodigoPlayList) || string.IsNullOrWhiteSpace(EstadoP))
             {
                 MessageBox.Show("Por favor, preencha todos os campos.");
                 return;
             }
 
-            // Enviar os dados para o DataRepository
-            /*bool sucesso = dataRepository.InserirPlayList(tipoConteudo, idConteudo, EstadoConteudo, ViewsConteudo, pubConteudo, DuracaoConteudo, AutorConteudo, TituloConteudo, likesConteudo);
+            int CodigoP = int.Parse(CodigoPlayList);
+            int EstadoP2 = int.Parse(EstadoP);
 
-             if (sucesso)
-             {
-                 MessageBox.Show("Utilizador criado com sucesso!");
-                 // Limpar os dados do painel
-                pnlContent.Controls.Clear();
-
-                clearPnlContent = new Button();
-                clearPnlContent.Text = "Close";
-                clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
-                clearPnlContent.BackColor = Color.White; // Define a cor de fundo como branco
-                clearPnlContent.FlatStyle = FlatStyle.Flat;
-                clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
-                clearPnlContent.Size = new Size(80, 30);
-                clearPnlContent.Location = new Point(pnlContent.Width - 100, pnlContent.Height - 50);
-                clearPnlContent.Click += ClearPnlContent_Click;
-                pnlContent.Controls.Add(clearPnlContent);
+            bool sucesso = dataRepository.InserirPlayList(TituloPlayList, CodigoP,UserPlaylistAutor, 0,EstadoP2);
 
 
-             }
-             else
-             {
-                 MessageBox.Show("Erro ao criar o utilizador. Por favor, tente novamente.");
-             }*/
-
-
+            if (sucesso)
+            {
+                MessageBox.Show("Playlist criada com sucesso.");
+                LimparCamposPlaylist();
+            }
+            else
+            {
+                MessageBox.Show("Ocorreu um erro ao criar a playlist.");
+            }
         }
         public void verPlayList_Click(object sender, EventArgs e)
         {
-            // Limpar os dados do painel
             pnlContent.Controls.Clear();
 
-            // Obter os utilizadores do DataRepository
-            /* DataTable utilizadores = dataRepository.ListarPlayList();
-
-             // Criar uma DataGridView para exibir os utilizadores
-             DataGridView dgvUtilizadores = new DataGridView();
-             dgvUtilizadores.DataSource = utilizadores;
-             dgvUtilizadores.Dock = DockStyle.Fill;
-             pnlContent.Controls.Add(dgvUtilizadores);*/
-
-            clearPnlContent = new Button();
+            Button clearPnlContent = new Button();
             clearPnlContent.Text = "Close";
             clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
-            clearPnlContent.BackColor = Color.White; // Define a cor de fundo como branco
+            clearPnlContent.BackColor = Color.White;
             clearPnlContent.FlatStyle = FlatStyle.Flat;
-            clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            clearPnlContent.FlatAppearance.BorderColor = Color.Black;
             clearPnlContent.Size = new Size(80, 30);
-            clearPnlContent.Location = new Point(pnlContent.Width - 100, pnlContent.Height - 50);
+            clearPnlContent.Location = new Point(pnlContent.Width - 100, pnlContent.Height - 90);
             clearPnlContent.Click += ClearPnlContent_Click;
             pnlContent.Controls.Add(clearPnlContent);
 
+            // Retrieve playlists from the database
+          DataTable playlists = dataRepository.ListarPlayList();
+
+            // Create a DataGridView to display the playlists
+            DataGridView dgvUtilizadores = new DataGridView();
+            dgvUtilizadores.DataSource = playlists;
+            dgvUtilizadores.Dock = DockStyle.Fill;
+            pnlContent.Controls.Add(dgvUtilizadores);
+        }
+
+        
+        public void LimparCamposPlaylist (){
+            textUserPlaylistAutor.Text = "";
+            txtTituloPlay.Text = "";
+            idPlayList.Text = "";
+            EstadoPlayList.Text = "";
         }
 
          //

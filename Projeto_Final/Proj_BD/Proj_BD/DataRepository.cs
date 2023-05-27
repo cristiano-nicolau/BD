@@ -178,8 +178,8 @@ namespace Proj_BD
                 if (!verifyConnection())
                     return false;
 
-                string query = "INSERT INTO Utilizadores (NomeUtilizador, IdUtilizador, Email, Senha, NomeApelido, Nascimento, Likes) " +
-                               "VALUES (@NomeUtilizador, @IdUtilizador, @Email, @Senha, @NomeApelido, @Nascimento, @Likes)";
+                string query = "INSERT INTO Youtube.Comentários (Autor,Texto,Data_Comentário,CódigoV) " +
+                               "VALUES (@Autor, @Texto, @Data_Comentário, @CódigoV)";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {/*
@@ -214,7 +214,7 @@ namespace Proj_BD
                     return null;
                 }
 
-                string query = "SELECT * FROM Utilizadores";
+                string query = "SELECT * FROM [p5g2].[Youtube].[Comentários]";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -235,42 +235,36 @@ namespace Proj_BD
         }
 
                 // PlayList
-        public bool InserirPlayList(string tipoConteudo, string idConteudo, string EstadoConteudo, string ViewsConteudo, string pubConteudo, string DuracaoConteudo, string AutorConteudo, string TituloConteudo, string likesConteudo)
+        public bool InserirPlayList(String Titulo,int CodigoP,String Autor,int Num_Likes,int EstadoP)
         {
             //apos o user clicar no mentario em vez de dar clear a tudo como fazia antes mostrar o comentario ou seja dar clear dos buttons e das labels e dar print com o codigo do conteudo, nome do conteudo, user que comentou, comentario e data 
-
             try
             {
                 if (!verifyConnection())
                     return false;
 
-                string query = "INSERT INTO Utilizadores (NomeUtilizador, IdUtilizador, Email, Senha, NomeApelido, Nascimento, Likes) " +
-                               "VALUES (@NomeUtilizador, @IdUtilizador, @Email, @Senha, @NomeApelido, @Nascimento, @Likes)";
+                string query = "INSERT INTO Youtube.Playlist (Titulo, CodigoP, Autor, Num_Likes, Estado) " +
+                               "VALUES (@TituloPlaylist, @CodigoP, @AutorPlaylist,  @Num_Likes, @Estado)";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
-                {/*
-                    command.Parameters.AddWithValue("@NomeUtilizador", );
-                    command.Parameters.AddWithValue("@IdUtilizador", );
-                    command.Parameters.AddWithValue("@Email", );
-                    command.Parameters.AddWithValue("@Senha", );
-                    command.Parameters.AddWithValue("@NomeApelido", );
-                    command.Parameters.AddWithValue("@Nascimento", );
-                    command.Parameters.AddWithValue("@Likes", );
+                {
+                    command.Parameters.AddWithValue("@TituloPlaylist",Titulo);
+                    command.Parameters.AddWithValue("@CodigoP", CodigoP2);
+                    command.Parameters.AddWithValue("@AutorPlaylist", Autor);
+                    command.Parameters.AddWithValue("@Num_Likes",Num_Likes);
+                    command.Parameters.AddWithValue("@Estado", EstadoP2);
 
                     int rowsAffected = command.ExecuteNonQuery();
-                    */
-                    // apagar a proxima linha de codigo esta ca so para testes
-                    int rowsAffected = 0;
                     return rowsAffected > 0;
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Erro ao inserir utilizador: " + ex.Message);
+                Console.WriteLine("Erro ao inserir playlist: " + ex.Message);
                 return false;
             }
         }
-        public DataTable ListaPlayList()
+        public DataTable ListarPlayList()
         {
             try
             {
@@ -280,7 +274,7 @@ namespace Proj_BD
                     return null;
                 }
 
-                string query = "SELECT * FROM Utilizadores";
+                string query = "SELECT * FROM [p5g2].[Youtube].[Playlist]";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -295,7 +289,7 @@ namespace Proj_BD
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Erro ao obter utilizadores: " + ex.Message);
+                Console.WriteLine("Erro ao obter playlists: " + ex.Message);
                 return null;
             }
         }
@@ -345,7 +339,7 @@ namespace Proj_BD
                     return null;
                 }
 
-                string query = "SELECT * FROM Utilizadores";
+                string query = "SELECT * FROM [p5g2].[Youtube].[Historicos]";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
