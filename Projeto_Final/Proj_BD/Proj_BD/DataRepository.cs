@@ -38,7 +38,7 @@ namespace Proj_BD
 
         /// /////////////////////////////////////// Mudar Queries ////////////////////////////////////////
 
-        // Conteudo
+        // Utilzadores
         public bool InserirUtilizador(string nomeUtilizador, string email, string senha, string nomeApelido, DateTime nascimento)
         {
             try
@@ -169,9 +169,10 @@ namespace Proj_BD
         }
 
         // Comentario
-        public bool InserirComentario(string tipoConteudo, string idConteudo, string EstadoConteudo, string ViewsConteudo, string pubConteudo, string DuracaoConteudo, string AutorConteudo, string TituloConteudo, string likesConteudo)
+        public bool InserirComentario(string Autor, string Texto, DateTime Data_Comentário, int CódigoV)
         {
             //apos o user clicar no mentario em vez de dar clear a tudo como fazia antes mostrar o comentario ou seja dar clear dos buttons e das labels e dar print com o codigo do conteudo, nome do conteudo, user que comentou, comentario e data 
+
 
             try
             {
@@ -182,19 +183,15 @@ namespace Proj_BD
                                "VALUES (@Autor, @Texto, @Data_Comentário, @CódigoV)";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
-                {/*
-                    command.Parameters.AddWithValue("@NomeUtilizador", );
-                    command.Parameters.AddWithValue("@IdUtilizador", );
-                    command.Parameters.AddWithValue("@Email", );
-                    command.Parameters.AddWithValue("@Senha", );
-                    command.Parameters.AddWithValue("@NomeApelido", );
-                    command.Parameters.AddWithValue("@Nascimento", );
-                    command.Parameters.AddWithValue("@Likes", );
+                {
+
+                    command.Parameters.AddWithValue("@Autor", Autor);
+                    command.Parameters.AddWithValue("@Texto", Texto);
+                    command.Parameters.AddWithValue("@Data_Comentário", Data_Comentário);
+                    command.Parameters.AddWithValue("@CódigoV", CódigoV);
 
                     int rowsAffected = command.ExecuteNonQuery();
-                    */
                     // apagar a proxima linha de codigo esta ca so para testes
-                    int rowsAffected = 0;
                     return rowsAffected > 0;
                 }
             }
@@ -234,7 +231,7 @@ namespace Proj_BD
             }
         }
 
-                // PlayList
+         // PlayList
         public bool InserirPlayList(String Titulo,int CodigoP,String Autor,int Num_Likes,int EstadoP)
         {
             //apos o user clicar no mentario em vez de dar clear a tudo como fazia antes mostrar o comentario ou seja dar clear dos buttons e das labels e dar print com o codigo do conteudo, nome do conteudo, user que comentou, comentario e data 
@@ -249,10 +246,10 @@ namespace Proj_BD
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@TituloPlaylist",Titulo);
-                    command.Parameters.AddWithValue("@CodigoP", CodigoP2);
+                    command.Parameters.AddWithValue("@CodigoP", CodigoP);
                     command.Parameters.AddWithValue("@AutorPlaylist", Autor);
                     command.Parameters.AddWithValue("@Num_Likes",Num_Likes);
-                    command.Parameters.AddWithValue("@Estado", EstadoP2);
+                    command.Parameters.AddWithValue("@Estado", EstadoP);
 
                     int rowsAffected = command.ExecuteNonQuery();
                     return rowsAffected > 0;

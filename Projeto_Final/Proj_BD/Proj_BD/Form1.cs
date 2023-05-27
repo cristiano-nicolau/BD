@@ -863,8 +863,9 @@ namespace Proj_BD
 
             int CodigoP = int.Parse(CodigoPlayList);
             int EstadoP2 = int.Parse(EstadoP);
+            int Num_Likes=0;
 
-            bool sucesso = dataRepository.InserirPlayList(TituloPlayList, CodigoP,UserPlaylistAutor, 0,EstadoP2);
+            bool sucesso = dataRepository.InserirPlayList(TituloPlayList, CodigoP,UserPlaylistAutor,Num_Likes,EstadoP2);
 
 
             if (sucesso)
