@@ -291,7 +291,7 @@ namespace Proj_BD
             }
         }
          // Historicos
-        public bool InserirHistoricos(string tipoConteudo, string idConteudo, string EstadoConteudo, string ViewsConteudo, string pubConteudo, string DuracaoConteudo, string AutorConteudo, string TituloConteudo, string likesConteudo)
+        public bool InserirHistorico()
         {
             //apos o user clicar no mentario em vez de dar clear a tudo como fazia antes mostrar o comentario ou seja dar clear dos buttons e das labels e dar print com o codigo do conteudo, nome do conteudo, user que comentou, comentario e data 
 
@@ -300,21 +300,18 @@ namespace Proj_BD
                 if (!verifyConnection())
                     return false;
 
-                string query = "INSERT INTO Utilizadores (NomeUtilizador, IdUtilizador, Email, Senha, NomeApelido, Nascimento, Likes) " +
-                               "VALUES (@NomeUtilizador, @IdUtilizador, @Email, @Senha, @NomeApelido, @Nascimento, @Likes)";
+                string query = "INSERT INTO Youtube.Histórico (Titulo,Codigo,Data_de_Visualização) " +
+                               "VALUES (@Titulo, @Codigo, @Data_de_Visualização)";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
-                {/*
-                    command.Parameters.AddWithValue("@NomeUtilizador", );
-                    command.Parameters.AddWithValue("@IdUtilizador", );
-                    command.Parameters.AddWithValue("@Email", );
-                    command.Parameters.AddWithValue("@Senha", );
-                    command.Parameters.AddWithValue("@NomeApelido", );
-                    command.Parameters.AddWithValue("@Nascimento", );
-                    command.Parameters.AddWithValue("@Likes", );
+                {
+                    command.Parameters.AddWithValue("@Titulo", tipoConteudo);
+                    command.Parameters.AddWithValue("@Codigo", idConteudo);
+                    command.Parameters.AddWithValue("@Data_de_Visualização", EstadoConteudo);
+                    command.Parameters.AddWithValue("@Data_de_Visualização", ViewsConteudo);
 
                     int rowsAffected = command.ExecuteNonQuery();
-                    */
+                
                     // apagar a proxima linha de codigo esta ca so para testes
                     int rowsAffected = 0;
                     return rowsAffected > 0;

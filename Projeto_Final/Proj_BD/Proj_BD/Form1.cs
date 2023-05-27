@@ -61,7 +61,7 @@ namespace Proj_BD
         private TextBox txtTituloPlay;
         private TextBox idPlayList;
         private TextBox EstadoPlayList;
-        private TextBox VideosPlayList;
+
 
         // Campos de texto para capturar os valores do Historico
         private TextBox VideosHistorico;
