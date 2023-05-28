@@ -391,9 +391,9 @@ namespace Proj_BD
             {
                 Console.WriteLine("No Connection!");
                 return null;
-            }
+            }   
 
-            string query= "SELECT C.Codigo, C.Titulo, C.Autor, C.Tipo, C.Estado, C.Dura, C.Num_Likes, C.Num_Views, C.Data_Pub FROM Youtube.Conteúdo AS C INNER JOIN Youtube.PlaylistVideo AS PV ON C.Codigo = PV.VideoID WHERE PV.PlaylistID = @playlistID";
+            string query= "SELECT C.Codigo, C.Titulo, C.Autor, C.Tipo, C.Estado, C.Duracao, C.Num_Likes, C.Num_Views, C.Data_Pub FROM Youtube.Conteúdo AS C INNER JOIN Youtube.PlaylistVideo AS PV ON C.Codigo = PV.VideoID WHERE PV.PlaylistID = @playlistID";
 
             using (SqlCommand command = new SqlCommand(query, connection))
             {
@@ -409,7 +409,7 @@ namespace Proj_BD
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Erro ao obter Comentarios: " + ex.Message);
+                        MessageBox.Show("Erro ao obter Playlist: " + ex.Message);
                         return null;
                     }
                 }
