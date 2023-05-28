@@ -16,6 +16,7 @@ namespace Proj_BD
         private SqlConnection cn;
         private Button btnUtilizadores;
         private Button btnConteudo;
+        private Button btnCanal;
         private Button btnComentario;
         private Button btnPlaylist;
         private Button btnHistorico;
@@ -39,6 +40,7 @@ namespace Proj_BD
         private TextBox tstSenha;
         private TextBox txtNomeApelido;
         private TextBox txtNascimento;
+
         
         // campos de texto para capturar os valores do conteudo
         private TextBox TextoAutorConteudo;
@@ -56,6 +58,8 @@ namespace Proj_BD
         private TextBox txtIdConteudoComent;
         private TextBox ComentText;
         private TextBox ComentDataText;
+        private TextBox CodigoC;
+
 
         // Campos de texto para capturar os valores do Playlist
         private TextBox textUserPlaylistAutor;
@@ -70,7 +74,9 @@ namespace Proj_BD
         private TextBox VideosHistorico;
         private TextBox textUserHistoricpOwner;
         private TextBox DataHistorico;
-        
+
+
+        private TextBox Canal;
 
 
 
@@ -91,7 +97,7 @@ namespace Proj_BD
             btnUtilizadores = new Button();
             btnUtilizadores.Text = "Utilizadores";
             btnUtilizadores.Font = new Font(btnUtilizadores.Font, FontStyle.Bold);
-            btnUtilizadores.Size = new Size(this.Width / 5, 50);
+            btnUtilizadores.Size = new Size(this.Width / 6, 50);
             btnUtilizadores.Location = new Point(0, 0);
             btnUtilizadores.BackColor = Color.White; // Define a cor de fundo como branco
             btnUtilizadores.FlatStyle = FlatStyle.Flat;
@@ -102,7 +108,7 @@ namespace Proj_BD
             btnConteudo = new Button();
             btnConteudo.Text = "Conteúdo";
             btnConteudo.Font = new Font(btnConteudo.Font, FontStyle.Bold);
-            btnConteudo.Size = new Size(this.Width / 5, 50);
+            btnConteudo.Size = new Size(this.Width / 6, 50);
             btnConteudo.Location = new Point(btnUtilizadores.Right, 0);
             btnConteudo.BackColor = Color.White; // Define a cor de fundo como branco
             btnConteudo.FlatStyle = FlatStyle.Flat;
@@ -113,7 +119,7 @@ namespace Proj_BD
             btnComentario = new Button();
             btnComentario.Text = "Comentários";
             btnComentario.Font = new Font(btnComentario.Font, FontStyle.Bold);
-            btnComentario.Size = new Size(this.Width / 5, 50);
+            btnComentario.Size = new Size(this.Width / 6, 50);
             btnComentario.Location = new Point(btnConteudo.Right, 0);
             btnComentario.BackColor = Color.White; // Define a cor de fundo como branco
             btnComentario.FlatStyle = FlatStyle.Flat;
@@ -124,7 +130,7 @@ namespace Proj_BD
             btnPlaylist = new Button();
             btnPlaylist.Text = "Playlist";
             btnPlaylist.Font = new Font(btnPlaylist.Font, FontStyle.Bold);
-            btnPlaylist.Size = new Size(this.Width / 5, 50);
+            btnPlaylist.Size = new Size(this.Width / 6, 50);
             btnPlaylist.Location = new Point(btnComentario.Right, 0);
             btnPlaylist.BackColor = Color.White; // Define a cor de fundo como branco
             btnPlaylist.FlatStyle = FlatStyle.Flat;
@@ -135,13 +141,24 @@ namespace Proj_BD
             btnHistorico = new Button();
             btnHistorico.Text = "Histórico";
             btnHistorico.Font = new Font(btnHistorico.Font, FontStyle.Bold);
-            btnHistorico.Size = new Size(this.Width / 5, 50);
+            btnHistorico.Size = new Size(this.Width / 6, 50);
             btnHistorico.Location = new Point(btnPlaylist.Right, 0);
             btnHistorico.BackColor = Color.White; // Define a cor de fundo como branco
             btnHistorico.FlatStyle = FlatStyle.Flat;
             btnHistorico.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
             btnHistorico.Click += btnHistorico_Click;
             this.Controls.Add(btnHistorico);
+
+            btnCanal = new Button();
+            btnCanal.Text = "Canal";
+            btnCanal.Font = new Font(btnCanal.Font, FontStyle.Bold);
+            btnCanal.Size = new Size(this.Width / 6, 50);
+            btnCanal.Location = new Point(btnHistorico.Right, 0);
+            btnCanal.BackColor = Color.White; // Define a cor de fundo como branco
+            btnCanal.FlatStyle = FlatStyle.Flat;
+            btnCanal.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            btnCanal.Click += btnCanal_Click;
+            this.Controls.Add(btnCanal);
 
             pnlContent = new Panel();
             pnlContent.Size = new Size(this.Width, this.Height - btnUtilizadores.Height);
@@ -161,6 +178,87 @@ namespace Proj_BD
 
             // Desenhar uma linha preta na parte superior do formulário
             g.DrawLine(pen, 0, 0, this.Width, 0);
+        }
+        private void btnCanal_Click ( object sender, EventArgs e )
+        {
+                        // Limpar os dados do painel
+            pnlContent.Controls.Clear();
+
+            Label lblNomeUtilizador = new Label();
+            lblNomeUtilizador.Text = "Nome de Utilizador:";
+            lblNomeUtilizador.ForeColor = Color.White;
+            lblNomeUtilizador.Font = new Font(lblNomeUtilizador.Font, FontStyle.Bold);
+            lblNomeUtilizador.Location = new Point(20, 10);
+            lblNomeUtilizador.Size = new Size(180, 30);
+            pnlContent.Controls.Add(lblNomeUtilizador);
+
+            Canal = new TextBox();
+            Canal.Location = new Point(200, 10);
+            Canal.Size = new Size(450, 40);
+            pnlContent.Controls.Add(Canal);
+
+            Button enviarUser = new Button();
+            enviarUser.Text = "Procurar o Canal";
+            enviarUser.Font = new Font(enviarUser.Font, FontStyle.Bold);
+            enviarUser.Size = new Size(200, 30); // Ajusta o tamanho do botão
+            enviarUser.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 130);
+            enviarUser.BackColor = Color.White; // Define a cor de fundo como branco
+            enviarUser.FlatStyle = FlatStyle.Flat;
+            enviarUser.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            enviarUser.Click += ProcurarUser_Click;
+            pnlContent.Controls.Add(enviarUser);
+
+            Button verUsers = new Button();
+            verUsers.Text = "Listar todos os canais";
+            verUsers.Font = new Font(verUsers.Font, FontStyle.Bold);
+            verUsers.Size = new Size(200, 30); // Ajusta o tamanho do botão
+            verUsers.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 90);
+            verUsers.BackColor = Color.White; // Define a cor de fundo como branco
+            verUsers.FlatStyle = FlatStyle.Flat;
+            verUsers.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            verUsers.Click += ProcurarUser_Click;
+            pnlContent.Controls.Add(verUsers);
+
+            Button clearPnlContent = new Button();
+            clearPnlContent.Text = "Close";
+            clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
+            clearPnlContent.Size = new Size(200, 30); // Ajusta o tamanho do botão
+            clearPnlContent.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 50);
+            clearPnlContent.BackColor = Color.White; // Define a cor de fundo como branco
+            clearPnlContent.FlatStyle = FlatStyle.Flat;
+            clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            clearPnlContent.Click += ClearPnlContent_Click;
+            pnlContent.Controls.Add(clearPnlContent);
+        }
+        private void ProcurarUser_Click(object sender, EventArgs e)
+        {
+            // Obter os valores dos campos de texto
+            string nomeUtilizador = Canal.Text;
+
+            // Limpar os dados do painel
+            pnlContent.Controls.Clear();
+
+            clearPnlContent = new Button();
+            clearPnlContent.Text = "Close";
+            clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
+            clearPnlContent.BackColor = Color.White; // Define a cor de fundo como branco
+            clearPnlContent.FlatStyle = FlatStyle.Flat;
+            clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            clearPnlContent.Size = new Size(80, 30);
+            clearPnlContent.Location = new Point(pnlContent.Width - 250, pnlContent.Height - 300);
+            clearPnlContent.Click += ClearPnlContent_Click;
+            pnlContent.Controls.Add(clearPnlContent);
+
+            // Obter os utilizadores do DataRepository
+            DataTable utilizadores = dataRepository.ProcurarUser(nomeUtilizador);
+
+            // Criar uma DataGridView para exibir os utilizadores
+            DataGridView dgvUtilizadores = new DataGridView();
+            dgvUtilizadores.BackgroundColor = Color.Gray;
+            dgvUtilizadores.Font = new Font(dgvUtilizadores.Font, FontStyle.Bold);
+            dgvUtilizadores.DataSource = utilizadores;
+            dgvUtilizadores.Dock = DockStyle.Fill;
+            pnlContent.Controls.Add(dgvUtilizadores);
         }
 
         //
@@ -280,6 +378,7 @@ namespace Proj_BD
             string senha = tstSenha.Text;
             string nomeApelido = txtNomeApelido.Text;
             string nascimentoText = txtNascimento.Text;
+
 
             // Verificar se todos os campos foram preenchidos
             if (string.IsNullOrWhiteSpace(nomeUtilizador) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(senha) ||
@@ -680,6 +779,40 @@ namespace Proj_BD
             clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
             clearPnlContent.Click += ClearPnlContent_Click;
             pnlContent.Controls.Add(clearPnlContent);
+
+
+            Label TextCodigoP = new Label();
+            TextCodigoP.Text = "A informação abaixo so é preenchida no caso do utilizador querer saber mais informações sobre os comentarios de algum conteudo.";
+            TextCodigoP.ForeColor = Color.White;
+            TextCodigoP.Font = new Font(TextCodigoP.Font, FontStyle.Bold);
+            TextCodigoP.Location = new Point(20, 350);
+            TextCodigoP.Size = new Size(650, 30);
+            pnlContent.Controls.Add(TextCodigoP);
+
+            Label lblCodigoP = new Label();
+            lblCodigoP.Text = "Codigo Conteudo:";
+            lblCodigoP.ForeColor = Color.White;
+            lblCodigoP.Font = new Font(lblCodigoP.Font, FontStyle.Bold);
+            lblCodigoP.Location = new Point(20, 390);
+            lblCodigoP.Size = new Size(180, 30);
+            pnlContent.Controls.Add(lblCodigoP);
+
+            CodigoC = new TextBox();
+            CodigoC.Location = new Point(200, 390);
+            CodigoC.Size = new Size(450, 40);
+            pnlContent.Controls.Add(CodigoC);
+
+            
+            Button allComentarios = new Button();
+            allComentarios.Text = "Ver Mais Sobre uma PlayList";
+            allComentarios.Font = new Font(allComentarios.Font, FontStyle.Bold);
+            allComentarios.Size = new Size(200, 30);
+            allComentarios.Location = new Point(pnlContent.Width - 230, 390);
+            allComentarios.BackColor = Color.White;
+            allComentarios.FlatStyle = FlatStyle.Flat;
+            allComentarios.FlatAppearance.BorderColor = Color.Black;
+            allComentarios.Click += allComentarios_Click;
+            pnlContent.Controls.Add(allComentarios);
         }
         public void enviarComentario_Click(object sender, EventArgs e)
         {
@@ -696,13 +829,15 @@ namespace Proj_BD
                 MessageBox.Show("Por favor, preencha todos os campos.");
                 return;
             }
+            DateTime duracao = DateTime.Parse(data);
+            int id = int.Parse(idConteudo);
 
             // Enviar os dados para o DataRepository
-            /*bool sucesso = dataRepository.InserirComentario(tipoConteudo, idConteudo, EstadoConteudo, ViewsConteudo, pubConteudo, DuracaoConteudo, AutorConteudo, TituloConteudo, likesConteudo);
+            bool sucesso = dataRepository.InserirComentario(UserComentario, Comentario, duracao, id);
 
              if (sucesso)
              {
-                 MessageBox.Show("Utilizador criado com sucesso!");
+                 MessageBox.Show("Comentario criado com sucesso!");
                  // Limpar os dados do painel
                 pnlContent.Controls.Clear();
 
@@ -717,12 +852,20 @@ namespace Proj_BD
                 clearPnlContent.Click += ClearPnlContent_Click;
                 pnlContent.Controls.Add(clearPnlContent);
 
+                // Obter os utilizadores do DataRepository
+                DataTable utilizadores = dataRepository.ListarUmComentario(id);
 
-             }
-             else
+                // Criar uma DataGridView para exibir os utilizadores
+                DataGridView dgvUtilizadores = new DataGridView();
+                dgvUtilizadores.DataSource = utilizadores;
+                dgvUtilizadores.Dock = DockStyle.Fill;
+                pnlContent.Controls.Add(dgvUtilizadores);
+
+            }
+            else
              {
-                 MessageBox.Show("Erro ao criar o utilizador. Por favor, tente novamente.");
-             }*/
+                 MessageBox.Show("Erro ao criar o Comentario. Por favor, tente novamente.");
+             }
 
 
         }
@@ -730,15 +873,6 @@ namespace Proj_BD
         {
             // Limpar os dados do painel
             pnlContent.Controls.Clear();
-
-            // Obter os utilizadores do DataRepository
-            /* DataTable utilizadores = dataRepository.ListarComentarios();
-
-             // Criar uma DataGridView para exibir os utilizadores
-             DataGridView dgvUtilizadores = new DataGridView();
-             dgvUtilizadores.DataSource = utilizadores;
-             dgvUtilizadores.Dock = DockStyle.Fill;
-             pnlContent.Controls.Add(dgvUtilizadores);*/
 
             clearPnlContent = new Button();
             clearPnlContent.Text = "Close";
@@ -750,6 +884,46 @@ namespace Proj_BD
             clearPnlContent.Location = new Point(pnlContent.Width - 100, pnlContent.Height - 50);
             clearPnlContent.Click += ClearPnlContent_Click;
             pnlContent.Controls.Add(clearPnlContent);
+
+            // Obter os utilizadores do DataRepository
+             DataTable utilizadores = dataRepository.ListarComentario();
+
+             // Criar uma DataGridView para exibir os utilizadores
+             DataGridView dgvUtilizadores = new DataGridView();
+             dgvUtilizadores.DataSource = utilizadores;
+             dgvUtilizadores.Dock = DockStyle.Fill;
+             pnlContent.Controls.Add(dgvUtilizadores);
+
+        }
+         public void allComentarios_Click(object sender, EventArgs e)
+        {
+            
+            string idConteudo = CodigoC.Text;
+            int id = int.Parse(idConteudo);
+            // Limpar os dados do painel
+            pnlContent.Controls.Clear();
+
+            clearPnlContent = new Button();
+            clearPnlContent.Text = "Close";
+            clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
+            clearPnlContent.BackColor = Color.White; // Define a cor de fundo como branco
+            clearPnlContent.FlatStyle = FlatStyle.Flat;
+            clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            clearPnlContent.Size = new Size(80, 30);
+            clearPnlContent.Location = new Point(pnlContent.Width - 100, pnlContent.Height - 50);
+            clearPnlContent.Click += ClearPnlContent_Click;
+            pnlContent.Controls.Add(clearPnlContent);
+
+            // Obter os utilizadores do DataRepository
+             DataTable utilizadores = dataRepository.ListarUmComentario(id);
+
+             // Criar uma DataGridView para exibir os utilizadores
+             DataGridView dgvUtilizadores = new DataGridView();
+             dgvUtilizadores.DataSource = utilizadores;
+             dgvUtilizadores.Dock = DockStyle.Fill;
+             pnlContent.Controls.Add(dgvUtilizadores);
+
+
 
         }
 
@@ -816,6 +990,28 @@ namespace Proj_BD
             pnlContent.Controls.Add(EstadoPlayList);
 
 
+            Label TextCodigoP = new Label();
+            TextCodigoP.Text = "A informação abaixo so é preenchida no caso do utilizador querer saber mais informações a cerca de alguma playlis, como por exemplo o conteudo, etc.";
+            TextCodigoP.ForeColor = Color.White;
+            TextCodigoP.Font = new Font(TextCodigoP.Font, FontStyle.Bold);
+            TextCodigoP.Location = new Point(20, 350);
+            TextCodigoP.Size = new Size(650, 30);
+            pnlContent.Controls.Add(TextCodigoP);
+
+            Label lblCodigoP = new Label();
+            lblCodigoP.Text = "Codigo Playlist:";
+            lblCodigoP.ForeColor = Color.White;
+            lblCodigoP.Font = new Font(lblCodigoP.Font, FontStyle.Bold);
+            lblCodigoP.Location = new Point(20, 390);
+            lblCodigoP.Size = new Size(180, 30);
+            pnlContent.Controls.Add(lblCodigoP);
+
+            CodigoP = new TextBox();
+            CodigoP.Location = new Point(200, 390);
+            CodigoP.Size = new Size(450, 40);
+            pnlContent.Controls.Add(CodigoP);
+
+
             Button enviarPlayList = new Button();
             enviarPlayList.Text = "Criar PlayList";
             enviarPlayList.Font = new Font(enviarPlayList.Font, FontStyle.Bold);
@@ -828,7 +1024,7 @@ namespace Proj_BD
             pnlContent.Controls.Add(enviarPlayList);
 
             Button verPlayList = new Button();
-            verPlayList.Text = "Ver PlayList";
+            verPlayList.Text = "Ver PlayLists Criadas";
             verPlayList.Font = new Font(verPlayList.Font, FontStyle.Bold);
             verPlayList.Size = new Size(200, 30); // Ajusta o tamanho do botão
             verPlayList.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 90);
@@ -837,30 +1033,6 @@ namespace Proj_BD
             verPlayList.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
             verPlayList.Click += verPlayList_Click;
             pnlContent.Controls.Add(verPlayList);
-
-           Label lblCodigoP = new Label();
-            lblCodigoP.Text = "Codigo Playlist:";
-            lblCodigoP.ForeColor = Color.White;
-            lblCodigoP.Font = new Font(lblCodigoP.Font, FontStyle.Bold);
-            lblCodigoP.Location = new Point(20,300);
-            lblCodigoP.Size = new Size(180, 30);
-            pnlContent.Controls.Add(lblCodigoP);
-
-            CodigoP = new TextBox();
-            CodigoP.Location = new Point(50,300);
-            CodigoP.Size = new Size(300, 40);
-            pnlContent.Controls.Add(CodigoP);
-
-            Button verPlayListCodigo = new Button();
-            verPlayListCodigo.Text = "Ver PlayList Codigo";
-            verPlayListCodigo.Font = new Font(verPlayListCodigo.Font, FontStyle.Bold);
-            verPlayListCodigo.Size = new Size(200, 30);
-            verPlayListCodigo.Location = new Point(20, 500);
-            verPlayListCodigo.BackColor = Color.White;
-            verPlayListCodigo.FlatStyle = FlatStyle.Flat;
-            verPlayListCodigo.FlatAppearance.BorderColor = Color.Black;
-            verPlayListCodigo.Click += verPlayListCodigo_Click;
-            pnlContent.Controls.Add(verPlayListCodigo);
 
             Button clearPnlContent = new Button();
             clearPnlContent.Text = "Close";
@@ -873,10 +1045,17 @@ namespace Proj_BD
             clearPnlContent.Click += ClearPnlContent_Click;
             pnlContent.Controls.Add(clearPnlContent);
 
+            Button verPlayListCodigo = new Button();
+            verPlayListCodigo.Text = "Ver Mais Sobre uma PlayList";
+            verPlayListCodigo.Font = new Font(verPlayListCodigo.Font, FontStyle.Bold);
+            verPlayListCodigo.Size = new Size(200, 30);
+            verPlayListCodigo.Location = new Point(pnlContent.Width - 230, 390);
+            verPlayListCodigo.BackColor = Color.White;
+            verPlayListCodigo.FlatStyle = FlatStyle.Flat;
+            verPlayListCodigo.FlatAppearance.BorderColor = Color.Black;
+            verPlayListCodigo.Click += verPlayListCodigo_Click;
+            pnlContent.Controls.Add(verPlayListCodigo);
 
-            //label and button in the left corner of the panel that ask for CodigoP and the button when click show the content from that CodigoP Playlist 
-
-            
 
         }
         public void enviarPlayList_Click(object sender, EventArgs e)
@@ -914,8 +1093,6 @@ namespace Proj_BD
         }
         public void verPlayList_Click(object sender, EventArgs e)
         {
-            String CodigoPlayList = idPlayList.Text;
-            int CodigoP = int.Parse(CodigoPlayList);
 
             pnlContent.Controls.Clear();
 
@@ -942,7 +1119,16 @@ namespace Proj_BD
 
         public void verPlayListCodigo_Click(object sender, EventArgs e){
 
-            int CodigoP = int.Parse(verPlayListCodigo.Text);
+            string codigoP = CodigoP.Text;
+
+            int codigo = int.Parse(codigoP);
+
+            if (string.IsNullOrWhiteSpace(codigoP))
+            {
+                MessageBox.Show("Por favor, preencha o campo para saber mais dados.");
+                return;
+            }
+
 
             pnlContent.Controls.Clear();
 
@@ -959,7 +1145,7 @@ namespace Proj_BD
 
 
             // Retrieve playlists from the database
-            DataTable playlists2 = dataRepository.ListarConteudoPlaylist(CodigoP);
+            DataTable playlists2 = dataRepository.ListarConteudoPlaylist(codigo);
 
             // Create a DataGridView to display the playlists
             DataGridView dgvUtilizadores = new DataGridView();

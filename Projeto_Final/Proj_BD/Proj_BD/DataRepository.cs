@@ -37,6 +37,56 @@ namespace Proj_BD
 
 
         /// /////////////////////////////////////// Mudar Queries ////////////////////////////////////////
+         public DataTable ProcurarUser(string username)
+         {
+  
+            if (!verifyConnection())
+            {
+                MessageBox.Show("No Connection!");
+                return null;
+            }
+
+            string query = "SELECT cn.Nome_Utilizador AS NomeCanal, cn.Num_Subscritores, cn.Num_conteudo, c.Titulo AS TituloConteudo, c.Tipo AS TipoConteudo, c.Num_Likes AS LikesConteudo, c.Num_Views AS VisualizaçõesConteudo, c.Duracao AS DuraçãoConteudo, c.Data_Pub AS DataPublicaçãoConteudo, com.Autor AS AutorComentário, com.Texto AS TextoComentário, com.Data_Comentário AS DataComentário, com2.Autor AS AutorComentárioVídeo, com2.Texto AS TextoComentárioVídeo, com2.Data_Comentário AS DataComentárioVídeo FROM [p5g2].[Youtube].[Canal] cn INNER JOIN [p5g2].[Youtube].[Conteúdo] c ON cn.Nome_Utilizador = c.Autor LEFT JOIN [p5g2].[Youtube].[Comentários] com ON com.Codigo = c.Codigo AND com.Autor = cn.Nome_Utilizador LEFT JOIN [p5g2].[Youtube].[Comentários] com2 ON com2.Codigo = c.Codigo";
+            
+            if (!string.IsNullOrEmpty(username))
+            {
+                query += " WHERE cn.Nome_Utilizador = @NomeCanal";
+            }
+            query += " ORDER BY cn.Nome_Utilizador, c.Titulo";
+
+
+            // Execute a consulta e obtenha os resultados
+            try
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    try { 
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                        {
+                            if (!string.IsNullOrEmpty(username))
+                            {
+                                command.Parameters.AddWithValue("@NomeCanal", username);
+                            }
+                            DataTable dataTable = new DataTable();
+                            adapter.Fill(dataTable);
+
+                            return dataTable;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Erro ao obter utilizadores: " + ex.Message);
+                        return null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro ao obter utilizadores: " + ex.Message);
+                return null;
+            }
+        
+         }
 
         // Utilzadores
         public bool InserirUtilizador(string nomeUtilizador, string email, string senha, string nomeApelido, DateTime nascimento)
@@ -194,10 +244,11 @@ namespace Proj_BD
                     // apagar a proxima linha de codigo esta ca so para testes
                     return rowsAffected > 0;
                 }
+
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Erro ao inserir utilizador: " + ex.Message);
+                MessageBox.Show("Erro ao inserir utilizador: " + ex.Message);
                 return false;
             }
         }
@@ -231,7 +282,46 @@ namespace Proj_BD
             }
         }
 
-         // PlayList
+        public DataTable ListarUmComentario(int idConteudo)
+        {
+            try
+            {
+                if (!verifyConnection())
+                {
+                    Console.WriteLine("No Connection!");
+                    return null;
+                }
+
+                string query = "SELECT c.Titulo AS NomeConteudo, c.Tipo AS TipoConteudo, cn.Nome_Utilizador AS AutorConteudo, c.Data_Pub, c.Num_Views, c.Num_Likes, u.Nome_Utilizador AS NomeUtilizador, com.Texto AS Comentario, com.Data_Comentário FROM Youtube.Conteúdo c INNER JOIN Youtube.Canal cn ON c.Autor = cn.Nome_Utilizador INNER JOIN Youtube.Comentários com ON com.CódigoV = c.Codigo INNER JOIN Youtube.Utilizador u ON u.Nome_Utilizador = com.Autor WHERE c.Codigo = @idConteudo;";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@idConteudo", idConteudo);
+
+                    try
+                    {
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                        {
+                            DataTable dataTable = new DataTable();
+                            adapter.Fill(dataTable);
+                            return dataTable;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Erro ao obter Comentarios: " + ex.Message);
+                        return null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro ao obter utilizadores: " + ex.Message);
+                return null;
+            }
+        }
+
+        // PlayList
         public bool InserirPlayList(String Titulo,int CodigoP,String Autor,int Num_Likes,int EstadoP)
         {
             //apos o user clicar no mentario em vez de dar clear a tudo como fazia antes mostrar o comentario ou seja dar clear dos buttons e das labels e dar print com o codigo do conteudo, nome do conteudo, user que comentou, comentario e data 
@@ -303,19 +393,26 @@ namespace Proj_BD
                 return null;
             }
 
-            string query= "SELECT C.Codigo, C.Titulo, C.Autor, C.Tipo, C.Estado, C.Duração, C.Num_Likes, C.Num_Visualizações, C.Data_Publicação FROM Youtube.Conteúdo AS C INNER JOIN Youtube.PlaylistVideo AS PV ON C.Codigo = PV.VideoID WHERE PV.PlaylistID = @playlistID";
+            string query= "SELECT C.Codigo, C.Titulo, C.Autor, C.Tipo, C.Estado, C.Dura, C.Num_Likes, C.Num_Views, C.Data_Pub FROM Youtube.Conteúdo AS C INNER JOIN Youtube.PlaylistVideo AS PV ON C.Codigo = PV.VideoID WHERE PV.PlaylistID = @playlistID";
 
             using (SqlCommand command = new SqlCommand(query, connection))
             {
-                command.Parameters.AddWithValue("@CodigoP", CodigoP);
-                using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                {
-                    DataTable dataTable = new DataTable();
-                    adapter.Fill(dataTable);
-
-                    return dataTable;
+                command.Parameters.AddWithValue("@playlistID", CodigoP);
+                    try
+                    {
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                        {
+                            DataTable dataTable = new DataTable();
+                            adapter.Fill(dataTable);
+                            return dataTable;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Erro ao obter Comentarios: " + ex.Message);
+                        return null;
+                    }
                 }
-            }
         }
         catch (Exception ex)
         {
@@ -339,12 +436,12 @@ namespace Proj_BD
                                "VALUES (@Titulo, @Codigo, @Data_de_Visualização)";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
-                {
+                {/*
                     command.Parameters.AddWithValue("@Titulo", tipoConteudo);
                     command.Parameters.AddWithValue("@Codigo", idConteudo);
                     command.Parameters.AddWithValue("@Data_de_Visualização", EstadoConteudo);
                     command.Parameters.AddWithValue("@Data_de_Visualização", ViewsConteudo);
-
+                    */
                     int rowsAffected = command.ExecuteNonQuery();
                 
                     return rowsAffected > 0;
