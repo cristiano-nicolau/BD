@@ -36,8 +36,117 @@ namespace Proj_BD
 
 
 
-        /// /////////////////////////////////////// Mudar Queries ////////////////////////////////////////
+        /// /////////////////////////////////////// ////////////////////////////////////////
         /// 
+        /// 
+
+        public bool DeletePlaylist(int playlistID)
+        {
+            try
+            {
+                if (!verifyConnection())
+                {
+                    return false;
+                }
+                try {
+
+                    using (SqlCommand command = new SqlCommand("Youtube.DeletePlaylist", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@PlaylistID", playlistID);
+
+                        command.ExecuteNonQuery();
+                    }
+
+                    return true;
+                }catch (Exception ex)
+                {
+                    MessageBox.Show("Error deleting playlist: " + ex.Message);
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error deleting playlist: " + ex.Message);
+                return false;
+            }
+        }
+        public bool LikeVideo(string codigo)
+        {
+            try
+            {
+                    if (!verifyConnection())
+                        return false;
+
+                    string updateQuery = "UPDATE [Youtube].[Conteúdo] SET Num_Likes = Num_Likes + 1 WHERE Codigo = @Codigo";
+                    string insertQuery = "INSERT INTO [Youtube].[Histórico] (Titulo, Codigo, Data_de_Visualização) " +
+                                         "SELECT Titulo, Codigo, GETDATE() FROM [Youtube].[Conteúdo] WHERE Codigo = @Codigo";
+
+                    using (SqlCommand command = new SqlCommand(updateQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@Codigo", codigo);
+                        command.ExecuteNonQuery();
+
+                    
+                        SqlCommand insertCommand = new SqlCommand(insertQuery, connection);
+                        insertCommand.Parameters.AddWithValue("@Codigo", codigo);
+                        insertCommand.ExecuteNonQuery();
+                    }
+                    return true;
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao verificar as credenciais: " + ex.Message);
+                return false;
+            }
+        }
+        public bool unSubscreverVideo(string subs)
+        {
+            try
+            {
+                if (!verifyConnection())
+                    return false;
+
+                using (SqlCommand command = new SqlCommand("Youtube.UpdateSubscribers2", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@CanalName", subs);
+
+                    command.ExecuteNonQuery();
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao verificar as credenciais: " + ex.Message);
+                return false;
+            }
+        }
+        public bool SubscreverVideo(string subs)
+        {
+            try
+            {
+                if (!verifyConnection())
+                    return false;
+
+                using (SqlCommand command = new SqlCommand("Youtube.UpdateSubscribers", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@CanalName", subs);
+
+                    command.ExecuteNonQuery();
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao subscrever o canal: " + ex.Message);
+                return false;
+            }
+        }
         public bool IniciarSessaoUser(string nomeUtilizador, string senha)
         {
             try
@@ -74,7 +183,10 @@ namespace Proj_BD
                     return null;
                 }
 
-                string query = "SELECT Nome_Utilizador, Senha FROM [p5g2].[Youtube].[Utilizador]";
+                string query = "SELECT u.Nome_Utilizador, u.Senha, c.Num_Subscritores, c.Num_Conteudo, c.Descrição_Canal " +
+                "FROM [p5g2].[Youtube].[Utilizador] u " +
+                "INNER JOIN [p5g2].[Youtube].[Canal] c ON u.Nome_Utilizador = c.Nome_Utilizador " +
+                "WHERE u.Nome_Utilizador = c.Nome_Utilizador";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -103,20 +215,21 @@ namespace Proj_BD
                 if (!verifyConnection())
                     return false;
 
-                string query = "INSERT INTO [p5g2].[Youtube].[Utilizador] (Nome_Utilizador, Email, Senha, Nome, Data_de_Nascimento) " +
-                               "VALUES (@NomeUtilizador, @Email, @Senha, @NomeApelido, @Nascimento)";
+                string query = "[Youtube].[CreateUtilizadorAndCanal]";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@NomeUtilizador", nomeUtilizador);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@Nome_Utilizador", nomeUtilizador);
                     command.Parameters.AddWithValue("@Email", email);
                     command.Parameters.AddWithValue("@Senha", senha);
-                    command.Parameters.AddWithValue("@NomeApelido", nomeApelido);
+                    command.Parameters.AddWithValue("@Nome", nomeApelido);
                     command.Parameters.AddWithValue("@Nascimento", nascimento);
 
-                    int rowsAffected = command.ExecuteNonQuery();
+                    command.ExecuteNonQuery();
 
-                    return rowsAffected > 0;
+                    return true;
                 }
             }
             catch (Exception ex)
@@ -368,7 +481,8 @@ namespace Proj_BD
                     return null;
                 }
 
-                string query = "SELECT * FROM [p5g2].[Youtube].[Playlist]";
+                string query = @"SELECT p.Titulo, p.CodigoP AS PlaylistID, [p5g2].[Youtube].CalculatePlaylistDuration(p.CodigoP) AS PlayList_Time_Duration, p.*
+                        FROM [p5g2].[Youtube].[Playlist] p";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -429,37 +543,6 @@ namespace Proj_BD
 
       }
 
-         // Historicos
-        public bool InserirHistorico()
-        {
-            //apos o user clicar no mentario em vez de dar clear a tudo como fazia antes mostrar o comentario ou seja dar clear dos buttons e das labels e dar print com o codigo do conteudo, nome do conteudo, user que comentou, comentario e data 
-
-            try
-            {
-                if (!verifyConnection())
-                    return false;
-
-                string query = "INSERT INTO Youtube.Histórico (Titulo,Codigo,Data_de_Visualização) " +
-                               "VALUES (@Titulo, @Codigo, @Data_de_Visualização)";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {/*
-                    command.Parameters.AddWithValue("@Titulo", tipoConteudo);
-                    command.Parameters.AddWithValue("@Codigo", idConteudo);
-                    command.Parameters.AddWithValue("@Data_de_Visualização", EstadoConteudo);
-                    command.Parameters.AddWithValue("@Data_de_Visualização", ViewsConteudo);
-                    */
-                    int rowsAffected = command.ExecuteNonQuery();
-                
-                    return rowsAffected > 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Erro ao inserir utilizador: " + ex.Message);
-                return false;
-            }
-        }
         public DataTable ListaHistoricos()
         {
             try
@@ -470,7 +553,7 @@ namespace Proj_BD
                     return null;
                 }
 
-                string query = "SELECT * FROM [p5g2].[Youtube].[Historicos]";
+                string query = "SELECT * FROM [p5g2].[Youtube].[Histórico]";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {

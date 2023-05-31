@@ -410,10 +410,113 @@ namespace Proj_BD
             clearPnlContent.Click += ClearPnlContent_Click;
             pnlContent.Controls.Add(clearPnlContent);
         }
-        private void SubscriveVideo_Click(object sender, EventArgs e) { }
-        private void unSubscriveVideo_Click(object sender, EventArgs e) { }
-        private void LikeVideo_Click(object sender, EventArgs e) { }
-        private void DeletePlay_Click(object sender, EventArgs e) { }
+        private void SubscriveVideo_Click(object sender, EventArgs e) {
+            pnlContent.Controls.Clear();
+
+            string subs = subscreverCanal.Text;
+
+            if (string.IsNullOrWhiteSpace(subs))
+            {
+                MessageBox.Show("Por favor, preencha o campo.");
+                return;
+            }
+
+
+            // Enviar os dados para o DataRepository
+            bool sucesso = dataRepository.SubscreverVideo(subs);
+
+            if (sucesso)
+            {
+                MessageBox.Show("Canal Subscrito com sucesso!");
+                AfterUserConnect();
+            }
+            else
+            {
+                MessageBox.Show("Erro ao subscrever canal. Por favor, tente novamente, ou insira um canal correto.");
+            }
+
+
+
+        }
+        private void unSubscriveVideo_Click(object sender, EventArgs e) { 
+             pnlContent.Controls.Clear();
+
+            string subs = Unfollow.Text;
+
+            if (string.IsNullOrWhiteSpace(subs))
+            {
+                MessageBox.Show("Por favor, preencha o campo.");
+                return;
+            }
+
+
+            // Enviar os dados para o DataRepository
+            bool sucesso = dataRepository.unSubscreverVideo(subs);
+
+            if (sucesso)
+            {
+                MessageBox.Show("Subscrição retirada com sucesso!");
+                AfterUserConnect();
+            }
+            else
+            {
+                MessageBox.Show("Erro ao retirar subscrição do canal. Por favor, tente novamente, ou insira um canal correto.");
+            }
+
+
+        }
+        private void LikeVideo_Click(object sender, EventArgs e) {
+
+            pnlContent.Controls.Clear();
+
+            string like = CodigoLikeVideo.Text;
+
+            if (string.IsNullOrWhiteSpace(like))
+            {
+                MessageBox.Show("Por favor, preencha o campo.");
+                return;
+            }
+
+
+            // Enviar os dados para o DataRepository
+            bool sucesso = dataRepository.LikeVideo(like);
+
+            if (sucesso)
+            {
+                MessageBox.Show("Like dado com sucesso!");
+                AfterUserConnect();
+            }
+            else
+            {
+                MessageBox.Show("Erro ao dar like. Por favor, tente novamente.");
+            }
+        }
+        private void DeletePlay_Click(object sender, EventArgs e) {
+            pnlContent.Controls.Clear();
+
+            int code = int.Parse(CodigoPlayDelete.Text);
+
+            if (string.IsNullOrWhiteSpace(CodigoPlayDelete.Text))
+            {
+                MessageBox.Show("Por favor, preencha o campo.");
+                return;
+            }
+
+
+            // Enviar os dados para o DataRepository
+            bool sucesso = dataRepository.DeletePlaylist(code);
+
+            if (sucesso)
+            {
+                MessageBox.Show("Playlist and associated playlist videos deleted successfully.");
+                AfterUserConnect();
+            }
+            else
+            {
+                MessageBox.Show("Erro ao eliminar a playlist. Por favor, tente novamente.");
+            }
+
+        }
 
         private void IniciarSessao_Click(object sender, EventArgs e){
             pnlContent.Controls.Clear();
@@ -1381,140 +1484,8 @@ namespace Proj_BD
         // 
         private void btnHistorico_Click(object sender, EventArgs e)
         {
-            // Limpa os dados do painel 
-            pnlContent.Controls.Clear();
-
-            // Cria os controles para inserir os dados do utilizador
-            Label lblNomeUser = new Label();
-            lblNomeUser.Text = "Nome de Utilizador:";
-            lblNomeUser.ForeColor = Color.White;
-            lblNomeUser.Font = new Font(lblNomeUser.Font, FontStyle.Bold);
-            lblNomeUser.Location = new Point(20, 10);
-            lblNomeUser.Size = new Size(180, 30);
-            pnlContent.Controls.Add(lblNomeUser);
-
-            textUserHistoricpOwner = new TextBox();
-            textUserHistoricpOwner.Location = new Point(200, 10);
-            textUserHistoricpOwner.Size = new Size(450, 40);
-            pnlContent.Controls.Add(textUserHistoricpOwner);
-
-            Label lblVideos = new Label();
-            lblVideos.Text = "Conteudo Historico:\nInserir Ids separados ';' :";
-            lblVideos.ForeColor = Color.White;
-            lblVideos.Font = new Font(lblVideos.Font, FontStyle.Bold);
-            lblVideos.Location = new Point(20, 50);
-            lblVideos.Size = new Size(180, 30);
-            pnlContent.Controls.Add(lblVideos);
-
-            VideosHistorico = new TextBox();
-            VideosHistorico.Location = new Point(200, 50);
-            VideosHistorico.Size = new Size(450, 40);
-            pnlContent.Controls.Add(VideosHistorico);
-
-
-            Label lblDatas = new Label();
-            lblDatas.Text = "Datas Historico:\nInserir datas separados ';' :";
-            lblDatas.ForeColor = Color.White;
-            lblDatas.Font = new Font(lblDatas.Font, FontStyle.Bold);
-            lblDatas.Location = new Point(20, 90);
-            lblDatas.Size = new Size(180, 30);
-            pnlContent.Controls.Add(lblDatas);
-
-            DataHistorico = new TextBox();
-            DataHistorico.Location = new Point(200, 90);
-            DataHistorico.Size = new Size(450, 40);
-            pnlContent.Controls.Add(DataHistorico);
-
-            Button enviarHistoricos = new Button();
-            enviarHistoricos.Text = "Criar Historico";
-            enviarHistoricos.Font = new Font(enviarHistoricos.Font, FontStyle.Bold);
-            enviarHistoricos.Size = new Size(200, 30); // Ajusta o tamanho do botão
-            enviarHistoricos.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 130);
-            enviarHistoricos.BackColor = Color.White; // Define a cor de fundo como branco
-            enviarHistoricos.FlatStyle = FlatStyle.Flat;
-            enviarHistoricos.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
-            enviarHistoricos.Click += enviarHistoricos_Click;
-            pnlContent.Controls.Add(enviarHistoricos);
-
-            Button verHistoricos = new Button();
-            verHistoricos.Text = "Ver Historicos";
-            verHistoricos.Font = new Font(verHistoricos.Font, FontStyle.Bold);
-            verHistoricos.Size = new Size(200, 30); // Ajusta o tamanho do botão
-            verHistoricos.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 90);
-            verHistoricos.BackColor = Color.White; // Define a cor de fundo como branco
-            verHistoricos.FlatStyle = FlatStyle.Flat;
-            verHistoricos.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
-            verHistoricos.Click += verHistoricos_Click;
-            pnlContent.Controls.Add(verHistoricos);
-
-            Button clearPnlContent = new Button();
-            clearPnlContent.Text = "Close";
-            clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
-            clearPnlContent.Size = new Size(200, 30); // Ajusta o tamanho do botão
-            clearPnlContent.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 50);
-            clearPnlContent.BackColor = Color.White; // Define a cor de fundo como branco
-            clearPnlContent.FlatStyle = FlatStyle.Flat;
-            clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
-            clearPnlContent.Click += ClearPnlContent_Click;
-            pnlContent.Controls.Add(clearPnlContent);
-        }
-        public void enviarHistoricos_Click(object sender, EventArgs e)
-        {
-            //apos o user clicar no criar em vez de dar clear a tudo como fazia antes mostrar a playlist ou seja dar clear dos buttons e das labels e dar print de uma tabela do comentario
-            string userHistorico = textUserHistoricpOwner.Text;
-            string data = DataHistorico.Text;
-            string videos = VideosHistorico.Text;
-
-            // Verificar se todos os campos foram preenchidos
-            if (string.IsNullOrWhiteSpace(userHistorico) || string.IsNullOrWhiteSpace(data) ||
-                string.IsNullOrWhiteSpace(videos))
-            {
-                MessageBox.Show("Por favor, preencha todos os campos.");
-                return;
-            }
-
-            // Enviar os dados para o DataRepository
-            /*bool sucesso = dataRepository.InserirHistoricos(tipoConteudo, idConteudo, EstadoConteudo, ViewsConteudo, pubConteudo, DuracaoConteudo, AutorConteudo, TituloConteudo, likesConteudo);
-
-             if (sucesso)
-             {
-                 MessageBox.Show("Utilizador criado com sucesso!");
-                 // Limpar os dados do painel
-                pnlContent.Controls.Clear();
-
-                clearPnlContent = new Button();
-                clearPnlContent.Text = "Close";
-                clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
-                clearPnlContent.BackColor = Color.White; // Define a cor de fundo como branco
-                clearPnlContent.FlatStyle = FlatStyle.Flat;
-                clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
-                clearPnlContent.Size = new Size(80, 30);
-                clearPnlContent.Location = new Point(pnlContent.Width - 100, pnlContent.Height - 50);
-                clearPnlContent.Click += ClearPnlContent_Click;
-                pnlContent.Controls.Add(clearPnlContent);
-
-
-             }
-             else
-             {
-                 MessageBox.Show("Erro ao criar o utilizador. Por favor, tente novamente.");
-             }*/
-
-
-        }
-        public void verHistoricos_Click(object sender, EventArgs e)
-        {
             // Limpar os dados do painel
             pnlContent.Controls.Clear();
-
-            // Obter os utilizadores do DataRepository
-            /* DataTable utilizadores = dataRepository.ListarHistoricos();
-
-             // Criar uma DataGridView para exibir os utilizadores
-             DataGridView dgvUtilizadores = new DataGridView();
-             dgvUtilizadores.DataSource = utilizadores;
-             dgvUtilizadores.Dock = DockStyle.Fill;
-             pnlContent.Controls.Add(dgvUtilizadores);*/
 
             clearPnlContent = new Button();
             clearPnlContent.Text = "Close";
@@ -1527,7 +1498,17 @@ namespace Proj_BD
             clearPnlContent.Click += ClearPnlContent_Click;
             pnlContent.Controls.Add(clearPnlContent);
 
+            // Obter os utilizadores do DataRepository
+            DataTable utilizadores = dataRepository.ListaHistoricos();
+
+            // Criar uma DataGridView para exibir os utilizadores
+            DataGridView dgvUtilizadores = new DataGridView();
+            dgvUtilizadores.DataSource = utilizadores;
+            dgvUtilizadores.Dock = DockStyle.Fill;
+            pnlContent.Controls.Add(dgvUtilizadores);
         }
+
+    
 
         // Limpar tudo botao close geral
 
