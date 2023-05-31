@@ -37,46 +37,53 @@ namespace Proj_BD
 
 
         /// /////////////////////////////////////// Mudar Queries ////////////////////////////////////////
-         public DataTable ProcurarUser(string username)
-         {
-  
-            if (!verifyConnection())
-            {
-                MessageBox.Show("No Connection!");
-                return null;
-            }
-
-            string query = "SELECT cn.Nome_Utilizador AS NomeCanal, cn.Num_Subscritores, cn.Num_conteudo, c.Titulo AS TituloConteudo, c.Tipo AS TipoConteudo, c.Num_Likes AS LikesConteudo, c.Num_Views AS VisualizaçõesConteudo, c.Duracao AS DuraçãoConteudo, c.Data_Pub AS DataPublicaçãoConteudo, com.Autor AS AutorComentário, com.Texto AS TextoComentário, com.Data_Comentário AS DataComentário, com2.Autor AS AutorComentárioVídeo, com2.Texto AS TextoComentárioVídeo, com2.Data_Comentário AS DataComentárioVídeo FROM [p5g2].[Youtube].[Canal] cn INNER JOIN [p5g2].[Youtube].[Conteúdo] c ON cn.Nome_Utilizador = c.Autor LEFT JOIN [p5g2].[Youtube].[Comentários] com ON com.Codigo = c.Codigo AND com.Autor = cn.Nome_Utilizador LEFT JOIN [p5g2].[Youtube].[Comentários] com2 ON com2.Codigo = c.Codigo";
-            
-            if (!string.IsNullOrEmpty(username))
-            {
-                query += " WHERE cn.Nome_Utilizador = @NomeCanal";
-            }
-            query += " ORDER BY cn.Nome_Utilizador, c.Titulo";
-
-
-            // Execute a consulta e obtenha os resultados
+        /// 
+        public bool IniciarSessaoUser(string nomeUtilizador, string senha)
+        {
             try
             {
+                if (!verifyConnection())
+                    return false;
+
+                string query = "SELECT [Youtube].[CheckCredentials](@NomeUtilizador, @Senha)";
+
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    try { 
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                        {
-                            if (!string.IsNullOrEmpty(username))
-                            {
-                                command.Parameters.AddWithValue("@NomeCanal", username);
-                            }
-                            DataTable dataTable = new DataTable();
-                            adapter.Fill(dataTable);
+                    command.Parameters.AddWithValue("@NomeUtilizador", nomeUtilizador);
+                    command.Parameters.AddWithValue("@Senha", senha);
 
-                            return dataTable;
-                        }
-                    }
-                    catch (Exception ex)
+                    bool exists = (bool)command.ExecuteScalar();
+
+                    return exists;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao verificar as credenciais: " + ex.Message);
+                return false;
+            }
+        }
+        public DataTable ProcurarUser()
+         {
+   
+            try
+            {
+                if (!verifyConnection())
+                {
+                    Console.WriteLine("No Connection!");
+                    return null;
+                }
+
+                string query = "SELECT Nome_Utilizador, Senha FROM [p5g2].[Youtube].[Utilizador]";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {
-                        Console.WriteLine("Erro ao obter utilizadores: " + ex.Message);
-                        return null;
+                        DataTable dataTable = new DataTable();
+                        adapter.Fill(dataTable);
+
+                        return dataTable;
                     }
                 }
             }

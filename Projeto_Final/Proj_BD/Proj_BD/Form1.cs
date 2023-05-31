@@ -32,6 +32,11 @@ namespace Proj_BD
         private Button verPlayLists;
         private DataRepository dataRepository;
         private Button verPlayListCodigo;
+        private Button unSubscriveVideo;
+        private Button SubscriveVideo;
+        private Button LikeVideo;
+        private Button DeletePlay;
+
 
 
         // Campos de texto para capturar os valores do utilizador
@@ -77,6 +82,11 @@ namespace Proj_BD
 
 
         private TextBox Canal;
+        private TextBox SenhaCanal;
+        private TextBox CodigoPlayDelete;
+        private TextBox CodigoLikeVideo;
+        private TextBox Unfollow;
+        private TextBox subscreverCanal;
 
 
 
@@ -183,33 +193,54 @@ namespace Proj_BD
         {
                         // Limpar os dados do painel
             pnlContent.Controls.Clear();
+            Label NomeUtilizador = new Label();
+            NomeUtilizador.Text = "Introduza o nome de utilizador e a palavra passe do canal onde quer iniciar sessao:";
+            NomeUtilizador.ForeColor = Color.White;
+            NomeUtilizador.Font = new Font(NomeUtilizador.Font, FontStyle.Bold);
+            NomeUtilizador.Location = new Point(20, 20);
+            NomeUtilizador.Size = new Size(500, 30);
+            pnlContent.Controls.Add(NomeUtilizador);
+
 
             Label lblNomeUtilizador = new Label();
             lblNomeUtilizador.Text = "Nome de Utilizador:";
             lblNomeUtilizador.ForeColor = Color.White;
             lblNomeUtilizador.Font = new Font(lblNomeUtilizador.Font, FontStyle.Bold);
-            lblNomeUtilizador.Location = new Point(20, 10);
+            lblNomeUtilizador.Location = new Point(20, 50);
             lblNomeUtilizador.Size = new Size(180, 30);
             pnlContent.Controls.Add(lblNomeUtilizador);
 
             Canal = new TextBox();
-            Canal.Location = new Point(200, 10);
+            Canal.Location = new Point(200, 50);
             Canal.Size = new Size(450, 40);
             pnlContent.Controls.Add(Canal);
 
+            Label lblSenha = new Label();
+            lblSenha.Text = "Senha do Utilizador:";
+            lblSenha.ForeColor = Color.White;
+            lblSenha.Font = new Font(lblSenha.Font, FontStyle.Bold);
+            lblSenha.Location = new Point(20, 90);
+            lblSenha.Size = new Size(180, 30);
+            pnlContent.Controls.Add(lblSenha);
+
+            SenhaCanal = new TextBox();
+            SenhaCanal.Location = new Point(200, 90);
+            SenhaCanal.Size = new Size(450, 40);
+            pnlContent.Controls.Add(SenhaCanal);
+
             Button enviarUser = new Button();
-            enviarUser.Text = "Procurar o Canal";
+            enviarUser.Text = "Inicia Sessão";
             enviarUser.Font = new Font(enviarUser.Font, FontStyle.Bold);
             enviarUser.Size = new Size(200, 30); // Ajusta o tamanho do botão
             enviarUser.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 130);
             enviarUser.BackColor = Color.White; // Define a cor de fundo como branco
             enviarUser.FlatStyle = FlatStyle.Flat;
             enviarUser.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
-            enviarUser.Click += ProcurarUser_Click;
+            enviarUser.Click += IniciarSessao_Click;
             pnlContent.Controls.Add(enviarUser);
 
             Button verUsers = new Button();
-            verUsers.Text = "Listar todos os canais";
+            verUsers.Text = "Listar canais";
             verUsers.Font = new Font(verUsers.Font, FontStyle.Bold);
             verUsers.Size = new Size(200, 30); // Ajusta o tamanho do botão
             verUsers.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 90);
@@ -230,14 +261,196 @@ namespace Proj_BD
             clearPnlContent.Click += ClearPnlContent_Click;
             pnlContent.Controls.Add(clearPnlContent);
         }
-        private void ProcurarUser_Click(object sender, EventArgs e)
+        private void AfterUserConnect()
         {
-            // Obter os valores dos campos de texto
-            string nomeUtilizador = Canal.Text;
-
-            // Limpar os dados do painel
             pnlContent.Controls.Clear();
 
+            Label info1 = new Label();
+            info1.Text = "Caso queira apagar uma playlist, insira o código da playlist:";
+            info1.ForeColor = Color.White;
+            info1.Font = new Font(info1.Font, FontStyle.Bold);
+            info1.Location = new Point(20, 20);
+            info1.Size = new Size(500, 30);
+            pnlContent.Controls.Add(info1);
+
+
+            Label llcodigo = new Label();
+            llcodigo.Text = "Código:";
+            llcodigo.ForeColor = Color.White;
+            llcodigo.Font = new Font(llcodigo.Font, FontStyle.Bold);
+            llcodigo.Location = new Point(20, 50);
+            llcodigo.Size = new Size(180, 30);
+            pnlContent.Controls.Add(llcodigo);
+
+            CodigoPlayDelete = new TextBox();
+            CodigoPlayDelete.Location = new Point(200, 50);
+            CodigoPlayDelete.Size = new Size(450, 40);
+            pnlContent.Controls.Add(CodigoPlayDelete);
+
+
+            Label info2 = new Label();
+            info2.Text = "Caso queira dar like num video, insira o código do video:";
+            info2.ForeColor = Color.White;
+            info2.Font = new Font(info2.Font, FontStyle.Bold);
+            info2.Location = new Point(20, 130);
+            info2.Size = new Size(500, 30);
+            pnlContent.Controls.Add(info2);
+
+
+            Label llcodigo2 = new Label();
+            llcodigo2.Text = "Código:";
+            llcodigo2.ForeColor = Color.White;
+            llcodigo2.Font = new Font(llcodigo2.Font, FontStyle.Bold);
+            llcodigo2.Location = new Point(20, 170);
+            llcodigo2.Size = new Size(180, 30);
+            pnlContent.Controls.Add(llcodigo2);
+
+            CodigoLikeVideo = new TextBox();
+            CodigoLikeVideo.Location = new Point(200, 170);
+            CodigoLikeVideo.Size = new Size(450, 40);
+            pnlContent.Controls.Add(CodigoLikeVideo);
+
+            
+            Label info3 = new Label();
+            info3.Text = "Caso queira subscrever um canal, insira o nome do canal:";
+            info3.ForeColor = Color.White;
+            info3.Font = new Font(info3.Font, FontStyle.Bold);
+            info3.Location = new Point(20, 250);
+            info3.Size = new Size(500, 30);
+            pnlContent.Controls.Add(info3);
+
+
+            Label llcodigo3 = new Label();
+            llcodigo3.Text = "Nome:";
+            llcodigo3.ForeColor = Color.White;
+            llcodigo3.Font = new Font(llcodigo3.Font, FontStyle.Bold);
+            llcodigo3.Location = new Point(20, 290);
+            llcodigo3.Size = new Size(180, 30);
+            pnlContent.Controls.Add(llcodigo3);
+
+            subscreverCanal = new TextBox();
+            subscreverCanal.Location = new Point(200, 290);
+            subscreverCanal.Size = new Size(450, 40);
+            pnlContent.Controls.Add(subscreverCanal);
+
+            Label info4 = new Label();
+            info4.Text = "Caso queira retirar a subscrição de um canal, insira o nome do canal:";
+            info4.ForeColor = Color.White;
+            info4.Font = new Font(info4.Font, FontStyle.Bold);
+            info4.Location = new Point(20, 370);
+            info4.Size = new Size(500, 30);
+            pnlContent.Controls.Add(info4);
+
+
+            Label llcodigo4 = new Label();
+            llcodigo4.Text = "Nome:";
+            llcodigo4.ForeColor = Color.White;
+            llcodigo4.Font = new Font(llcodigo4.Font, FontStyle.Bold);
+            llcodigo4.Location = new Point(20, 410);
+            llcodigo4.Size = new Size(180, 30);
+            pnlContent.Controls.Add(llcodigo4);
+
+            Unfollow = new TextBox();
+            Unfollow.Location = new Point(200, 410);
+            Unfollow.Size = new Size(450, 40);
+            pnlContent.Controls.Add(Unfollow);
+
+            Button DeletePlay = new Button();
+            DeletePlay.Text = "Apagar Playlist";
+            DeletePlay.Font = new Font(DeletePlay.Font, FontStyle.Bold);
+            DeletePlay.Size = new Size(200, 30); // Ajusta o tamanho do botão
+            DeletePlay.Location = new Point(pnlContent.Width - 230, 50);
+            DeletePlay.BackColor = Color.White; // Define a cor de fundo como branco
+            DeletePlay.FlatStyle = FlatStyle.Flat;
+            DeletePlay.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            DeletePlay.Click += DeletePlay_Click;
+            pnlContent.Controls.Add(DeletePlay);
+            
+            Button LikeVideo = new Button();
+            LikeVideo.Text = "Dar Like em um video";
+            LikeVideo.Font = new Font(LikeVideo.Font, FontStyle.Bold);
+            LikeVideo.Size = new Size(200, 30); // Ajusta o tamanho do botão
+            LikeVideo.Location = new Point(pnlContent.Width - 230, 170);
+            LikeVideo.BackColor = Color.White; // Define a cor de fundo como branco
+            LikeVideo.FlatStyle = FlatStyle.Flat;
+            LikeVideo.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            LikeVideo.Click += LikeVideo_Click;
+            pnlContent.Controls.Add(LikeVideo);
+
+            Button SubscriveVideo = new Button();
+            SubscriveVideo.Text = "Subscrever um canal";
+            SubscriveVideo.Font = new Font(SubscriveVideo.Font, FontStyle.Bold);
+            SubscriveVideo.Size = new Size(200, 30); // Ajusta o tamanho do botão
+            SubscriveVideo.Location = new Point(pnlContent.Width - 230, 290);
+            SubscriveVideo.BackColor = Color.White; // Define a cor de fundo como branco
+            SubscriveVideo.FlatStyle = FlatStyle.Flat;
+            SubscriveVideo.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            SubscriveVideo.Click += SubscriveVideo_Click;
+            pnlContent.Controls.Add(SubscriveVideo);
+
+            Button unSubscriveVideo = new Button();
+            unSubscriveVideo.Text = "Unfollow canal";
+            unSubscriveVideo.Font = new Font(unSubscriveVideo.Font, FontStyle.Bold);
+            unSubscriveVideo.Size = new Size(200, 30); // Ajusta o tamanho do botão
+            unSubscriveVideo.Location = new Point(pnlContent.Width - 230, 410);
+            unSubscriveVideo.BackColor = Color.White; // Define a cor de fundo como branco
+            unSubscriveVideo.FlatStyle = FlatStyle.Flat;
+            unSubscriveVideo.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            unSubscriveVideo.Click += unSubscriveVideo_Click;
+            pnlContent.Controls.Add(unSubscriveVideo);
+
+            Button clearPnlContent = new Button();
+            clearPnlContent.Text = "Close";
+            clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
+            clearPnlContent.Size = new Size(200, 30); // Ajusta o tamanho do botão
+            clearPnlContent.Location = new Point(pnlContent.Width - 230,  480);
+            clearPnlContent.BackColor = Color.White; // Define a cor de fundo como branco
+            clearPnlContent.FlatStyle = FlatStyle.Flat;
+            clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            clearPnlContent.Click += ClearPnlContent_Click;
+            pnlContent.Controls.Add(clearPnlContent);
+        }
+        private void SubscriveVideo_Click(object sender, EventArgs e) { }
+        private void unSubscriveVideo_Click(object sender, EventArgs e) { }
+        private void LikeVideo_Click(object sender, EventArgs e) { }
+        private void DeletePlay_Click(object sender, EventArgs e) { }
+
+        private void IniciarSessao_Click(object sender, EventArgs e){
+            pnlContent.Controls.Clear();
+
+            // Obter os valores dos campos de texto
+            string nomeUtilizador = Canal.Text;
+            string senha = SenhaCanal.Text;
+
+
+
+            // Verificar se todos os campos foram preenchidos
+            if (string.IsNullOrWhiteSpace(nomeUtilizador) || string.IsNullOrWhiteSpace(senha) )
+            {
+                MessageBox.Show("Por favor, preencha todos os campos.");
+                return;
+            }
+
+            // Enviar os dados para o DataRepository
+            bool sucesso = dataRepository.IniciarSessaoUser(nomeUtilizador, senha);
+
+            if (sucesso)
+            {
+                MessageBox.Show("Sessao iniciada com sucesso!");
+                AfterUserConnect();
+            }
+            else
+            {
+                MessageBox.Show("Erro ao iniciar Sessao. Por favor, tente novamente.");
+            }
+
+
+        }
+
+        private void ProcurarUser_Click(object sender, EventArgs e)
+        {
+            pnlContent.Controls.Clear();
+            // Limpar os dados do painel
             clearPnlContent = new Button();
             clearPnlContent.Text = "Close";
             clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
@@ -250,7 +463,7 @@ namespace Proj_BD
             pnlContent.Controls.Add(clearPnlContent);
 
             // Obter os utilizadores do DataRepository
-            DataTable utilizadores = dataRepository.ProcurarUser(nomeUtilizador);
+            DataTable utilizadores = dataRepository.ProcurarUser();
 
             // Criar uma DataGridView para exibir os utilizadores
             DataGridView dgvUtilizadores = new DataGridView();
@@ -804,7 +1017,7 @@ namespace Proj_BD
 
             
             Button allComentarios = new Button();
-            allComentarios.Text = "Ver Mais Sobre uma PlayList";
+            allComentarios.Text = "Ver Mais Sobre o Contúdo";
             allComentarios.Font = new Font(allComentarios.Font, FontStyle.Bold);
             allComentarios.Size = new Size(200, 30);
             allComentarios.Location = new Point(pnlContent.Width - 230, 390);
