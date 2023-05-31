@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\cccri\\OneDrive\\Ambiente de Trabalho\\4 semestre 22-23\\BD\\Projeto_Final\\Proj_BD\\Proj_BD\\Proj_BD.csproj": {}
+    "C:\\UA-LEI\\BD\\ProjetoBD\\BD\\Projeto_Final\\Proj_BD\\Proj_BD\\Proj_BD.csproj": {}
   },
   "projects": {
-    "C:\\Users\\cccri\\OneDrive\\Ambiente de Trabalho\\4 semestre 22-23\\BD\\Projeto_Final\\Proj_BD\\Proj_BD\\Proj_BD.csproj": {
+    "C:\\UA-LEI\\BD\\ProjetoBD\\BD\\Projeto_Final\\Proj_BD\\Proj_BD\\Proj_BD.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\cccri\\OneDrive\\Ambiente de Trabalho\\4 semestre 22-23\\BD\\Projeto_Final\\Proj_BD\\Proj_BD\\Proj_BD.csproj",
+        "projectUniqueName": "C:\\UA-LEI\\BD\\ProjetoBD\\BD\\Projeto_Final\\Proj_BD\\Proj_BD\\Proj_BD.csproj",
         "projectName": "Proj_BD",
-        "projectPath": "C:\\Users\\cccri\\OneDrive\\Ambiente de Trabalho\\4 semestre 22-23\\BD\\Projeto_Final\\Proj_BD\\Proj_BD\\Proj_BD.csproj",
-        "packagesPath": "C:\\Users\\cccri\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\cccri\\OneDrive\\Ambiente de Trabalho\\4 semestre 22-23\\BD\\Projeto_Final\\Proj_BD\\Proj_BD\\obj\\",
+        "projectPath": "C:\\UA-LEI\\BD\\ProjetoBD\\BD\\Projeto_Final\\Proj_BD\\Proj_BD\\Proj_BD.csproj",
+        "packagesPath": "C:\\Users\\Vasco Faria\\.nuget\\packages\\",
+        "outputPath": "C:\\UA-LEI\\BD\\ProjetoBD\\BD\\Projeto_Final\\Proj_BD\\Proj_BD\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\cccri\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Vasco Faria\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -63,7 +63,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }
