@@ -318,7 +318,8 @@ namespace Proj_BD
                     return null;
                 }
 
-                string query = "SELECT * FROM [p5g2].[Youtube].[Conteúdo]";
+                string query = "SELECT C.Codigo, C.Titulo, C.Autor, C.Tipo, E.state_name AS Estado, C.Duracao, C.Num_Likes, C.Num_Views, C.Data_Pub FROM Youtube.Conteúdo C JOIN Youtube.Estados E ON C.Estado = E.state_id";
+            
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
