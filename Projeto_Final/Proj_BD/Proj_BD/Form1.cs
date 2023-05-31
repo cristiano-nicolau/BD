@@ -45,6 +45,7 @@ namespace Proj_BD
         private TextBox tstSenha;
         private TextBox txtNomeApelido;
         private TextBox txtNascimento;
+        private TextBox CommentId;
 
         
         // campos de texto para capturar os valores do conteudo
@@ -1063,6 +1064,20 @@ namespace Proj_BD
             ComentDataText.Size = new Size(450, 40);
             pnlContent.Controls.Add(ComentDataText);
 
+            Label IdComentário = new Label();
+            IdComentário.Text = "Id Comentário:";
+            IdComentário.ForeColor = Color.White;
+            IdComentário.Font = new Font(IdComentário.Font, FontStyle.Bold);
+            IdComentário.Location = new Point(20, 180);
+            IdComentário.Size = new Size(180, 30);
+            pnlContent.Controls.Add(IdComentário);
+
+            CommentId = new TextBox();
+            CommentId.Location = new Point(200, 180);
+            CommentId.Size = new Size(450, 40);
+            pnlContent.Controls.Add(CommentId);
+
+
             Button enviarComentario = new Button();
             enviarComentario.Text = "Criar Comentário";
             enviarComentario.Font = new Font(enviarComentario.Font, FontStyle.Bold);
@@ -1120,7 +1135,7 @@ namespace Proj_BD
 
             
             Button allComentarios = new Button();
-            allComentarios.Text = "Ver Mais Sobre o Contúdo";
+            allComentarios.Text = "Ver Mais Sobre o Conteúdo";
             allComentarios.Font = new Font(allComentarios.Font, FontStyle.Bold);
             allComentarios.Size = new Size(200, 30);
             allComentarios.Location = new Point(pnlContent.Width - 230, 390);
@@ -1137,6 +1152,7 @@ namespace Proj_BD
             string idConteudo = txtIdConteudoComent.Text;
             string Comentario = ComentText.Text;
             string data = ComentDataText.Text;
+            string idC = CommentId.Text;
 
             // Verificar se todos os campos foram preenchidos
             if (string.IsNullOrWhiteSpace(UserComentario) || string.IsNullOrWhiteSpace(idConteudo) ||
@@ -1147,9 +1163,10 @@ namespace Proj_BD
             }
             DateTime duracao = DateTime.Parse(data);
             int id = int.Parse(idConteudo);
+            int idComentário = int.Parse(idC);
 
             // Enviar os dados para o DataRepository
-            bool sucesso = dataRepository.InserirComentario(UserComentario, Comentario, duracao, id);
+            bool sucesso = dataRepository.InserirComentario(UserComentario, Comentario, duracao, id,idComentário);
 
              if (sucesso)
              {

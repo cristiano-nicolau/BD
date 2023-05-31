@@ -340,18 +340,15 @@ namespace Proj_BD
         }
 
         // Comentario
-        public bool InserirComentario(string Autor, string Texto, DateTime Data_Comentário, int CódigoV)
+        public bool InserirComentario(string Autor, string Texto, DateTime Data_Comentário, int CódigoV,int idComentário)
         {
             //apos o user clicar no mentario em vez de dar clear a tudo como fazia antes mostrar o comentario ou seja dar clear dos buttons e das labels e dar print com o codigo do conteudo, nome do conteudo, user que comentou, comentario e data 
 
-
-            try
-            {
                 if (!verifyConnection())
                     return false;
 
-                string query = "INSERT INTO Youtube.Comentários (Autor,Texto,Data_Comentário,CódigoV) " +
-                               "VALUES (@Autor, @Texto, @Data_Comentário, @CódigoV)";
+                string query = "INSERT INTO Youtube.Comentários (CodigoComentario,Autor,Texto,Data_Comentário,Codigo) " +
+                               "VALUES (@idComentário,@Autor, @Texto, @Data_Comentário, @CódigoV)";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -360,18 +357,14 @@ namespace Proj_BD
                     command.Parameters.AddWithValue("@Texto", Texto);
                     command.Parameters.AddWithValue("@Data_Comentário", Data_Comentário);
                     command.Parameters.AddWithValue("@CódigoV", CódigoV);
+                    command.Parameters.AddWithValue("@idComentário", idComentário);
 
                     int rowsAffected = command.ExecuteNonQuery();
                     // apagar a proxima linha de codigo esta ca so para testes
                     return rowsAffected > 0;
                 }
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro ao inserir utilizador: " + ex.Message);
-                return false;
-            }
+    
         }
         public DataTable ListarComentario()
         {
@@ -413,7 +406,16 @@ namespace Proj_BD
                     return null;
                 }
 
-                string query = "SELECT c.Titulo AS NomeConteudo, c.Tipo AS TipoConteudo, cn.Nome_Utilizador AS AutorConteudo, c.Data_Pub, c.Num_Views, c.Num_Likes, u.Nome_Utilizador AS NomeUtilizador, com.Texto AS Comentario, com.Data_Comentário FROM Youtube.Conteúdo c INNER JOIN Youtube.Canal cn ON c.Autor = cn.Nome_Utilizador INNER JOIN Youtube.Comentários com ON com.CódigoV = c.Codigo INNER JOIN Youtube.Utilizador u ON u.Nome_Utilizador = com.Autor WHERE c.Codigo = @idConteudo;";
+                string query = @"SELECT c.Titulo AS NomeConteudo,
+                u.Nome_Utilizador AS NomeUtilizador, 
+                com.Autor, com.Texto AS Comentario, com.Data_Comentário
+                FROM Youtube.Conteúdo c
+                INNER JOIN Youtube.Canal cn ON c.Autor = cn.Nome_Utilizador
+                INNER JOIN Youtube.Comentários com ON com.Codigo = c.Codigo
+                INNER JOIN Youtube.Utilizador u ON u.Nome_Utilizador = com.Autor
+                WHERE c.Codigo = @idConteudo;";
+
+
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -482,8 +484,13 @@ namespace Proj_BD
                     return null;
                 }
 
-                string query = @"SELECT p.Titulo, p.CodigoP AS PlaylistID, [p5g2].[Youtube].CalculatePlaylistDuration(p.CodigoP) AS PlayList_Time_Duration, p.*
-                        FROM [p5g2].[Youtube].[Playlist] p";
+                string query = @"SELECT p.Titulo, p.CodigoP AS PlaylistID, [p5g2].[Youtube].CalculatePlaylistDuration(p.CodigoP) AS PlayList_Time_Duration,
+                p.Autor, p.Num_Likes, e.state_name AS Estado
+                FROM [p5g2].[Youtube].[Playlist] p
+                JOIN [p5g2].[Youtube].[Estados] e ON p.Estado = e.state_id";
+
+
+
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -515,7 +522,7 @@ namespace Proj_BD
                 return null;
             }   
 
-            string query= "SELECT C.Codigo, C.Titulo, C.Autor, C.Tipo, C.Estado, C.Duracao, C.Num_Likes, C.Num_Views, C.Data_Pub FROM Youtube.Conteúdo AS C INNER JOIN Youtube.PlaylistVideo AS PV ON C.Codigo = PV.VideoID WHERE PV.PlaylistID = @playlistID";
+            string query= "SELECT C.Codigo, C.Titulo, C.Autor, C.Tipo, E.state_name AS Estado, C.Duracao, C.Num_Likes, C.Num_Views, C.Data_Pub FROM Youtube.Conteúdo AS C INNER JOIN Youtube.PlaylistVideo AS PV ON C.Codigo = PV.VideoID INNER JOIN Youtube.Estados AS E ON C.Estado = E.state_id WHERE PV.PlaylistID = @playlistID ";
 
             using (SqlCommand command = new SqlCommand(query, connection))
             {
