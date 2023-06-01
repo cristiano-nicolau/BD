@@ -240,6 +240,40 @@ namespace Proj_BD
         }
 
 
+        public  bool  SubmeterPremium(String nomeUtilizador, String meses)
+        {
+            int nmeses = int.Parse(meses);
+
+            try
+            {
+                if (!verifyConnection())
+                    return false;
+
+                string query = "INSERT INTO Youtube.Premium (Nome_Utilizador, Num_Meses) " +
+                               "VALUES (@Nome_Utilizador,@meses)";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+
+                    command.Parameters.AddWithValue("@Nome_Utilizador", nomeUtilizador);
+                    command.Parameters.AddWithValue("@meses", nmeses);
+
+
+                    command.ExecuteNonQuery();
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao inserir Premium: " + ex.Message);
+                return false;
+            }
+
+        }
+ 
+
+
 
         public DataTable ListarUtilizadores()
         {
@@ -251,8 +285,8 @@ namespace Proj_BD
                     return null;
                 }
 
-                string query = "SELECT * FROM [p5g2].[Youtube].[Utilizador]";
-
+                string query = "SELECT U.Nome_Utilizador, U.Email, U.Senha, U.Nome, U.Data_de_Nascimento, CASE WHEN P.IsPremium = 1 THEN 'Premium' ELSE '' END AS Premium, P.Data_de_Encerramento, P.Valor_a_pagar FROM[p5g2].[Youtube].[Utilizador] U LEFT JOIN[p5g2].[Youtube].[Premium] P ON U.Nome_Utilizador = P.Nome_Utilizador;";
+               
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     using (SqlDataAdapter adapter = new SqlDataAdapter(command))
