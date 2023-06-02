@@ -33,6 +33,16 @@ The content can be videos, lives and reals.
 
 <br>
 
+## Entity-Relationship Diagram
+<p align="center">
+    <img style="height: 300px" src="./Projeto_Final/APFT_107323_108536/diagramas/DER_Final.jpg">
+</p>
+
+## Relational Schema
+<p align="center">
+    <img style="height: 300px" src="./Projeto_Final/APFT_107323_108536/diagramas/ER_Final.jpg">
+</p>
+
 ## Technologies
 
 The technologies used in this project were:
