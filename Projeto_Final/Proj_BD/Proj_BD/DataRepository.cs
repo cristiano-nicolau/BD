@@ -589,7 +589,7 @@ namespace Proj_BD
                     return null;
                 }
 
-                string query = "SELECT * FROM [p5g2].[Youtube].[Histórico]";
+                string query = "SELECT * FROM[p5g2].[Youtube].[Histórico] ORDER BY Data_de_Visualizacao  DESC; ";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {

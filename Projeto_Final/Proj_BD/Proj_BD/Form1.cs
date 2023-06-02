@@ -657,7 +657,7 @@ namespace Proj_BD
 
 
             Label lblNomePremium = new Label();
-            lblNomePremium.Text = "Deseja Premium? Insira por favor :";
+            lblNomePremium.Text = "Deseja Premium? Insira o nome de utlizador:";
             lblNomePremium.ForeColor = Color.White;
             lblNomePremium.Font = new Font(lblNomePremium.Font, FontStyle.Bold);
             lblNomePremium.Location = new Point(20, pnlContent.Height-250);
