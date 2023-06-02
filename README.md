@@ -49,12 +49,6 @@ The technologies used in this project were:
 * SQL
 * C#
 
-
-## Demo
-
-<video src='./Projeto_Final/APFT_107323_108536/presentation/video_apresentaçao_final.mp4' width=180/>
-
-
 ## Autors
 
 * [Vasco-Faria](https://github.com/Vasco-Faria)
