@@ -1,7 +1,9 @@
 	USE p5g2;
 	GO
 
-	/*CREATE SCHEMA Youtube;
+	/*
+
+	CREATE SCHEMA Youtube;
 	GO
 
 	CREATE TABLE Youtube.Estados (
@@ -19,14 +21,17 @@
 	);
 	GO
 
-	CREATE TABLE Youtube.Premium (
+		CREATE TABLE Youtube.Premium (
 		Data_de_Encerramento date not null,
 		Valor_a_pagar FLOAT,
 		Nome_Utilizador varchar(20) not null,
+		Num_Meses int not null,
+		IsPremium bit not null,
 		PRIMARY KEY(Nome_Utilizador),
 		FOREIGN KEY (Nome_Utilizador) REFERENCES Youtube.Utilizador(Nome_Utilizador)
 	);
 	GO
+
 
 	CREATE TABLE Youtube.Canal (
 		Nome_Utilizador varchar(20) not null,
@@ -107,6 +112,7 @@ CREATE TABLE Youtube.Comentários (
 	);
 	GO
 
+
 	ALTER TABLE Youtube.Comentários ADD CONSTRAINT CódigoV FOREIGN KEY (CódigoV) REFERENCES Youtube.Conteúdo(Codigo);
 
 
@@ -133,129 +139,52 @@ CREATE TABLE Youtube.Comentários (
 		CONSTRAINT FK_Histórico_Utilizador FOREIGN KEY (Nome_Utilizador) REFERENCES Youtube.Utilizador(Nome_Utilizador);
 	GO
 
+	*/
 
 
 
-CREATE TRIGGER trg_UpdateLikes
-ON Youtube.Conteúdo
+CREATE TRIGGER SetPremiumStatus
+ON Youtube.Premium
 AFTER INSERT
 AS
 BEGIN
-    UPDATE c
-    SET c.Num_Likes = c.Num_Likes + 1
-    FROM Youtube.Conteúdo c
-    INNER JOIN inserted i ON c.Codigo = i.Codigo;
-END;
+    DECLARE @Nome_Utilizador varchar(20);
+    DECLARE @Num_Meses int;
+    DECLARE @Data_Encerramento date;
+    DECLARE @Valor_a_Pagar float;
 
+    -- Retrieve the necessary information from the inserted row
+    SELECT @Nome_Utilizador = Nome_Utilizador, @Num_Meses = Num_Meses
+    FROM inserted;
 
-ALTER TRIGGER [Youtube].[trg_UpdateLikes]
-ON [Youtube].[Conteúdo]
-AFTER INSERT
-AS
-BEGIN
-    DECLARE @code INT;
-    SET @code = (SELECT Codigo FROM inserted);
-    
-    UPDATE c
-    SET c.Num_Likes = c.Num_Likes + 1
-    FROM Youtube.Conteúdo c
-    WHERE c.Codigo = @code;
-END;
+    -- Calculate the expiration date by adding the specified number of months to the current date
+    SET @Data_Encerramento = DATEADD(MONTH, @Num_Meses, GETDATE());
 
+    -- Calculate the value to be paid
+    SET @Valor_a_Pagar = @Num_Meses * 9.99;
 
-CREATE FUNCTION Youtube.CalculatePlaylistDuration
-(
-    @PlaylistID INT
-)
-RETURNS TIME
-AS
-BEGIN
-    DECLARE @TotalSeconds INT;
+    -- Update the Premium table with the calculated values
+    UPDATE Youtube.Premium
+    SET Data_de_Encerramento = @Data_Encerramento,
+        Valor_a_pagar = @Valor_a_Pagar
+    WHERE Nome_Utilizador = @Nome_Utilizador;
 
-    SELECT @TotalSeconds = SUM(DATEPART(SECOND, c.Duracao)) +
-                           SUM(DATEPART(MINUTE, c.Duracao)) * 60 +
-                           SUM(DATEPART(HOUR, c.Duracao)) * 3600
-    FROM Youtube.Conteúdo c
-    INNER JOIN Youtube.PlaylistVideo pv ON c.Codigo = pv.VideoID
-    WHERE pv.PlaylistID = @PlaylistID;
+    -- Update the IsPremium column based on the number of months
+    UPDATE Youtube.Premium
+    SET IsPremium = 1
+    WHERE Nome_Utilizador = @Nome_Utilizador AND @Num_Meses > 0;
 
-    DECLARE @TotalDuration TIME;
-    SET @TotalDuration = DATEADD(SECOND, @TotalSeconds, '00:00:00');
-
-    RETURN @TotalDuration;
-END;
-
-
-
-CREATE PROCEDURE Youtube.UpdateSubscribers
-    @CanalName VARCHAR(20)
-AS
-BEGIN
-    UPDATE Youtube.Canal
-    SET Num_Subscritores = Num_Subscritores + 1
-    WHERE Nome_Utilizador = @CanalName;
-END;
-
-
-
-CREATE PROCEDURE Youtube.UpdateSubscribers2
-    @CanalName VARCHAR(20)
-AS
-BEGIN
-    UPDATE Youtube.Canal
-    SET Num_Subscritores = Num_Subscritores - 1
-    WHERE Nome_Utilizador = @CanalName;
-END;
-
-
-
-CREATE PROCEDURE [Youtube].[CreateUtilizadorAndCanal]
-    @Nome_Utilizador VARCHAR(20),
-    @Email VARCHAR(20),
-    @Senha VARCHAR(15),
-    @Nome VARCHAR(20),
-    @Nascimento DATE
-AS
-BEGIN
-    SET NOCOUNT ON;
-
-    -- Insert into Utilizador table
-    INSERT INTO [Youtube].[Utilizador] (Nome_Utilizador, Email, Senha, Nome, Data_de_Nascimento)
-    VALUES (@Nome_Utilizador, @Email, @Senha, @Nome, @Nascimento);
-
-    -- Insert into Canal table
-    INSERT INTO [Youtube].[Canal] (Nome_Utilizador, Num_Subscritores, Num_Conteudo, Descrição_Canal)
-    VALUES (@Nome_Utilizador, 0, 0, '');
+    UPDATE Youtube.Premium
+    SET IsPremium = 0
+    WHERE Nome_Utilizador = @Nome_Utilizador AND @Num_Meses <= 0;
 END;
 
 
 
 
-CREATE PROCEDURE Youtube.DeletePlaylist
-    @PlaylistID INT
-AS
-BEGIN
-    SET NOCOUNT ON;
-
-    BEGIN TRANSACTION;
-
-    BEGIN TRY
-        -- Delete corresponding records from PlaylistVideo table
-        DELETE FROM [Youtube].[PlaylistVideo] WHERE PlaylistID = @PlaylistID;
-
-        -- Delete the playlist
-        DELETE FROM [Youtube].[Playlist] WHERE CodigoP = @PlaylistID;
-
-        COMMIT TRANSACTION;
-    END TRY
-    BEGIN CATCH
-        ROLLBACK TRANSACTION;
-        THROW; -- Rethrow the error
-    END CATCH;
-END;
 
 
-*/
+
 
 
 

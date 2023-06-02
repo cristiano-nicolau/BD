@@ -46,8 +46,10 @@ namespace Proj_BD
         private TextBox txtNomeApelido;
         private TextBox txtNascimento;
         private TextBox CommentId;
+        private TextBox txtNomePremium;
+        private TextBox txtMesesPremium;
 
-        
+
         // campos de texto para capturar os valores do conteudo
         private TextBox TextoAutorConteudo;
         private TextBox TextoEstado;
@@ -653,6 +655,44 @@ namespace Proj_BD
             txtNascimento.Size = new Size(450, 40); 
             pnlContent.Controls.Add(txtNascimento);
 
+
+            Label lblNomePremium = new Label();
+            lblNomePremium.Text = "Deseja Premium? Insira por favor :";
+            lblNomePremium.ForeColor = Color.White;
+            lblNomePremium.Font = new Font(lblNomePremium.Font, FontStyle.Bold);
+            lblNomePremium.Location = new Point(20, pnlContent.Height-250);
+            lblNomePremium.Size = new Size(250, 30);
+            pnlContent.Controls.Add(lblNomePremium);
+
+            txtNomePremium = new TextBox();
+            txtNomePremium.Location = new Point(200, pnlContent.Height - 220);
+            txtNomePremium.Size = new Size(250, 40);
+            pnlContent.Controls.Add(txtNomePremium);
+
+            Label lblMesesPremium = new Label();
+            lblMesesPremium.Text = "Número de meses que deseja o Premium:";
+            lblMesesPremium.ForeColor = Color.White;
+            lblMesesPremium.Font = new Font(lblMesesPremium.Font, FontStyle.Bold);
+            lblMesesPremium.Location = new Point(20, pnlContent.Height - 180);
+            lblMesesPremium.Size = new Size(180, 30);
+            pnlContent.Controls.Add(lblMesesPremium);
+
+            txtMesesPremium = new TextBox();
+            txtMesesPremium.Location = new Point(200, pnlContent.Height - 150);
+            txtMesesPremium.Size = new Size(250, 40);
+            pnlContent.Controls.Add(txtMesesPremium);
+
+            Button SubmeterPremium = new Button();
+            SubmeterPremium.Text = "Premium";
+            SubmeterPremium.Font = new Font(SubmeterPremium.Font, FontStyle.Bold);
+            SubmeterPremium.Size = new Size(200, 30); // Ajusta o tamanho do botão
+            SubmeterPremium.Location = new Point(pnlContent.Width - 230, pnlContent.Height- 150);
+            SubmeterPremium.BackColor = Color.White; // Define a cor de fundo como branco
+            SubmeterPremium.FlatStyle = FlatStyle.Flat;
+            SubmeterPremium.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            SubmeterPremium.Click += SubmeterPremium_Click;
+            pnlContent.Controls.Add(SubmeterPremium);
+
             Button enviarUser = new Button();
             enviarUser.Text = "Criar Utilizador";
             enviarUser.Font = new Font(enviarUser.Font, FontStyle.Bold);
@@ -687,6 +727,32 @@ namespace Proj_BD
             pnlContent.Controls.Add(clearPnlContent);
         }
 
+
+        private void SubmeterPremium_Click(object sender,EventArgs e)
+        {
+            string nomeUtilizador = txtNomePremium.Text;
+            string meses = txtMesesPremium.Text;
+
+            if (string.IsNullOrWhiteSpace(nomeUtilizador) || string.IsNullOrWhiteSpace(meses))
+            {
+                MessageBox.Show("Por favor, preencha todos os campos.");
+                return;
+            }
+
+
+            bool sucesso = dataRepository.SubmeterPremium(nomeUtilizador, meses);
+
+            if (sucesso)
+            {
+                MessageBox.Show("Utlizador é agora Premium!");
+                LimparCamposUtilizador();
+            }
+            else
+            {
+                MessageBox.Show("Erro!");
+            }
+
+        }
         private void EnviarUser_Click(object sender, EventArgs e)
         {
             // Obter os valores dos campos de texto
@@ -737,7 +803,7 @@ namespace Proj_BD
             clearPnlContent.FlatStyle = FlatStyle.Flat;
             clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
             clearPnlContent.Size = new Size(80, 30);
-            clearPnlContent.Location = new Point(pnlContent.Width - 250, pnlContent.Height - 300);
+            clearPnlContent.Location = new Point(pnlContent.Width - 100, pnlContent.Height - 300);
             clearPnlContent.Click += ClearPnlContent_Click;
             pnlContent.Controls.Add(clearPnlContent);
 
