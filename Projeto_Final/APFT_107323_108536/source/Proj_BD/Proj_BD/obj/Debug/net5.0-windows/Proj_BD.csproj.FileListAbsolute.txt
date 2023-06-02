@@ -1,0 +1,49 @@
+C:\UA-LEI\BD\ProjetoBD\BD\Projeto_Final\Proj_BD\Proj_BD\bin\Debug\net5.0-windows\Proj_BD.exe
+C:\UA-LEI\BD\ProjetoBD\BD\Projeto_Final\Proj_BD\Proj_BD\bin\Debug\net5.0-windows\Proj_BD.deps.json
+C:\UA-LEI\BD\ProjetoBD\BD\Projeto_Final\Proj_BD\Proj_BD\bin\Debug\net5.0-windows\Proj_BD.runtimeconfig.json
+C:\UA-LEI\BD\ProjetoBD\BD\Projeto_Final\Proj_BD\Proj_BD\bin\Debug\net5.0-windows\Proj_BD.runtimeconfig.dev.json
+C:\UA-LEI\BD\ProjetoBD\BD\Projeto_Final\Proj_BD\Proj_BD\bin\Debug\net5.0-windows\Proj_BD.dll
+C:\UA-LEI\BD\ProjetoBD\BD\Projeto_Final\Proj_BD\Proj_BD\bin\Debug\net5.0-windows\ref\Proj_BD.dll
+C:\UA-LEI\BD\ProjetoBD\BD\Projeto_Final\Proj_BD\Proj_BD\bin\Debug\net5.0-windows\Proj_BD.pdb
+C:\UA-LEI\BD\ProjetoBD\BD\Projeto_Final\Proj_BD\Proj_BD\bin\Debug\net5.0-windows\System.Data.SqlClient.dll
+C:\UA-LEI\BD\ProjetoBD\BD\Projeto_Final\Proj_BD\Proj_BD\bin\Debug\net5.0-windows\runtimes\win-arm64\native\sni.dll
+C:\UA-LEI\BD\ProjetoBD\BD\Projeto_Final\Proj_BD\Proj_BD\bin\Debug\net5.0-windows\runtimes\win-x64\native\sni.dll
+C:\UA-LEI\BD\ProjetoBD\BD\Projeto_Final\Proj_BD\Proj_BD\bin\Debug\net5.0-windows\runtimes\win-x86\native\sni.dll
+C:\UA-LEI\BD\ProjetoBD\BD\Projeto_Final\Proj_BD\Proj_BD\bin\Debug\net5.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\UA-LEI\BD\ProjetoBD\BD\Projeto_Final\Proj_BD\Proj_BD\bin\Debug\net5.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\UA-LEI\BD\ProjetoBD\BD\Projeto_Final\Proj_BD\Proj_BD\obj\Debug\net5.0-windows\Proj_BD.csproj.AssemblyReference.cache
+C:\UA-LEI\BD\ProjetoBD\BD\Projeto_Final\Proj_BD\Proj_BD\obj\Debug\net5.0-windows\Proj_BD.Form1.resources
+C:\UA-LEI\BD\ProjetoBD\BD\Projeto_Final\Proj_BD\Proj_BD\obj\Debug\net5.0-windows\Proj_BD.csproj.GenerateResource.cache
+C:\UA-LEI\BD\ProjetoBD\BD\Projeto_Final\Proj_BD\Proj_BD\obj\Debug\net5.0-windows\Proj_BD.GeneratedMSBuildEditorConfig.editorconfig
+C:\UA-LEI\BD\ProjetoBD\BD\Projeto_Final\Proj_BD\Proj_BD\obj\Debug\net5.0-windows\Proj_BD.AssemblyInfoInputs.cache
+C:\UA-LEI\BD\ProjetoBD\BD\Projeto_Final\Proj_BD\Proj_BD\obj\Debug\net5.0-windows\Proj_BD.AssemblyInfo.cs
+C:\UA-LEI\BD\ProjetoBD\BD\Projeto_Final\Proj_BD\Proj_BD\obj\Debug\net5.0-windows\Proj_BD.csproj.CoreCompileInputs.cache
+C:\UA-LEI\BD\ProjetoBD\BD\Projeto_Final\Proj_BD\Proj_BD\obj\Debug\net5.0-windows\Proj_BD.dll
+C:\UA-LEI\BD\ProjetoBD\BD\Projeto_Final\Proj_BD\Proj_BD\obj\Debug\net5.0-windows\ref\Proj_BD.dll
+C:\UA-LEI\BD\ProjetoBD\BD\Projeto_Final\Proj_BD\Proj_BD\obj\Debug\net5.0-windows\Proj_BD.pdb
+C:\UA-LEI\BD\ProjetoBD\BD\Projeto_Final\Proj_BD\Proj_BD\obj\Debug\net5.0-windows\Proj_BD.genruntimeconfig.cache
+C:\Users\cccri\OneDrive\Ambiente de Trabalho\4 semestre 22-23\BD\Projeto_Final\Proj_BD\Proj_BD\bin\Debug\net5.0-windows\Proj_BD.exe
+C:\Users\cccri\OneDrive\Ambiente de Trabalho\4 semestre 22-23\BD\Projeto_Final\Proj_BD\Proj_BD\bin\Debug\net5.0-windows\Proj_BD.deps.json
+C:\Users\cccri\OneDrive\Ambiente de Trabalho\4 semestre 22-23\BD\Projeto_Final\Proj_BD\Proj_BD\bin\Debug\net5.0-windows\Proj_BD.runtimeconfig.json
+C:\Users\cccri\OneDrive\Ambiente de Trabalho\4 semestre 22-23\BD\Projeto_Final\Proj_BD\Proj_BD\bin\Debug\net5.0-windows\Proj_BD.runtimeconfig.dev.json
+C:\Users\cccri\OneDrive\Ambiente de Trabalho\4 semestre 22-23\BD\Projeto_Final\Proj_BD\Proj_BD\bin\Debug\net5.0-windows\Proj_BD.dll
+C:\Users\cccri\OneDrive\Ambiente de Trabalho\4 semestre 22-23\BD\Projeto_Final\Proj_BD\Proj_BD\bin\Debug\net5.0-windows\ref\Proj_BD.dll
+C:\Users\cccri\OneDrive\Ambiente de Trabalho\4 semestre 22-23\BD\Projeto_Final\Proj_BD\Proj_BD\bin\Debug\net5.0-windows\Proj_BD.pdb
+C:\Users\cccri\OneDrive\Ambiente de Trabalho\4 semestre 22-23\BD\Projeto_Final\Proj_BD\Proj_BD\bin\Debug\net5.0-windows\System.Data.SqlClient.dll
+C:\Users\cccri\OneDrive\Ambiente de Trabalho\4 semestre 22-23\BD\Projeto_Final\Proj_BD\Proj_BD\bin\Debug\net5.0-windows\runtimes\win-arm64\native\sni.dll
+C:\Users\cccri\OneDrive\Ambiente de Trabalho\4 semestre 22-23\BD\Projeto_Final\Proj_BD\Proj_BD\bin\Debug\net5.0-windows\runtimes\win-x64\native\sni.dll
+C:\Users\cccri\OneDrive\Ambiente de Trabalho\4 semestre 22-23\BD\Projeto_Final\Proj_BD\Proj_BD\bin\Debug\net5.0-windows\runtimes\win-x86\native\sni.dll
+C:\Users\cccri\OneDrive\Ambiente de Trabalho\4 semestre 22-23\BD\Projeto_Final\Proj_BD\Proj_BD\bin\Debug\net5.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\cccri\OneDrive\Ambiente de Trabalho\4 semestre 22-23\BD\Projeto_Final\Proj_BD\Proj_BD\bin\Debug\net5.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\cccri\OneDrive\Ambiente de Trabalho\4 semestre 22-23\BD\Projeto_Final\Proj_BD\Proj_BD\obj\Debug\net5.0-windows\Proj_BD.csproj.AssemblyReference.cache
+C:\Users\cccri\OneDrive\Ambiente de Trabalho\4 semestre 22-23\BD\Projeto_Final\Proj_BD\Proj_BD\obj\Debug\net5.0-windows\Proj_BD.Form1.resources
+C:\Users\cccri\OneDrive\Ambiente de Trabalho\4 semestre 22-23\BD\Projeto_Final\Proj_BD\Proj_BD\obj\Debug\net5.0-windows\Proj_BD.csproj.GenerateResource.cache
+C:\Users\cccri\OneDrive\Ambiente de Trabalho\4 semestre 22-23\BD\Projeto_Final\Proj_BD\Proj_BD\obj\Debug\net5.0-windows\Proj_BD.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\cccri\OneDrive\Ambiente de Trabalho\4 semestre 22-23\BD\Projeto_Final\Proj_BD\Proj_BD\obj\Debug\net5.0-windows\Proj_BD.AssemblyInfoInputs.cache
+C:\Users\cccri\OneDrive\Ambiente de Trabalho\4 semestre 22-23\BD\Projeto_Final\Proj_BD\Proj_BD\obj\Debug\net5.0-windows\Proj_BD.AssemblyInfo.cs
+C:\Users\cccri\OneDrive\Ambiente de Trabalho\4 semestre 22-23\BD\Projeto_Final\Proj_BD\Proj_BD\obj\Debug\net5.0-windows\Proj_BD.csproj.CoreCompileInputs.cache
+C:\Users\cccri\OneDrive\Ambiente de Trabalho\4 semestre 22-23\BD\Projeto_Final\Proj_BD\Proj_BD\obj\Debug\net5.0-windows\Proj_BD.csproj.CopyComplete
+C:\Users\cccri\OneDrive\Ambiente de Trabalho\4 semestre 22-23\BD\Projeto_Final\Proj_BD\Proj_BD\obj\Debug\net5.0-windows\Proj_BD.dll
+C:\Users\cccri\OneDrive\Ambiente de Trabalho\4 semestre 22-23\BD\Projeto_Final\Proj_BD\Proj_BD\obj\Debug\net5.0-windows\ref\Proj_BD.dll
+C:\Users\cccri\OneDrive\Ambiente de Trabalho\4 semestre 22-23\BD\Projeto_Final\Proj_BD\Proj_BD\obj\Debug\net5.0-windows\Proj_BD.pdb
+C:\Users\cccri\OneDrive\Ambiente de Trabalho\4 semestre 22-23\BD\Projeto_Final\Proj_BD\Proj_BD\obj\Debug\net5.0-windows\Proj_BD.genruntimeconfig.cache
