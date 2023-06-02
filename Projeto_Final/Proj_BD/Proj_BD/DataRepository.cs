@@ -393,10 +393,12 @@ namespace Proj_BD
                     command.Parameters.AddWithValue("@CódigoV", CódigoV);
                     command.Parameters.AddWithValue("@idComentário", idComentário);
 
+                // apagar a proxima linha de codigo esta ca so para testes
                     int rowsAffected = command.ExecuteNonQuery();
+
                     // apagar a proxima linha de codigo esta ca so para testes
                     return rowsAffected > 0;
-                }
+            }
 
     
         }
@@ -406,7 +408,6 @@ namespace Proj_BD
             {
                 if (!verifyConnection())
                 {
-                    Console.WriteLine("No Connection!");
                     return null;
                 }
 
@@ -455,20 +456,13 @@ namespace Proj_BD
                 {
                     command.Parameters.AddWithValue("@idConteudo", idConteudo);
 
-                    try
-                    {
                         using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                         {
                             DataTable dataTable = new DataTable();
                             adapter.Fill(dataTable);
                             return dataTable;
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Erro ao obter Comentarios: " + ex.Message);
-                        return null;
-                    }
+                    
                 }
             }
             catch (Exception ex)
