@@ -1171,28 +1171,6 @@ namespace Proj_BD
              if (sucesso)
              {
                  MessageBox.Show("Comentario criado com sucesso!");
-                 // Limpar os dados do painel
-                pnlContent.Controls.Clear();
-
-                clearPnlContent = new Button();
-                clearPnlContent.Text = "Close";
-                clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
-                clearPnlContent.BackColor = Color.White; // Define a cor de fundo como branco
-                clearPnlContent.FlatStyle = FlatStyle.Flat;
-                clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
-                clearPnlContent.Size = new Size(80, 30);
-                clearPnlContent.Location = new Point(pnlContent.Width - 100, pnlContent.Height - 50);
-                clearPnlContent.Click += ClearPnlContent_Click;
-                pnlContent.Controls.Add(clearPnlContent);
-
-                // Obter os utilizadores do DataRepository
-                DataTable utilizadores = dataRepository.ListarUmComentario(id);
-
-                // Criar uma DataGridView para exibir os utilizadores
-                DataGridView dgvUtilizadores = new DataGridView();
-                dgvUtilizadores.DataSource = utilizadores;
-                dgvUtilizadores.Dock = DockStyle.Fill;
-                pnlContent.Controls.Add(dgvUtilizadores);
 
             }
             else
