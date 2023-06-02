@@ -52,8 +52,7 @@ The technologies used in this project were:
 
 ## Demo
 
-[![Watch the demo]("./Projeto_Final/APFT_107323_108536/presentation/video_apresentaçao_final.mp4")
-    <img style="height: 300px" src="./Projeto_Final/APFT_107323_108536/presentation/video_apresentaçao_final.mp4">
+[![Demo CountPages alpha](https://share.gifyoutube.com/KzB6Gb.gif)]("/Projeto_Final/APFT_107323_108536/presentation/video_apresentaçao_final.mp4")
 
 
 
