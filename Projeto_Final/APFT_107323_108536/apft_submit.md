@@ -66,12 +66,10 @@ Podem ainda subscrever outros utilizadores, dar like, comentar conteúdo, criar 
 
 ## ​SQL DDL - Data Definition Language
 
-[SQL DDL File](sql/01_ddl.sql "SQLFileQuestion")
+[SQL DDL File](sql/YoutubeTables.sql "SQLFileQuestion")
 
 ## SQL DML - Data Manipulation Language
-
-Uma secção por formulário.
-A section for each form.
+ estamos aqui, inserir as queries todas mais os screenshots
 
 ### Formulario exemplo/Example Form
 
