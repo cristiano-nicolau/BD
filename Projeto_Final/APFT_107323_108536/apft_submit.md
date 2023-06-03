@@ -69,8 +69,7 @@ Podem ainda subscrever outros utilizadores, dar like, comentar conteúdo, criar 
 [SQL DDL File](sql/01_ddl.sql"SQLFileQuestion")
 
 ## SQL DML - Data Manipulation Language
- estamos aqui, inserir as queries todas mais os screenshots, e fazer a parte ds indices e normalização
-
+ estamos aqui, inserir as queries todas mais os screenshots
 ### Formulario exemplo/Example Form
 
 ![Exemplo Screenshot!](screenshots/screenshot_1.jpg "AnImage")
@@ -87,15 +86,26 @@ INSERT INTO MY_TABLE ....;
 
 ## Normalização/Normalization
 
-Descreva os passos utilizados para minimizar a duplicação de dados / redução de espaço.
-Justifique as opções tomadas.
-Describe the steps used to minimize data duplication / space reduction.
-Justify the choices made.
+Existe clareza da semantica dos atributos das relações entre entidades.
+Redução o número de nulls nos tuplos através criado mais relações para esses atributos.
+Uso de chaves primárias e chaves estrangeiras para as relações entre entidades de modo a evitar a duplicação de dados. 
 
 ## Índices/Indexes
 
-Descreva os indices criados. Junte uma cópia do SQL de criação do indice.
-Describe the indexes created. Attach a copy of the SQL to create the index.
+Índice na coluna "Data_de_Visualizacao" na tabela "Youtube.Histórico":
+
+"CREATE INDEX idx_Data_de_Visualizacao ON Youtube.Histórico (Data_de_Visualizacao);"
+
+Este indice melhora a ordenação do histórico por data_de_visualização do mais recente para o mais antigo.
+
+
+Índice na coluna Nome_Utilizador na tabela Youtube.Utilizador:
+
+"CREATE INDEX idx_Nome_Utilizador ON Youtube.Utilizador (Nome_Utilizador);"
+
+Indice que melhora o desempenho na pesquisa de Utilizadores.
+
+
 
 ```sql
 -- Create an index to speed
