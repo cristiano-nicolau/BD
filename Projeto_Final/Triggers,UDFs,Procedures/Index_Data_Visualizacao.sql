@@ -1,0 +1,1 @@
+CREATE INDEX idx_Data_de_Visualizacao ON Youtube.Histórico (Data_de_Visualizacao);

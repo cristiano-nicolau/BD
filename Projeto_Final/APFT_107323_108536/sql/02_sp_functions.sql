@@ -135,3 +135,18 @@ BEGIN
 END;
 
 
+/* /////////////////////////////////////////////////  
+
+
+				Indexs
+
+
+/////////////////////////////////////////////////   */
+
+CREATE INDEX idx_Data_de_Visualizacao ON Youtube.Histórico (Data_de_Visualizacao);
+
+/* /////////////////////////////////////////////////  */
+
+CREATE INDEX idx_Nome_Utilizador ON Youtube.Utilizador (Nome_Utilizador);
+
+
