@@ -66,7 +66,7 @@ Podem ainda subscrever outros utilizadores, dar like, comentar conteúdo, criar 
 
 ## ​SQL DDL - Data Definition Language
 
-[SQL DDL File](sql/01_ddl.sql"SQLFileQuestion")
+[SQL DDL File](sql/01_ddl.sql "SQLFileQuestion")
 
 ## SQL DML - Data Manipulation Language
  estamos aqui, inserir as queries todas mais os screenshots
