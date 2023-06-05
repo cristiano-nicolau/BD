@@ -112,11 +112,11 @@ CREATE INDEX index_name ON table_name (column1, column2, ...);
 
 #### Apresentação PowerPoint
 
-[Apresentação](Projeto_Final/APFT_107323_108536/presentation/Apresentaçao_Final.pptx "PowerPointFile")
+[Apresentação](presentation/apresentacaofinal.pptx "PowerPointFile")
 
 #### Apresentação video demo
 
-[Video Demo](Projeto_Final/APFT_107323_108536/presentation/video_apresentaçao_final.mp4 "Mp4File")
+[Video Demo](presentation/videoapresentacaofinal.mp4 "Mp4File")
 
 Após a apresentação do trabalho feito ocorreram devidas mudanças na interface, devido a criação de triggers, udfs e stored procedure, fazendo com que a demo do video nao esteja atualizada. 
 
