@@ -2,13 +2,14 @@ USE p5g2;
 go
 
 
+/*
+
 
 CREATE TRIGGER EnforceMaxDuration
 ON Youtube.Conteúdo
 AFTER INSERT, UPDATE
 AS
 BEGIN
-    -- Check if the video duration exceeds the maximum limit (e.g., 60 minutes)
     IF EXISTS (
         SELECT * FROM inserted WHERE Duracao > '01:00:00'
     )
@@ -22,33 +23,42 @@ END;
 
 /*  /////////////////////////////////////////////////   */
 
+
+
 CREATE TRIGGER SetPremiumStatus
 ON Youtube.Premium
 AFTER INSERT
 AS
 BEGIN
+    --verificação Utilizador
+    IF NOT EXISTS (SELECT 1 FROM inserted i JOIN Youtube.Utilizador u ON i.Nome_Utilizador = u.Nome_Utilizador)
+    BEGIN
+       
+        RAISERROR ('Nome de Utilizador inválido.', 16, 1);
+        RETURN; 
+    END;
+
     DECLARE @Nome_Utilizador varchar(20);
     DECLARE @Num_Meses int;
     DECLARE @Data_Encerramento date;
     DECLARE @Valor_a_Pagar float;
 
-    -- Retrieve the necessary information from the inserted row
+    
     SELECT @Nome_Utilizador = Nome_Utilizador, @Num_Meses = Num_Meses
     FROM inserted;
 
-    -- Calculate the expiration date by adding the specified number of months to the current date
+    
     SET @Data_Encerramento = DATEADD(MONTH, @Num_Meses, GETDATE());
 
-    -- Calculate the value to be paid
+    
     SET @Valor_a_Pagar = @Num_Meses * 9.99;
 
-    -- Update the Premium table with the calculated values
+    
     UPDATE Youtube.Premium
     SET Data_de_Encerramento = @Data_Encerramento,
         Valor_a_pagar = @Valor_a_Pagar
     WHERE Nome_Utilizador = @Nome_Utilizador;
 
-    -- Update the IsPremium column based on the number of months
     UPDATE Youtube.Premium
     SET IsPremium = 1
     WHERE Nome_Utilizador = @Nome_Utilizador AND @Num_Meses > 0;
@@ -57,7 +67,6 @@ BEGIN
     SET IsPremium = 0
     WHERE Nome_Utilizador = @Nome_Utilizador AND @Num_Meses <= 0;
 END;
-
 
 
 /*  /////////////////////////////////////////////////   */
@@ -175,6 +184,54 @@ BEGIN
 END;
 
 
+
+
+/*  /////////////////////////////////////////////////   */
+
+CREATE TRIGGER SetComentários
+ON Youtube.Comentários
+INSTEAD OF INSERT
+AS
+BEGIN
+ 
+    DECLARE @NextCodigoComentario INT;
+    SET @NextCodigoComentario = (SELECT ISNULL(MAX(CodigoComentario), 0) + 1 FROM Youtube.Comentários);
+
+    
+    INSERT INTO Youtube.Comentários (Autor, Texto, Data_Comentário, CodigoComentario,Codigo)
+    SELECT Autor, Texto, GETDATE(), @NextCodigoComentario,Codigo
+    FROM inserted;
+END;
+
+
+/*  /////////////////////////////////////////////////   */
+
+*/
+
+
+CREATE TRIGGER SetEstadoAndCodigoP
+ON Youtube.Playlist
+INSTEAD OF INSERT
+AS
+BEGIN
+
+    DECLARE @NextCodigoP INT;
+    SET @NextCodigoP = (SELECT ISNULL(MAX(CodigoP), 0) + 1 FROM Youtube.Playlist);
+
+    INSERT INTO Youtube.Playlist (Titulo, CodigoP, Autor, Num_Likes, Estado)
+    SELECT Titulo, @NextCodigoP, Autor, Num_Likes,
+           CASE WHEN Estado = 0 OR Estado = 1 THEN Estado
+                ELSE NULL
+           END
+    FROM inserted;
+
+
+    IF EXISTS (SELECT 1 FROM inserted WHERE (Estado <> 0 AND Estado <> 1) OR Estado IS NULL)
+    BEGIN
+        RAISERROR ('Estado inválido. Estado deve ser 0 (privado) or 1 (publico).', 16, 1);
+
+    END;
+END;
 
 
 

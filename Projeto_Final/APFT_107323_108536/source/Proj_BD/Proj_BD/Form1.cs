@@ -36,6 +36,8 @@ namespace Proj_BD
         private Button SubscriveVideo;
         private Button LikeVideo;
         private Button DeletePlay;
+        private TextBox CodigoADDC;
+        private TextBox CodigoADDPlaylist;
 
 
 
@@ -1058,31 +1060,6 @@ namespace Proj_BD
             ComentText.Size = new Size(450, 40);
             pnlContent.Controls.Add(ComentText);
 
-            Label DataComentario = new Label();
-            DataComentario.Text = "Data do Comentário:";
-            DataComentario.ForeColor = Color.White;
-            DataComentario.Font = new Font(DataComentario.Font, FontStyle.Bold);
-            DataComentario.Location = new Point(20, 130);
-            DataComentario.Size = new Size(180, 30);
-            pnlContent.Controls.Add(DataComentario);
-
-            ComentDataText = new TextBox();
-            ComentDataText.Location = new Point(200, 130);
-            ComentDataText.Size = new Size(450, 40);
-            pnlContent.Controls.Add(ComentDataText);
-
-            Label IdComentário = new Label();
-            IdComentário.Text = "Id Comentário:";
-            IdComentário.ForeColor = Color.White;
-            IdComentário.Font = new Font(IdComentário.Font, FontStyle.Bold);
-            IdComentário.Location = new Point(20, 180);
-            IdComentário.Size = new Size(180, 30);
-            pnlContent.Controls.Add(IdComentário);
-
-            CommentId = new TextBox();
-            CommentId.Location = new Point(200, 180);
-            CommentId.Size = new Size(450, 40);
-            pnlContent.Controls.Add(CommentId);
 
 
             Button enviarComentario = new Button();
@@ -1158,22 +1135,19 @@ namespace Proj_BD
             string UserComentario = textUserComentario.Text;
             string idConteudo = txtIdConteudoComent.Text;
             string Comentario = ComentText.Text;
-            string data = ComentDataText.Text;
-            string idC = CommentId.Text;
 
             // Verificar se todos os campos foram preenchidos
             if (string.IsNullOrWhiteSpace(UserComentario) || string.IsNullOrWhiteSpace(idConteudo) ||
-                string.IsNullOrWhiteSpace(Comentario) || string.IsNullOrWhiteSpace(data))
+                string.IsNullOrWhiteSpace(Comentario))
             {
                 MessageBox.Show("Por favor, preencha todos os campos.");
                 return;
             }
-            DateTime duracao = DateTime.Parse(data);
+
             int id = int.Parse(idConteudo);
-            int idComentário = int.Parse(idC);
 
             // Enviar os dados para o DataRepository
-            bool sucesso = dataRepository.InserirComentario(UserComentario, Comentario, duracao, id,idComentário);
+            bool sucesso = dataRepository.InserirComentario(UserComentario, Comentario, id);
 
              if (sucesso)
              {
@@ -1253,17 +1227,26 @@ namespace Proj_BD
             // Limpa os dados do painel 
             pnlContent.Controls.Clear();
 
+
+            Label lblPlaylist = new Label();
+            lblPlaylist.Text = "Criar Playlist";
+            lblPlaylist.ForeColor = Color.White;
+            lblPlaylist.Font = new Font(lblPlaylist.Font, FontStyle.Bold);
+            lblPlaylist.Location = new Point(20, 10);
+            lblPlaylist.Size = new Size(180, 30);
+            pnlContent.Controls.Add(lblPlaylist);
+
             // Cria os controles para inserir os dados do utilizador
             Label lblNomeUser = new Label();
             lblNomeUser.Text = "Nome de Utilizador:";
             lblNomeUser.ForeColor = Color.White;
             lblNomeUser.Font = new Font(lblNomeUser.Font, FontStyle.Bold);
-            lblNomeUser.Location = new Point(20, 10);
+            lblNomeUser.Location = new Point(20, 50);
             lblNomeUser.Size = new Size(180, 30);
             pnlContent.Controls.Add(lblNomeUser);
 
             textUserPlaylistAutor = new TextBox();
-            textUserPlaylistAutor.Location = new Point(200, 10);
+            textUserPlaylistAutor.Location = new Point(200, 50);
             textUserPlaylistAutor.Size = new Size(450, 40);
             pnlContent.Controls.Add(textUserPlaylistAutor);
 
@@ -1271,27 +1254,16 @@ namespace Proj_BD
             TituloPlay.Text = "Titulo PlayList:";
             TituloPlay.ForeColor = Color.White;
             TituloPlay.Font = new Font(TituloPlay.Font, FontStyle.Bold);
-            TituloPlay.Location = new Point(20, 50);
+            TituloPlay.Location = new Point(20, 90);
             TituloPlay.Size = new Size(180, 30);
             pnlContent.Controls.Add(TituloPlay);
 
             txtTituloPlay = new TextBox();
-            txtTituloPlay.Location = new Point(200, 50);
+            txtTituloPlay.Location = new Point(200, 90);
             txtTituloPlay.Size = new Size(450, 40);
             pnlContent.Controls.Add(txtTituloPlay);
 
-            Label lblidPlayList = new Label();
-            lblidPlayList.Text = "Id Playlist:";
-            lblidPlayList.ForeColor = Color.White;
-            lblidPlayList.Font = new Font(lblidPlayList.Font, FontStyle.Bold);
-            lblidPlayList.Location = new Point(20, 90);
-            lblidPlayList.Size = new Size(180, 30);
-            pnlContent.Controls.Add(lblidPlayList);
 
-            idPlayList = new TextBox();
-            idPlayList.Location = new Point(200, 90);
-            idPlayList.Size = new Size(450, 40);
-            pnlContent.Controls.Add(idPlayList);
 
             Label lblEstadoPlayList = new Label();
             lblEstadoPlayList.Text = "Estado:";
@@ -1309,11 +1281,11 @@ namespace Proj_BD
 
 
             Label TextCodigoP = new Label();
-            TextCodigoP.Text = "A informação abaixo so é preenchida no caso do utilizador querer saber mais informações a cerca de alguma playlis, como por exemplo o conteudo, etc.";
+            TextCodigoP.Text = "A informação abaixo so é preenchida no caso do utilizador querer saber mais informações a cerca de alguma playlist";
             TextCodigoP.ForeColor = Color.White;
             TextCodigoP.Font = new Font(TextCodigoP.Font, FontStyle.Bold);
             TextCodigoP.Location = new Point(20, 350);
-            TextCodigoP.Size = new Size(650, 30);
+            TextCodigoP.Size = new Size(1000, 30);
             pnlContent.Controls.Add(TextCodigoP);
 
             Label lblCodigoP = new Label();
@@ -1329,12 +1301,59 @@ namespace Proj_BD
             CodigoP.Size = new Size(450, 40);
             pnlContent.Controls.Add(CodigoP);
 
+            Label lblAddPl = new Label();
+            lblAddPl.Text = "Adicionar Conteúdo a uma playlist";
+            lblAddPl.ForeColor = Color.White;
+            lblAddPl.Font = new Font(lblAddPl.Font, FontStyle.Bold);
+            lblAddPl.Location = new Point(20, pnlContent.Height - 200);
+            lblAddPl.Size = new Size(300, 30);
+            pnlContent.Controls.Add(lblAddPl);
+
+            Label lblCodigoConteudoP = new Label();
+            lblCodigoConteudoP.Text = "Codigo do Conteúdo:";
+            lblCodigoConteudoP.ForeColor = Color.White;
+            lblCodigoConteudoP.Font = new Font(lblCodigoConteudoP.Font, FontStyle.Bold);
+            lblCodigoConteudoP.Location = new Point(20, pnlContent.Height - 160);
+            lblCodigoConteudoP.Size = new Size(180, 30);
+            pnlContent.Controls.Add(lblCodigoConteudoP);
+
+            CodigoADDC = new TextBox();
+            CodigoADDC.Location = new Point(200, pnlContent.Height - 160);
+            CodigoADDC.Size = new Size(450, 40);
+            pnlContent.Controls.Add(CodigoADDC);
+
+
+            Label lblCodigoaddP = new Label();
+            lblCodigoaddP.Text = "Codigo da playlist:";
+            lblCodigoaddP.ForeColor = Color.White;
+            lblCodigoaddP.Font = new Font(lblCodigoaddP.Font, FontStyle.Bold);
+            lblCodigoaddP.Location = new Point(20, pnlContent.Height - 110);
+            lblCodigoaddP.Size = new Size(180, 30);
+            pnlContent.Controls.Add(lblCodigoaddP);
+
+            CodigoADDPlaylist = new TextBox();
+            CodigoADDPlaylist.Location = new Point(200, pnlContent.Height - 110);
+            CodigoADDPlaylist.Size = new Size(450, 40);
+            pnlContent.Controls.Add(CodigoADDPlaylist);
+
+            Button AddPlaylist = new Button();
+            AddPlaylist.Text = "Adicionar a Playlist";
+            AddPlaylist.Font = new Font(AddPlaylist.Font, FontStyle.Bold);
+            AddPlaylist.Size = new Size(200, 30); // Ajusta o tamanho do botão
+            AddPlaylist.Location = new Point(pnlContent.Width - 230, 650);
+            AddPlaylist.BackColor = Color.White; // Define a cor de fundo como branco
+            AddPlaylist.FlatStyle = FlatStyle.Flat;
+            AddPlaylist.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            AddPlaylist.Click += AddPlaylist_Click;
+            pnlContent.Controls.Add(AddPlaylist);
+
+
 
             Button enviarPlayList = new Button();
             enviarPlayList.Text = "Criar PlayList";
             enviarPlayList.Font = new Font(enviarPlayList.Font, FontStyle.Bold);
             enviarPlayList.Size = new Size(200, 30); // Ajusta o tamanho do botão
-            enviarPlayList.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 130);
+            enviarPlayList.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 280);
             enviarPlayList.BackColor = Color.White; // Define a cor de fundo como branco
             enviarPlayList.FlatStyle = FlatStyle.Flat;
             enviarPlayList.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
@@ -1345,7 +1364,7 @@ namespace Proj_BD
             verPlayList.Text = "Ver PlayLists Criadas";
             verPlayList.Font = new Font(verPlayList.Font, FontStyle.Bold);
             verPlayList.Size = new Size(200, 30); // Ajusta o tamanho do botão
-            verPlayList.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 90);
+            verPlayList.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 240);
             verPlayList.BackColor = Color.White; // Define a cor de fundo como branco
             verPlayList.FlatStyle = FlatStyle.Flat;
             verPlayList.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
@@ -1356,7 +1375,7 @@ namespace Proj_BD
             clearPnlContent.Text = "Close";
             clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
             clearPnlContent.Size = new Size(200, 30); // Ajusta o tamanho do botão
-            clearPnlContent.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 50);
+            clearPnlContent.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 200);
             clearPnlContent.BackColor = Color.White; // Define a cor de fundo como branco
             clearPnlContent.FlatStyle = FlatStyle.Flat;
             clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
@@ -1374,29 +1393,64 @@ namespace Proj_BD
             verPlayListCodigo.Click += verPlayListCodigo_Click;
             pnlContent.Controls.Add(verPlayListCodigo);
 
-
         }
-        public void enviarPlayList_Click(object sender, EventArgs e)
-        {
-            //apos o user clicar no criar em vez de dar clear a tudo como fazia antes mostrar a playlist ou seja dar clear dos buttons e das labels e dar print de uma tabela do comentario
-            string UserPlaylistAutor = textUserPlaylistAutor.Text;
-            string TituloPlayList = txtTituloPlay.Text;
-            string CodigoPlayList = idPlayList.Text;
-            string EstadoP = EstadoPlayList.Text;
+
+        public void AddPlaylist_Click(object sender, EventArgs e)
+            {
+
+            string VideoID = CodigoADDC.Text;
+            string PlaylistID = CodigoADDPlaylist.Text;
+
 
             // Verificar se todos os campos foram preenchidos
-           if (string.IsNullOrWhiteSpace(UserPlaylistAutor) || string.IsNullOrWhiteSpace(TituloPlayList) ||
-                string.IsNullOrWhiteSpace(CodigoPlayList) || string.IsNullOrWhiteSpace(EstadoP))
+            if (string.IsNullOrWhiteSpace(VideoID) || string.IsNullOrWhiteSpace(PlaylistID))
             {
                 MessageBox.Show("Por favor, preencha todos os campos.");
                 return;
             }
 
-            int CodigoP = int.Parse(CodigoPlayList);
+
+            int VideoID2 = int.Parse(VideoID);
+            int PlaylistID2 = int.Parse(PlaylistID);
+
+            bool sucesso = dataRepository.AddContentToPlaylist(VideoID2,PlaylistID2);
+
+
+            if (sucesso)
+            {
+                MessageBox.Show("Adicionado com sucesso á playlist "+ PlaylistID);
+                LimparCamposPlaylist();
+            }
+            else
+            {
+                MessageBox.Show("Ocorreu um erro ao inserir Conteúdo na playlist "+ PlaylistID);
+            }
+
+
+        }
+
+
+
+        public void enviarPlayList_Click(object sender, EventArgs e)
+        {
+            //apos o user clicar no criar em vez de dar clear a tudo como fazia antes mostrar a playlist ou seja dar clear dos buttons e das labels e dar print de uma tabela do comentario
+            string UserPlaylistAutor = textUserPlaylistAutor.Text;
+            string TituloPlayList = txtTituloPlay.Text;
+            string EstadoP = EstadoPlayList.Text;
+
+            // Verificar se todos os campos foram preenchidos
+           if (string.IsNullOrWhiteSpace(UserPlaylistAutor) || string.IsNullOrWhiteSpace(TituloPlayList) ||
+                 string.IsNullOrWhiteSpace(EstadoP))
+            {
+                MessageBox.Show("Por favor, preencha todos os campos.");
+                return;
+            }
+
+
             int EstadoP2 = int.Parse(EstadoP);
             int Num_Likes=0;
 
-            bool sucesso = dataRepository.InserirPlayList(TituloPlayList, CodigoP,UserPlaylistAutor,Num_Likes,EstadoP2);
+            bool sucesso = dataRepository.InserirPlayList(TituloPlayList,UserPlaylistAutor,Num_Likes,EstadoP2);
 
 
             if (sucesso)
@@ -1477,7 +1531,6 @@ namespace Proj_BD
         public void LimparCamposPlaylist (){
             textUserPlaylistAutor.Text = "";
             txtTituloPlay.Text = "";
-            idPlayList.Text = "";
             EstadoPlayList.Text = "";
         }
 

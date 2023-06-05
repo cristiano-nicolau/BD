@@ -1,5 +1,5 @@
 USE p5g2;
-go;
+go
 
 /* /////////////////////////////////////////////////  
 
@@ -52,6 +52,7 @@ BEGIN
 END
 
 
+
 /* /////////////////////////////////////////////////  
 
 
@@ -84,6 +85,23 @@ BEGIN
         THROW; -- Rethrow the error
     END CATCH;
 END;
+
+/* /////////////////////////////////////////////////  */
+
+
+CREATE PROCEDURE Youtube.AdicionarContentNaPlaylist
+    @VideoID INT,
+    @PlaylistID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO Youtube.PlaylistVideo (PlaylistID, VideoID)
+    VALUES (@PlaylistID, @VideoID);
+END;
+
+
+
 
 /* /////////////////////////////////////////////////  */
 
@@ -148,5 +166,4 @@ CREATE INDEX idx_Data_de_Visualizacao ON Youtube.Histórico (Data_de_Visualizacao
 /* /////////////////////////////////////////////////  */
 
 CREATE INDEX idx_Nome_Utilizador ON Youtube.Utilizador (Nome_Utilizador);
-
 

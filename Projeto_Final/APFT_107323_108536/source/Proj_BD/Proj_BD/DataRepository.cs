@@ -369,33 +369,38 @@ namespace Proj_BD
         }
 
         // Comentario
-        public bool InserirComentario(string Autor, string Texto, DateTime Data_Comentário, int CódigoV,int idComentário)
+        public bool InserirComentario(string Autor, string Texto, int CódigoV)
         {
             //apos o user clicar no mentario em vez de dar clear a tudo como fazia antes mostrar o comentario ou seja dar clear dos buttons e das labels e dar print com o codigo do conteudo, nome do conteudo, user que comentou, comentario e data 
-
+            try
+            {
                 if (!verifyConnection())
                     return false;
 
-                string query = "INSERT INTO Youtube.Comentários (CodigoComentario,Autor,Texto,Data_Comentário,Codigo) " +
-                               "VALUES (@idComentário,@Autor, @Texto, @Data_Comentário, @CódigoV)";
+                string query = "INSERT INTO Youtube.Comentários (Autor,Texto,Codigo) " +
+                               "VALUES (@Autor, @Texto, @CódigoV)";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
 
                     command.Parameters.AddWithValue("@Autor", Autor);
                     command.Parameters.AddWithValue("@Texto", Texto);
-                    command.Parameters.AddWithValue("@Data_Comentário", Data_Comentário);
                     command.Parameters.AddWithValue("@CódigoV", CódigoV);
-                    command.Parameters.AddWithValue("@idComentário", idComentário);
 
-                // apagar a proxima linha de codigo esta ca so para testes
+                    // apagar a proxima linha de codigo esta ca so para testes
                     int rowsAffected = command.ExecuteNonQuery();
 
                     // apagar a proxima linha de codigo esta ca so para testes
                     return rowsAffected > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro ao inserir Comentário : " + ex.Message);
+                return false;
             }
 
-    
+
         }
         public DataTable ListarComentario()
         {
@@ -462,13 +467,43 @@ namespace Proj_BD
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Erro ao obter utilizadores: " + ex.Message);
+                Console.WriteLine("Erro ao obter Comentários do conteúdo: " + ex.Message);
                 return null;
             }
         }
 
+
         // PlayList
-        public bool InserirPlayList(String Titulo,int CodigoP,String Autor,int Num_Likes,int EstadoP)
+
+        public bool AddContentToPlaylist(int VideoID, int PlaylistID)
+        {
+            try
+            {
+                if (!verifyConnection())
+                    return false;
+
+                string query = "Youtube.AdicionarContentNaPlaylist";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@VideoID", VideoID);
+                    command.Parameters.AddWithValue("@PlaylistID", PlaylistID);
+
+                    command.ExecuteNonQuery();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error while adding content to playlist: " + ex.Message);
+                return false;
+            }
+
+        }
+
+
+        public bool InserirPlayList(String Titulo,String Autor,int Num_Likes,int EstadoP)
         {
             //apos o user clicar no mentario em vez de dar clear a tudo como fazia antes mostrar o comentario ou seja dar clear dos buttons e das labels e dar print com o codigo do conteudo, nome do conteudo, user que comentou, comentario e data 
             try
@@ -476,13 +511,12 @@ namespace Proj_BD
                 if (!verifyConnection())
                     return false;
 
-                string query = "INSERT INTO Youtube.Playlist (Titulo, CodigoP, Autor, Num_Likes, Estado) " +
-                               "VALUES (@TituloPlaylist, @CodigoP, @AutorPlaylist,  @Num_Likes, @Estado)";
+                string query = "INSERT INTO Youtube.Playlist (Titulo, Autor, Num_Likes, Estado) " +
+                               "VALUES (@TituloPlaylist, @AutorPlaylist,  @Num_Likes, @Estado)";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@TituloPlaylist",Titulo);
-                    command.Parameters.AddWithValue("@CodigoP", CodigoP);
                     command.Parameters.AddWithValue("@AutorPlaylist", Autor);
                     command.Parameters.AddWithValue("@Num_Likes",Num_Likes);
                     command.Parameters.AddWithValue("@Estado", EstadoP);

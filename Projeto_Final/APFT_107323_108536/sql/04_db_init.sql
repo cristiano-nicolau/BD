@@ -45,14 +45,13 @@
 	  ('MichaelTaylor', 'michael.taylor@example.com', 'SecurePass', 'Michael Taylor', '1991-11-09'),
 	  ('JessicaClark', 'jessica.clark@example.com', 'SecretPass', 'Jessica Clark', '1987-04-25');
 
-	-- Insert data into the 'Canal' table
 	INSERT INTO Youtube.Canal (Nome_Utilizador, Num_Subscritores, Num_conteudo, Descrição_Canal, Subscreve)
 	SELECT Nome_Utilizador, 500, 20, 'Sample description', 50
 	FROM Youtube.Utilizador
 	WHERE Nome_Utilizador != 'Colins' AND Nome_Utilizador != 'Unitys';
 
-	-- Insert data into the 'Conteúdo' table
-	INSERT INTO Youtube.Conteúdo (Titulo, Codigo, Autor, Tipo, Estado, Duração, Num_Likes, Num_Visualizações, Data_Publicação)
+
+	INSERT INTO Youtube.Conteúdo (Titulo, Codigo, Autor, Tipo, Estado, Duracao, Num_Likes, Num_Views, Data_Pub)
 	VALUES
 	  ('Video 3', 3, 'JohnDoe', 'Type 1', 1, '00:08:30', 10, 100, '2023-05-03'),
 	  ('Video 4', 4, 'JaneSmith', 'Type 2', 0, '00:12:15', 15, 120, '2023-05-04'),
@@ -61,21 +60,25 @@
 	  ('Video 7', 7, 'DavidWilson', 'Type 1', 1, '00:07:55', 18, 170, '2023-05-07'),
 	  ('Video 8', 8, 'SarahMiller', 'Type 2', 0, '00:10:40', 25, 200, '2023-05-08'),
 	  ('Video 9', 9, 'MichaelTaylor', 'Type 1', 1, '00:05:30', 22, 180, '2023-05-09'),
-	  ('Video 10', 10, 'JessicaClark', 'Type 2', 0, '00:08:10', 30, 250, '2023-05-10');
+	  ('Video 10', 10, 'JessicaClark', 'Type 2', 0, '00:08:10', 30, 250, '2023-05-10'),
+	  ('Joias em ouro',43,'JohnDoe','Video', 1, '00:22:07',230,25416,'2023-03-29'),
+	  ('Relogios baratos',44,'JohnDoe','Video', 1, '00:33:45',40,1000,'2023-05-10'),
+	  ('Jogos até 5 euros',45,'MichaelTaylor','Video',1,'00:14:02', 5657,343242,'2023-06-02');
 
-	-- Insert data into the 'Descrição' table
-	INSERT INTO Youtube.Descrição (Codigo, Texto, Num_Likes, Num_Visualizações, Data_Publicação)
+	
+
+	INSERT INTO Youtube.Descrição (Codigo, Texto)
 	VALUES
-	  (3, 'Description 3', 10, 100, '2023-05-03'),
-	  (4, 'Description 4', 15, 120, '2023-05-04'),
-	  (5, 'Description 5', 20, 150, '2023-05-05'),
-	  (6, 'Description 6', 12, 110, '2023-05-06'),
-	  (7, 'Description 7', 18, 170, '2023-05-07'),
-	  (8, 'Description 8', 25, 200, '2023-05-08'),
-	  (9, 'Description 9', 22, 180, '2023-05-09'),
-	  (10, 'Description 10', 30, 250, '2023-05-10');
+	  (3, 'Description 3'),
+	  (4, 'Description 4'),
+	  (5, 'Description 5'),
+	  (6, 'Description 6'),
+	  (7, 'Description 7'),
+	  (8, 'Description 8'),
+	  (9, 'Description 9'),
+	  (10, 'Description 10');
 
-	-- Insert data into the 'Playlist' table
+
 	INSERT INTO Youtube.Playlist (Titulo, CodigoP, Autor, Num_Likes, Estado)
 	VALUES
 	  ('Playlist 3', 3, 'JohnDoe', 40, 1),
@@ -87,7 +90,7 @@
 	  ('Playlist 9', 9, 'MichaelTaylor', 65, 1),
 	  ('Playlist 10', 10, 'JessicaClark', 80, 0);
 
-	-- Insert data into the 'Comentários' table
+
 	INSERT INTO Youtube.Comentários (Autor, Texto, Data_Comentário, CódigoV)
 	VALUES
 	  ('JohnDoe', 'Comment 3', '2023-05-03', 3),
@@ -99,7 +102,7 @@
 	  ('MichaelTaylor', 'Comment 9', '2023-05-09', 9),
 	  ('JessicaClark', 'Comment 10', '2023-05-10', 10);
 
-	-- Insert data into the 'Histórico' table
+
 	INSERT INTO Youtube.Histórico (Titulo, Codigo, Data_de_Visualização, Nome_Utilizador)
 	VALUES
 	  ('Video 3', 3, '2023-05-03', 'JohnDoe'),
