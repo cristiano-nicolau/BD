@@ -626,7 +626,8 @@ namespace Proj_BD
 
             tstSenha = new TextBox();
             tstSenha.Location = new Point(200, 90);
-            tstSenha.Size = new Size(450, 40); 
+            tstSenha.Size = new Size(450, 40);
+            tstSenha.UseSystemPasswordChar = true;
             pnlContent.Controls.Add(tstSenha);
 
             Label lblNomeApelido = new Label();
@@ -657,11 +658,11 @@ namespace Proj_BD
 
 
             Label lblNomePremium = new Label();
-            lblNomePremium.Text = "Deseja Premium? Insira por favor :";
+            lblNomePremium.Text = "Deseja Premium? Insira o Nome de utilizador por favor :";
             lblNomePremium.ForeColor = Color.White;
             lblNomePremium.Font = new Font(lblNomePremium.Font, FontStyle.Bold);
             lblNomePremium.Location = new Point(20, pnlContent.Height-250);
-            lblNomePremium.Size = new Size(250, 30);
+            lblNomePremium.Size = new Size(600, 30);
             pnlContent.Controls.Add(lblNomePremium);
 
             txtNomePremium = new TextBox();
@@ -803,7 +804,7 @@ namespace Proj_BD
             clearPnlContent.FlatStyle = FlatStyle.Flat;
             clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
             clearPnlContent.Size = new Size(80, 30);
-            clearPnlContent.Location = new Point(pnlContent.Width - 100, pnlContent.Height - 300);
+            clearPnlContent.Location = new Point(pnlContent.Width - 130, pnlContent.Height - 300);
             clearPnlContent.Click += ClearPnlContent_Click;
             pnlContent.Controls.Add(clearPnlContent);
 
@@ -851,29 +852,16 @@ namespace Proj_BD
             TextTituloVideo.Size = new Size(450, 40); 
             pnlContent.Controls.Add(TextTituloVideo);
 
-            Label IdConteudo = new Label();
-            IdConteudo.Text = "Id Conteudo:";
-            IdConteudo.ForeColor = Color.White;
-            IdConteudo.Font = new Font(IdConteudo.Font, FontStyle.Bold);
-            IdConteudo.Location = new Point(20, 50);
-            IdConteudo.Size = new Size(180, 30); 
-            pnlContent.Controls.Add(IdConteudo);
-
-            txtIdConteudo = new TextBox();
-            txtIdConteudo.Location = new Point(200, 50);
-            txtIdConteudo.Size = new Size(450, 40); 
-            pnlContent.Controls.Add(txtIdConteudo);
-
             Label AutorConteudo = new Label();
             AutorConteudo.Text = "Autor:";
             AutorConteudo.ForeColor = Color.White;
             AutorConteudo.Font = new Font(AutorConteudo.Font, FontStyle.Bold);
-            AutorConteudo.Location = new Point(20, 90);
+            AutorConteudo.Location = new Point(20, 50);
             AutorConteudo.Size = new Size(180, 30); 
             pnlContent.Controls.Add(AutorConteudo);
 
             TextoAutorConteudo = new TextBox();
-            TextoAutorConteudo.Location = new Point(200, 90);
+            TextoAutorConteudo.Location = new Point(200, 50);
             TextoAutorConteudo.Size = new Size(450, 40); 
             pnlContent.Controls.Add(TextoAutorConteudo);
 
@@ -881,12 +869,12 @@ namespace Proj_BD
             TipoConteudo.Text = "Tipo:";
             TipoConteudo.ForeColor = Color.White;
             TipoConteudo.Font = new Font(TipoConteudo.Font, FontStyle.Bold);
-            TipoConteudo.Location = new Point(20, 130);
+            TipoConteudo.Location = new Point(20, 90);
             TipoConteudo.Size = new Size(180, 30); 
             pnlContent.Controls.Add(TipoConteudo);
 
             TextoTipoConteudo = new TextBox();
-            TextoTipoConteudo.Location = new Point(200, 130);
+            TextoTipoConteudo.Location = new Point(200, 90);
             TextoTipoConteudo.Size = new Size(450, 40); 
             pnlContent.Controls.Add(TextoTipoConteudo);
 
@@ -894,12 +882,12 @@ namespace Proj_BD
             lblEstado.Text = "Estado:";
             lblEstado.ForeColor = Color.White;
             lblEstado.Font = new Font(lblEstado.Font, FontStyle.Bold);
-            lblEstado.Location = new Point(20, 170);
+            lblEstado.Location = new Point(20, 130);
             lblEstado.Size = new Size(180, 30); 
             pnlContent.Controls.Add(lblEstado);
 
             TextoEstado = new TextBox();
-            TextoEstado.Location = new Point(200, 170);
+            TextoEstado.Location = new Point(200, 130);
             TextoEstado.Size = new Size(450, 40); 
             pnlContent.Controls.Add(TextoEstado);
 
@@ -907,53 +895,16 @@ namespace Proj_BD
             lblDuracao.Text = "Duração:";
             lblDuracao.ForeColor = Color.White;
             lblDuracao.Font = new Font(lblDuracao.Font, FontStyle.Bold);
-            lblDuracao.Location = new Point(20, 210);
+            lblDuracao.Location = new Point(20, 170);
             lblDuracao.Size = new Size(180, 30); 
             pnlContent.Controls.Add(lblDuracao);
 
             textoDuracao = new TextBox();
-            textoDuracao.Location = new Point(200, 210);
+            textoDuracao.Location = new Point(200, 170);
             textoDuracao.Size = new Size(450, 40); 
             pnlContent.Controls.Add(textoDuracao);
 
-            Label lblNumLikes = new Label();
-            lblNumLikes.Text = "Nr Likes:";
-            lblNumLikes.ForeColor = Color.White;
-            lblNumLikes.Font = new Font(lblNumLikes.Font, FontStyle.Bold);
-            lblNumLikes.Location = new Point(20, 250);
-            lblNumLikes.Size = new Size(180, 30); 
-            pnlContent.Controls.Add(lblNumLikes);
-
-            TextoNumLikes = new TextBox();
-            TextoNumLikes.Location = new Point(200, 250);
-            TextoNumLikes.Size = new Size(450, 40); 
-            pnlContent.Controls.Add(TextoNumLikes);
-
-            Label lblNumVisualizacoes = new Label();
-            lblNumVisualizacoes.Text = "Nr Views:";
-            lblNumVisualizacoes.ForeColor = Color.White;
-            lblNumVisualizacoes.Font = new Font(lblNumVisualizacoes.Font, FontStyle.Bold);
-            lblNumVisualizacoes.Location = new Point(20, 290);
-            lblNumVisualizacoes.Size = new Size(180, 30); 
-            pnlContent.Controls.Add(lblNumVisualizacoes);
-
-            textoNumVisualizacoes = new TextBox();
-            textoNumVisualizacoes.Location = new Point(200, 290);
-            textoNumVisualizacoes.Size = new Size(450, 40); 
-            pnlContent.Controls.Add(textoNumVisualizacoes);
-
-            Label lblDataPub = new Label();
-            lblDataPub.Text = "Publicado:";
-            lblDataPub.ForeColor = Color.White;
-            lblDataPub.Font = new Font(lblDataPub.Font, FontStyle.Bold);
-            lblDataPub.Location = new Point(20, 330);
-            lblDataPub.Size = new Size(180, 30); 
-            pnlContent.Controls.Add(lblDataPub);
-
-            textoDataPub = new TextBox();
-            textoDataPub.Location = new Point(200, 330);
-            textoDataPub.Size = new Size(450, 40); 
-            pnlContent.Controls.Add(textoDataPub);
+            
 
             Button enviarConteudo = new Button();
             enviarConteudo.Text = "Criar Conteúdo";
@@ -991,32 +942,25 @@ namespace Proj_BD
         public void enviarConteudo_Click (object sender, EventArgs e){
             
             string tipoConteudo = TextoTipoConteudo.Text;
-            string idConteudo = txtIdConteudo.Text;
             string EstadoConteudo = TextoEstado.Text;
-            string ViewsConteudo = textoNumVisualizacoes.Text;
-            string pubConteudo = textoDataPub.Text;
+            
             string DuracaoConteudo = textoDuracao.Text;
             string AutorConteudo = TextoAutorConteudo.Text;
             string TituloConteudo = TextTituloVideo.Text;
-            string likesConteudo = TextoNumLikes.Text;
+       
 
              // Verificar se todos os campos foram preenchidos
-            if (string.IsNullOrWhiteSpace(tipoConteudo) || string.IsNullOrWhiteSpace(idConteudo) ||
-                string.IsNullOrWhiteSpace(EstadoConteudo) || string.IsNullOrWhiteSpace(ViewsConteudo) ||
-                string.IsNullOrWhiteSpace(pubConteudo) || string.IsNullOrWhiteSpace(DuracaoConteudo) ||
-                string.IsNullOrWhiteSpace(AutorConteudo) || string.IsNullOrWhiteSpace(TituloConteudo) || string.IsNullOrWhiteSpace(likesConteudo))
+            if (string.IsNullOrWhiteSpace(tipoConteudo) ||
+                string.IsNullOrWhiteSpace(EstadoConteudo)
+                || string.IsNullOrWhiteSpace(DuracaoConteudo))
             {
                 MessageBox.Show("Por favor, preencha todos os campos.");
                 return;
             }
-            int id = int.Parse(idConteudo);
-            int likes = int.Parse(likesConteudo);
-            int views = int.Parse(ViewsConteudo);
             TimeSpan duracao = TimeSpan.Parse(DuracaoConteudo);
-            DateTime pub = DateTime.Parse(pubConteudo);
 
             // Enviar os dados para o DataRepository
-            bool sucesso = dataRepository.InserirConteudo(tipoConteudo, id, EstadoConteudo, views, pub, duracao, AutorConteudo, TituloConteudo, likes);
+            bool sucesso = dataRepository.InserirConteudo(tipoConteudo, EstadoConteudo,duracao, AutorConteudo, TituloConteudo);
 
              if (sucesso)
              {
@@ -1057,14 +1001,11 @@ namespace Proj_BD
         }
         public void LimparCamposConteudo (){
             TextoTipoConteudo.Text = string.Empty;
-            txtIdConteudo.Text = string.Empty;
             TextoEstado.Text = string.Empty;
-            textoNumVisualizacoes.Text = string.Empty;
-            textoDataPub.Text = string.Empty;
+            
             textoDuracao.Text = string.Empty;
             TextoAutorConteudo.Text = string.Empty;
             TextTituloVideo.Text = string.Empty;
-            TextoNumLikes.Text = string.Empty;
         }
 
 

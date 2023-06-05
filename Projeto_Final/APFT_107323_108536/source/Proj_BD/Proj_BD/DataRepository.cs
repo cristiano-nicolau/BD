@@ -307,27 +307,22 @@ namespace Proj_BD
 
 
         // Conteudo
-        public bool InserirConteudo(string tipoConteudo, int id, string EstadoConteudo, int views, DateTime pub, TimeSpan duracao, string AutorConteudo, string TituloConteudo, int likes)
+        public bool InserirConteudo(string tipoConteudo, string EstadoConteudo, TimeSpan duracao, string AutorConteudo, string TituloConteudo)
         {
             try
             {
                 if (!verifyConnection())
                     return false;
 
-                string query = "INSERT INTO [p5g2].[Youtube].[Conteúdo] (Titulo, Codigo, Autor, Tipo, Estado, Duracao, Num_Likes, Num_Views, Data_Pub) " +
-                               "VALUES (@Titulo, @id, @autor, @Tipo, @estado, @dura, @Likes, @views, @pub)";
+                string query = "INSERT INTO [p5g2].[Youtube].[Conteúdo] (Titulo, Autor, Tipo, Estado, Duracao) VALUES(@Titulo, @autor, @Tipo, @estado, @dura);";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Titulo", TituloConteudo);
-                    command.Parameters.AddWithValue("@id", id);
                     command.Parameters.AddWithValue("@autor", AutorConteudo);
                     command.Parameters.AddWithValue("@Tipo", tipoConteudo);
                     command.Parameters.AddWithValue("@estado", EstadoConteudo);
                     command.Parameters.AddWithValue("@dura", duracao);
-                    command.Parameters.AddWithValue("@Likes", likes);
-                    command.Parameters.AddWithValue("@views", views);
-                    command.Parameters.AddWithValue("@pub", pub);
 
 
                     int rowsAffected = command.ExecuteNonQuery();
