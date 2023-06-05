@@ -61,7 +61,7 @@ Podem ainda subscrever outros utilizadores, dar like, comentar conteúdo, criar 
 ### APFE
 
 - Adicionados alguns atributos necessarios para a ligaçaão da base de dados.
-- Foram retiradas algumas ligaçoes desnecessárias, por exemplo haviam varias chaves a ir buscar valores diferentes a mesma entidade.
+- Foram retiradas algumas ligações desnecessárias, por exemplo haviam varias chaves a ir buscar valores diferentes a mesma entidade.
 
 
 ## ​SQL DDL - Data Definition Language
