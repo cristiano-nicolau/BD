@@ -52,7 +52,7 @@ Podem ainda subscrever outros utilizadores, dar like, comentar conteúdo, criar 
 [SQL DDL File](sql/01_ddl.sql "SQLFileQuestion")
 
 ## SQL DML - Data Manipulation Language
- estamos aqui, inserir as queries todas mais os screenshots
+
 ### Formulario exemplo/Example Form
 
 ![Exemplo Screenshot!](screenshots/screenshot_1.jpg "AnImage")
@@ -76,24 +76,20 @@ Uso de chaves primárias e chaves estrangeiras para as relações entre entidade
 ## Índices/Indexes
 
 Índice na coluna "Data_de_Visualizacao" na tabela "Youtube.Histórico":
-
-"CREATE INDEX idx_Data_de_Visualizacao ON Youtube.Histórico (Data_de_Visualizacao);"
-
+```sql
+CREATE INDEX idx_Data_de_Visualizacao ON Youtube.Histórico (Data_de_Visualizacao);
+```
 Este indice melhora a ordenação do histórico por data_de_visualização do mais recente para o mais antigo.
 
+<br>
 
 Índice na coluna Nome_Utilizador na tabela Youtube.Utilizador:
-
-"CREATE INDEX idx_Nome_Utilizador ON Youtube.Utilizador (Nome_Utilizador);"
-
+```sql
+CREATE INDEX idx_Nome_Utilizador ON Youtube.Utilizador (Nome_Utilizador);"
+```
 Indice que melhora o desempenho na pesquisa de Utilizadores.
 
 
-
-```sql
--- Create an index to speed
-CREATE INDEX index_name ON table_name (column1, column2, ...);
-```
 
 ## SQL Programming: Stored Procedures, Triggers, UDF
 
