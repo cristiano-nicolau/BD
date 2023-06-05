@@ -3,24 +3,7 @@
 **Grupo**: P5G2
 - Vasco Faria, MEC: 107323
 - Cristiano Nicolau, MEC: 108536
-
-# Instructions - TO REMOVE
-
-This template is flexible.
-It is suggested to follow the structure, file links and images but add more content where necessary.
-
-The files should be organized with the following nomenclature:
-
-- sql\01_ddl.sql: mandatory for DDL
-- sql\02_sp_functions.sql: mandatory for Store Procedure, Functions,... 
-- sql\03_triggers.sql: mandatory for triggers
-- sql\04_db_init.sql: scripts to init the database (i.e. inserts etc.)
-- sql\05_any_other_matter.sql: any other scripts.
-
-Por favor remova esta secção antes de submeter.
-
-Please remove this section before submitting.
-
+- 
 ## Introdução / Introduction
  
 O nosso projeto final é uma modelação de uma base de dados sobre a plataforma Youtube.
@@ -123,6 +106,23 @@ CREATE INDEX index_name ON table_name (column1, column2, ...);
 ### Dados iniciais da dabase de dados/Database init data 
 
 [Indexes File](sql/04_db_init.sql "SQLFileQuestion")
+
+
+### Apresentação do trabalho em aula
+
+#### Apresentação PowerPoint
+
+[Apresentação](presentation/Apresentçao_Final.pptx "PowerPointFile")
+
+#### Apresentação video demo
+
+[Video Demo](presentation/video_apresentaçao_final "Mp4File")
+
+Após a apresentação do trabalho feito ocorreram devidas mudanças na interface, devido a criação de triggers, udfs e stored procedure, fazendo com que a demo do video nao esteja atualizada. 
+
+
+
+
 
 
 
