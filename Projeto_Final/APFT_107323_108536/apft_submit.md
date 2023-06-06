@@ -60,7 +60,7 @@ Podem ainda subscrever outros utilizadores, dar like, comentar conteúdo, criar 
 <br>
 
 ```c#
-//Show data on the form
+//Adicionar Utilizador
 string query = "SELECT u.Nome_Utilizador, u.Senha, c.Num_Subscritores, c.Num_Conteudo, c.Descrição_Canal " +
                 "FROM [p5g2].[Youtube].[Utilizador] u " +
                 "INNER JOIN [p5g2].[Youtube].[Canal] c ON u.Nome_Utilizador = c.Nome_Utilizador " +
@@ -108,11 +108,103 @@ string insertQuery = "INSERT INTO [Youtube].[Historico] (Titulo, Codigo, Data_de
 ```c#
 //Inserir comentário num certo 
 string query = "INSERT INTO Youtube.Comentários (Autor,Texto,Codigo) " +
-                               "VALUES (@Autor, @Texto, @CódigoV)";
+                "VALUES (@Autor, @Texto, @CódigoV)";
 
+//Listar todos os comentários
+string query = "SELECT * FROM [p5g2].[Youtube].[Comentários]";
 
+//Listar Comentários de um certo Conteúdo
+string query = @"SELECT c.Titulo AS NomeConteudo,
+                u.Nome_Utilizador AS NomeUtilizador, 
+                com.Autor, com.Texto AS Comentario, com.Data_Comentário
+                FROM Youtube.Conteúdo c
+                INNER JOIN Youtube.Canal cn ON c.Autor = cn.Nome_Utilizador
+                INNER JOIN Youtube.Comentários com ON com.Codigo = c.Codigo
+                INNER JOIN Youtube.Utilizador u ON u.Nome_Utilizador = com.Autor
+                WHERE c.Codigo = @idConteudo;";
+```
+<br>
+
+### Formulário Playlist
+
+![Playlist](screenshots/Playlist.png "Playlist")
+
+<br>
+
+```c#
+
+//Adicionar Conteudo a uma Playlist
+string query = "Youtube.AdicionarContentNaPlaylist";
+
+//Criar Playlist
+string query = "INSERT INTO Youtube.Playlist (Titulo, Autor, Num_Likes, Estado) " +
+                "VALUES (@TituloPlaylist, @AutorPlaylist,  @Num_Likes, @Estado)";
+
+//Listar todas as Playlists
+string query = @"SELECT p.Titulo, p.CodigoP AS PlaylistID, [p5g2].[Youtube].CalculatePlaylistDuration(p.CodigoP) AS PlayList_Time_Duration,
+                p.Autor, p.Num_Likes, e.state_name AS Estado
+                FROM [p5g2].[Youtube].[Playlist] p
+                JOIN [p5g2].[Youtube].[Estados] e ON p.Estado = e.state_id";
+
+//Listar todo o conteúdo de uma playlist
+string query= "SELECT C.Codigo, C.Titulo, C.Autor, C.Tipo, E.state_name AS Estado, C.Duracao, C.Num_Likes, C.Num_Views, C.Data_Pub FROM Youtube.Conteúdo AS C INNER JOIN Youtube.PlaylistVideo AS PV ON C.Codigo = PV.VideoID INNER JOIN Youtube.Estados AS E ON C.Estado = E.state_id WHERE PV.PlaylistID = @playlistID ";
 
 ```
+
+<br>
+
+### Formulário Histórico
+
+![Historico](screenshots/Historico.png "Historico")
+
+<br>
+
+```c#
+
+//Listar historico de conteúdos visualizados
+ string query = "SELECT Titulo, Codigo, Data_de_Visualizacao FROM[p5g2].[Youtube].[Historico] ORDER BY CodigoContentVisto DESC";
+
+``` 
+
+<br>
+
+### Formulário Inicio Sessão Canal
+
+![Canal](screenshots/Canais1.png "Canal")
+
+<br>
+
+```c#
+
+//Iniciar Sessão 
+string query = "SELECT [Youtube].[CheckCredentials](@NomeUtilizador, @Senha)";
+ 
+``` 
+<br>
+
+### Formulário Canal
+
+![CanalI](screenshots/Canais2.png "CanalI")
+
+```C#
+
+//Dar delete de uma playlist
+"Youtube.DeletePlaylist"
+
+//Dar likes em Conteúdos
+string updateQuery = "UPDATE [Youtube].[Conteúdo] SET Num_Likes = Num_Likes + 1 WHERE Codigo = @Codigo";
+
+
+//Deixar de Subscrever um canal
+"Youtube.UpdateSubscribers2"
+
+//Susbrever um canal
+"Youtube.UpdateSubscribers"
+```
+
+<br>
+
+
 
 ## Normalização/Normalization
 
