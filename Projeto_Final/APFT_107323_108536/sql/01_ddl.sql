@@ -1,7 +1,7 @@
 	USE p5g2;
 	GO
 
-	
+
 
 	CREATE SCHEMA Youtube;
 	GO
@@ -92,16 +92,18 @@ CREATE TABLE Youtube.Coment�rios (
 );
 	GO
 
-	CREATE TABLE Youtube.Hist�rico (
+
+
+	CREATE TABLE Youtube.Historico (
 		Titulo varchar(30) not null,
 		Codigo int,
-		Data_de_Visualiza��o date not null,
-		Nome_Utilizador varchar(20) not null,
-		PRIMARY KEY (Codigo),
-		FOREIGN KEY (Codigo) REFERENCES Youtube.Conte�do(Codigo),
-		FOREIGN KEY (Nome_Utilizador) REFERENCES Youtube.Utilizador(Nome_Utilizador)
+		Data_de_Visualizacao date not null,
+		CodigoContentVisto int not null,
+		PRIMARY KEY (CodigoContentVisto),
+		FOREIGN KEY (Codigo) REFERENCES Youtube.Conteúdo(Codigo),
 	);
 	GO
+
 
 	 CREATE TABLE Youtube.PlaylistVideo (
 		PlaylistID int,
@@ -138,6 +140,8 @@ CREATE TABLE Youtube.Coment�rios (
 	ADD CONSTRAINT FK_Hist�rico_Conte�do FOREIGN KEY (Codigo) REFERENCES Youtube.Conte�do(Codigo),
 		CONSTRAINT FK_Hist�rico_Utilizador FOREIGN KEY (Nome_Utilizador) REFERENCES Youtube.Utilizador(Nome_Utilizador);
 	GO
+
+
 
 	
 

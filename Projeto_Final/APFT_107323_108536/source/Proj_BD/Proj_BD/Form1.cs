@@ -38,7 +38,8 @@ namespace Proj_BD
         private Button DeletePlay;
         private TextBox CodigoADDC;
         private TextBox CodigoADDPlaylist;
-
+        private TextBox viewID;
+        private PictureBox pictureBox1;
 
 
         // Campos de texto para capturar os valores do utilizador
@@ -92,6 +93,10 @@ namespace Proj_BD
         private TextBox CodigoLikeVideo;
         private TextBox Unfollow;
         private TextBox subscreverCanal;
+
+
+        static string buttonColor = "#323232";
+        Color customColor = ColorTranslator.FromHtml(buttonColor);
 
 
 
@@ -178,7 +183,10 @@ namespace Proj_BD
             pnlContent = new Panel();
             pnlContent.Size = new Size(this.Width, this.Height - btnUtilizadores.Height);
             pnlContent.Location = new Point(0, btnUtilizadores.Bottom);
-            pnlContent.BackColor = Color.DarkRed;
+            string hexColor = "#2E2A2A";
+            Color customColor = ColorTranslator.FromHtml(hexColor);
+            pnlContent.BackColor = customColor;
+
             pnlContent.BorderStyle = BorderStyle.Fixed3D;
             this.Controls.Add(pnlContent);
 
@@ -196,13 +204,15 @@ namespace Proj_BD
         }
         private void btnCanal_Click ( object sender, EventArgs e )
         {
-                        // Limpar os dados do painel
+
+
             pnlContent.Controls.Clear();
+
             Label NomeUtilizador = new Label();
             NomeUtilizador.Text = "Introduza o nome de utilizador e a palavra passe do canal onde quer iniciar sessao:";
             NomeUtilizador.ForeColor = Color.White;
             NomeUtilizador.Font = new Font(NomeUtilizador.Font, FontStyle.Bold);
-            NomeUtilizador.Location = new Point(20, 20);
+            NomeUtilizador.Location = new Point(20, 30);
             NomeUtilizador.Size = new Size(500, 30);
             pnlContent.Controls.Add(NomeUtilizador);
 
@@ -211,12 +221,12 @@ namespace Proj_BD
             lblNomeUtilizador.Text = "Nome de Utilizador:";
             lblNomeUtilizador.ForeColor = Color.White;
             lblNomeUtilizador.Font = new Font(lblNomeUtilizador.Font, FontStyle.Bold);
-            lblNomeUtilizador.Location = new Point(20, 50);
+            lblNomeUtilizador.Location = new Point(20, 80);
             lblNomeUtilizador.Size = new Size(180, 30);
             pnlContent.Controls.Add(lblNomeUtilizador);
 
             Canal = new TextBox();
-            Canal.Location = new Point(200, 50);
+            Canal.Location = new Point(200, 80);
             Canal.Size = new Size(450, 40);
             pnlContent.Controls.Add(Canal);
 
@@ -224,47 +234,62 @@ namespace Proj_BD
             lblSenha.Text = "Senha do Utilizador:";
             lblSenha.ForeColor = Color.White;
             lblSenha.Font = new Font(lblSenha.Font, FontStyle.Bold);
-            lblSenha.Location = new Point(20, 90);
+            lblSenha.Location = new Point(20, 130);
             lblSenha.Size = new Size(180, 30);
             pnlContent.Controls.Add(lblSenha);
 
             SenhaCanal = new TextBox();
-            SenhaCanal.Location = new Point(200, 90);
+            SenhaCanal.Location = new Point(200, 130);
             SenhaCanal.Size = new Size(450, 40);
             pnlContent.Controls.Add(SenhaCanal);
 
             Button enviarUser = new Button();
             enviarUser.Text = "Inicia Sessão";
             enviarUser.Font = new Font(enviarUser.Font, FontStyle.Bold);
-            enviarUser.Size = new Size(200, 30); // Ajusta o tamanho do botão
-            enviarUser.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 130);
-            enviarUser.BackColor = Color.White; // Define a cor de fundo como branco
+            enviarUser.Size = new Size(200, 40); // Ajusta o tamanho do botão
+            enviarUser.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 150);
+            enviarUser.BackColor = customColor; // Define a cor de fundo como branco
             enviarUser.FlatStyle = FlatStyle.Flat;
-            enviarUser.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            enviarUser.ForeColor = Color.White;
+            enviarUser.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
             enviarUser.Click += IniciarSessao_Click;
             pnlContent.Controls.Add(enviarUser);
 
             Button verUsers = new Button();
             verUsers.Text = "Listar canais";
             verUsers.Font = new Font(verUsers.Font, FontStyle.Bold);
-            verUsers.Size = new Size(200, 30); // Ajusta o tamanho do botão
+            verUsers.Size = new Size(200, 40); // Ajusta o tamanho do botão
             verUsers.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 90);
-            verUsers.BackColor = Color.White; // Define a cor de fundo como branco
+            verUsers.BackColor = customColor; // Define a cor de fundo como branco
             verUsers.FlatStyle = FlatStyle.Flat;
-            verUsers.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            verUsers.ForeColor = Color.White;
+            verUsers.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
             verUsers.Click += ProcurarUser_Click;
             pnlContent.Controls.Add(verUsers);
 
             Button clearPnlContent = new Button();
             clearPnlContent.Text = "Close";
             clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
-            clearPnlContent.Size = new Size(200, 30); // Ajusta o tamanho do botão
-            clearPnlContent.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 50);
-            clearPnlContent.BackColor = Color.White; // Define a cor de fundo como branco
+            clearPnlContent.Size = new Size(200, 40); // Ajusta o tamanho do botão
+            clearPnlContent.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 30);
+            clearPnlContent.BackColor = customColor; // Define a cor de fundo como branco
             clearPnlContent.FlatStyle = FlatStyle.Flat;
-            clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            clearPnlContent.ForeColor = Color.White;
+            clearPnlContent.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
             clearPnlContent.Click += ClearPnlContent_Click;
             pnlContent.Controls.Add(clearPnlContent);
+
+            pictureBox1 = new PictureBox();
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.Location = new Point(40, 250);
+            pictureBox1.Size = new Size(700, 600);
+
+            string imagePath = @"../../../Youtube.png";
+            Image image = Image.FromFile(imagePath);
+            pictureBox1.Image = image;
+
+            pnlContent.Controls.Add(pictureBox1);
+
         }
         private void AfterUserConnect()
         {
@@ -363,55 +388,60 @@ namespace Proj_BD
             Button DeletePlay = new Button();
             DeletePlay.Text = "Apagar Playlist";
             DeletePlay.Font = new Font(DeletePlay.Font, FontStyle.Bold);
-            DeletePlay.Size = new Size(200, 30); // Ajusta o tamanho do botão
+            DeletePlay.Size = new Size(200, 40); // Ajusta o tamanho do botão
             DeletePlay.Location = new Point(pnlContent.Width - 230, 50);
-            DeletePlay.BackColor = Color.White; // Define a cor de fundo como branco
+            DeletePlay.BackColor = customColor; // Define a cor de fundo como branco
             DeletePlay.FlatStyle = FlatStyle.Flat;
-            DeletePlay.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            DeletePlay.ForeColor = Color.White;
+            DeletePlay.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
             DeletePlay.Click += DeletePlay_Click;
             pnlContent.Controls.Add(DeletePlay);
             
             Button LikeVideo = new Button();
             LikeVideo.Text = "Dar Like em um video";
             LikeVideo.Font = new Font(LikeVideo.Font, FontStyle.Bold);
-            LikeVideo.Size = new Size(200, 30); // Ajusta o tamanho do botão
+            LikeVideo.Size = new Size(200, 40); // Ajusta o tamanho do botão
             LikeVideo.Location = new Point(pnlContent.Width - 230, 170);
-            LikeVideo.BackColor = Color.White; // Define a cor de fundo como branco
+            LikeVideo.BackColor = customColor; // Define a cor de fundo como branco
             LikeVideo.FlatStyle = FlatStyle.Flat;
-            LikeVideo.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            LikeVideo.ForeColor = Color.White;
+            LikeVideo.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
             LikeVideo.Click += LikeVideo_Click;
             pnlContent.Controls.Add(LikeVideo);
 
             Button SubscriveVideo = new Button();
             SubscriveVideo.Text = "Subscrever um canal";
             SubscriveVideo.Font = new Font(SubscriveVideo.Font, FontStyle.Bold);
-            SubscriveVideo.Size = new Size(200, 30); // Ajusta o tamanho do botão
+            SubscriveVideo.Size = new Size(200, 40); // Ajusta o tamanho do botão
             SubscriveVideo.Location = new Point(pnlContent.Width - 230, 290);
-            SubscriveVideo.BackColor = Color.White; // Define a cor de fundo como branco
+            SubscriveVideo.BackColor = customColor; // Define a cor de fundo como branco
             SubscriveVideo.FlatStyle = FlatStyle.Flat;
-            SubscriveVideo.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            SubscriveVideo.ForeColor = Color.White;
+            SubscriveVideo.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
             SubscriveVideo.Click += SubscriveVideo_Click;
             pnlContent.Controls.Add(SubscriveVideo);
 
             Button unSubscriveVideo = new Button();
             unSubscriveVideo.Text = "Unfollow canal";
             unSubscriveVideo.Font = new Font(unSubscriveVideo.Font, FontStyle.Bold);
-            unSubscriveVideo.Size = new Size(200, 30); // Ajusta o tamanho do botão
+            unSubscriveVideo.Size = new Size(200, 40); // Ajusta o tamanho do botão
             unSubscriveVideo.Location = new Point(pnlContent.Width - 230, 410);
-            unSubscriveVideo.BackColor = Color.White; // Define a cor de fundo como branco
+            unSubscriveVideo.BackColor= customColor; // Define a cor de fundo como branco
             unSubscriveVideo.FlatStyle = FlatStyle.Flat;
-            unSubscriveVideo.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            unSubscriveVideo.ForeColor = Color.White;
+            unSubscriveVideo.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
             unSubscriveVideo.Click += unSubscriveVideo_Click;
             pnlContent.Controls.Add(unSubscriveVideo);
 
             Button clearPnlContent = new Button();
             clearPnlContent.Text = "Close";
             clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
-            clearPnlContent.Size = new Size(200, 30); // Ajusta o tamanho do botão
+            clearPnlContent.Size = new Size(200, 40); // Ajusta o tamanho do botão
             clearPnlContent.Location = new Point(pnlContent.Width - 230,  480);
-            clearPnlContent.BackColor = Color.White; // Define a cor de fundo como branco
+            clearPnlContent.BackColor = customColor; // Define a cor de fundo como branco
             clearPnlContent.FlatStyle = FlatStyle.Flat;
-            clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            clearPnlContent.ForeColor = Color.White;
+            clearPnlContent.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
             clearPnlContent.Click += ClearPnlContent_Click;
             pnlContent.Controls.Add(clearPnlContent);
         }
@@ -562,10 +592,11 @@ namespace Proj_BD
             clearPnlContent = new Button();
             clearPnlContent.Text = "Close";
             clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
-            clearPnlContent.BackColor = Color.White; // Define a cor de fundo como branco
+            clearPnlContent.BackColor = customColor; // Define a cor de fundo como branco
             clearPnlContent.FlatStyle = FlatStyle.Flat;
-            clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
-            clearPnlContent.Size = new Size(80, 30);
+            clearPnlContent.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
+            clearPnlContent.ForeColor = Color.White;
+            clearPnlContent.Size = new Size(80, 40);
             clearPnlContent.Location = new Point(pnlContent.Width - 250, pnlContent.Height - 300);
             clearPnlContent.Click += ClearPnlContent_Click;
             pnlContent.Controls.Add(clearPnlContent);
@@ -688,44 +719,48 @@ namespace Proj_BD
             Button SubmeterPremium = new Button();
             SubmeterPremium.Text = "Premium";
             SubmeterPremium.Font = new Font(SubmeterPremium.Font, FontStyle.Bold);
-            SubmeterPremium.Size = new Size(200, 30); // Ajusta o tamanho do botão
-            SubmeterPremium.Location = new Point(pnlContent.Width - 230, pnlContent.Height- 150);
-            SubmeterPremium.BackColor = Color.White; // Define a cor de fundo como branco
+            SubmeterPremium.Size = new Size(200, 40); // Ajusta o tamanho do botão
+            SubmeterPremium.Location = new Point(pnlContent.Width - 230, pnlContent.Height- 170);
+            SubmeterPremium.BackColor = customColor; // Define a cor de fundo como branco
             SubmeterPremium.FlatStyle = FlatStyle.Flat;
-            SubmeterPremium.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            SubmeterPremium.ForeColor = Color.White;
+            SubmeterPremium.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
             SubmeterPremium.Click += SubmeterPremium_Click;
             pnlContent.Controls.Add(SubmeterPremium);
 
             Button enviarUser = new Button();
             enviarUser.Text = "Criar Utilizador";
             enviarUser.Font = new Font(enviarUser.Font, FontStyle.Bold);
-            enviarUser.Size = new Size(200, 30); // Ajusta o tamanho do botão
-            enviarUser.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 130 );
-            enviarUser.BackColor = Color.White; // Define a cor de fundo como branco
+            enviarUser.Size = new Size(200, 40); // Ajusta o tamanho do botão
+            enviarUser.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 150 );
+            enviarUser.BackColor = customColor; // Define a cor de fundo como branco
             enviarUser.FlatStyle = FlatStyle.Flat;
-            enviarUser.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            enviarUser.ForeColor = Color.White;
+            enviarUser.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
             enviarUser.Click += EnviarUser_Click;
             pnlContent.Controls.Add(enviarUser);
 
             Button verUsers = new Button();
             verUsers.Text = "Ver Utilizadores";
             verUsers.Font = new Font(verUsers.Font, FontStyle.Bold);
-            verUsers.Size = new Size(200, 30); // Ajusta o tamanho do botão
+            verUsers.Size = new Size(200, 40); // Ajusta o tamanho do botão
             verUsers.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 90);
-            verUsers.BackColor = Color.White; // Define a cor de fundo como branco
+            verUsers.BackColor = customColor; // Define a cor de fundo como branco
             verUsers.FlatStyle = FlatStyle.Flat;
-            verUsers.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            verUsers.ForeColor = Color.White;
+            verUsers.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
             verUsers.Click += VerUsers_Click;
             pnlContent.Controls.Add(verUsers);
 
             Button clearPnlContent = new Button();
             clearPnlContent.Text = "Close";
             clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
-            clearPnlContent.Size = new Size(200, 30); // Ajusta o tamanho do botão
-            clearPnlContent.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 50);
-            clearPnlContent.BackColor = Color.White; // Define a cor de fundo como branco
+            clearPnlContent.Size = new Size(200, 40); // Ajusta o tamanho do botão
+            clearPnlContent.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 30);
+            clearPnlContent.BackColor = customColor; // Define a cor de fundo como branco
+            clearPnlContent.ForeColor = Color.White;
             clearPnlContent.FlatStyle = FlatStyle.Flat;
-            clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            clearPnlContent.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
             clearPnlContent.Click += ClearPnlContent_Click;
             pnlContent.Controls.Add(clearPnlContent);
         }
@@ -802,10 +837,11 @@ namespace Proj_BD
             clearPnlContent = new Button();
             clearPnlContent.Text = "Close";
             clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
-            clearPnlContent.BackColor = Color.White; // Define a cor de fundo como branco
+            clearPnlContent.BackColor = customColor; // Define a cor de fundo como branco
             clearPnlContent.FlatStyle = FlatStyle.Flat;
-            clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
-            clearPnlContent.Size = new Size(80, 30);
+            clearPnlContent.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
+            clearPnlContent.ForeColor = Color.White;
+            clearPnlContent.Size = new Size(80, 40);
             clearPnlContent.Location = new Point(pnlContent.Width - 130, pnlContent.Height - 300);
             clearPnlContent.Click += ClearPnlContent_Click;
             pnlContent.Controls.Add(clearPnlContent);
@@ -911,35 +947,64 @@ namespace Proj_BD
             Button enviarConteudo = new Button();
             enviarConteudo.Text = "Criar Conteúdo";
             enviarConteudo.Font = new Font(enviarConteudo.Font, FontStyle.Bold);
-            enviarConteudo.Size = new Size(200, 30); // Ajusta o tamanho do botão
-            enviarConteudo.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 130 );
-            enviarConteudo.BackColor = Color.White; // Define a cor de fundo como branco
+            enviarConteudo.Size = new Size(200, 40); // Ajusta o tamanho do botão
+            enviarConteudo.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 150 );
+            enviarConteudo.BackColor = customColor; // Define a cor de fundo como branco
             enviarConteudo.FlatStyle = FlatStyle.Flat;
-            enviarConteudo.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            enviarConteudo.ForeColor = Color.White;
+            enviarConteudo.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
             enviarConteudo.Click += enviarConteudo_Click;
             pnlContent.Controls.Add(enviarConteudo);
 
             Button verConteudos = new Button();
             verConteudos.Text = "Ver Conteúdo";
             verConteudos.Font = new Font(verConteudos.Font, FontStyle.Bold);
-            verConteudos.Size = new Size(200, 30); // Ajusta o tamanho do botão
-            verConteudos.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 90);
-            verConteudos.BackColor = Color.White; // Define a cor de fundo como branco
+            verConteudos.Size = new Size(200, 40); // Ajusta o tamanho do botão
+            verConteudos.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 100);
+            verConteudos.BackColor = customColor; // Define a cor de fundo como branco
             verConteudos.FlatStyle = FlatStyle.Flat;
-            verConteudos.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            verConteudos.ForeColor = Color.White;
+            verConteudos.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
             verConteudos.Click += verConteudos_Click;
             pnlContent.Controls.Add(verConteudos);
 
             Button clearPnlContent = new Button();
             clearPnlContent.Text = "Close";
             clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
-            clearPnlContent.Size = new Size(200, 30); // Ajusta o tamanho do botão
+            clearPnlContent.Size = new Size(200, 40); // Ajusta o tamanho do botão
             clearPnlContent.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 50);
-            clearPnlContent.BackColor = Color.White; // Define a cor de fundo como branco
+            clearPnlContent.BackColor = customColor; // Define a cor de fundo como branco
             clearPnlContent.FlatStyle = FlatStyle.Flat;
-            clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            clearPnlContent.ForeColor = Color.White;
+            clearPnlContent.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
             clearPnlContent.Click += ClearPnlContent_Click;
             pnlContent.Controls.Add(clearPnlContent);
+
+
+            Label lblViewContent = new Label();
+            lblViewContent.Text = "Ver Conteúdo pelo ID:";
+            lblViewContent.ForeColor = Color.White;
+            lblViewContent.Font = new Font(lblViewContent.Font, FontStyle.Bold);
+            lblViewContent.Location = new Point(20, pnlContent.Height - 130);
+            lblViewContent.Size = new Size(180, 30);
+            pnlContent.Controls.Add(lblViewContent);
+
+            viewID = new TextBox();
+            viewID.Location = new Point(200, pnlContent.Height - 130);
+            viewID.Size = new Size(450, 40);
+            pnlContent.Controls.Add(viewID);
+
+            Button ViewCid = new Button();
+            ViewCid.Text = "Ver Conteúdo";
+            ViewCid.Font = new Font(ViewCid.Font, FontStyle.Bold);
+            ViewCid.Size = new Size(200, 40); // Ajusta o tamanho do botão
+            ViewCid.Location = new Point(pnlContent.Width - 230, pnlContent.Height - 130);
+            ViewCid.BackColor = customColor; // Define a cor de fundo como branco
+            ViewCid.FlatStyle = FlatStyle.Flat;
+            ViewCid.ForeColor = Color.White;
+            ViewCid.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
+            ViewCid.Click += viewCid_Click;
+            pnlContent.Controls.Add(ViewCid);
         }
         public void enviarConteudo_Click (object sender, EventArgs e){
             
@@ -983,11 +1048,12 @@ namespace Proj_BD
             clearPnlContent = new Button();
             clearPnlContent.Text = "Close";
             clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
-            clearPnlContent.BackColor = Color.White; // Define a cor de fundo como branco
+            clearPnlContent.BackColor = customColor; // Define a cor de fundo como branco
             clearPnlContent.FlatStyle = FlatStyle.Flat;
+            clearPnlContent.ForeColor = Color.White;
             clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
-            clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
-            clearPnlContent.Size = new Size(80, 30);
+            clearPnlContent.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
+            clearPnlContent.Size = new Size(80, 40);
             clearPnlContent.Location = new Point(pnlContent.Width - 100, pnlContent.Height - 90);
             clearPnlContent.Click += ClearPnlContent_Click;
             pnlContent.Controls.Add(clearPnlContent);
@@ -1065,33 +1131,36 @@ namespace Proj_BD
             Button enviarComentario = new Button();
             enviarComentario.Text = "Criar Comentário";
             enviarComentario.Font = new Font(enviarComentario.Font, FontStyle.Bold);
-            enviarComentario.Size = new Size(200, 30); // Ajusta o tamanho do botão
-            enviarComentario.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 130);
-            enviarComentario.BackColor = Color.White; // Define a cor de fundo como branco
+            enviarComentario.Size = new Size(200, 40); // Ajusta o tamanho do botão
+            enviarComentario.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 150);
+            enviarComentario.BackColor = customColor; // Define a cor de fundo como branco
             enviarComentario.FlatStyle = FlatStyle.Flat;
-            enviarComentario.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            enviarComentario.ForeColor = Color.White;
+            enviarComentario.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
             enviarComentario.Click += enviarComentario_Click;
             pnlContent.Controls.Add(enviarComentario);
 
             Button verComentarios = new Button();
             verComentarios.Text = "Ver Comentários";
             verComentarios.Font = new Font(verComentarios.Font, FontStyle.Bold);
-            verComentarios.Size = new Size(200, 30); // Ajusta o tamanho do botão
-            verComentarios.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 90);
-            verComentarios.BackColor = Color.White; // Define a cor de fundo como branco
+            verComentarios.Size = new Size(200, 40); // Ajusta o tamanho do botão
+            verComentarios.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 100);
+            verComentarios.BackColor = customColor; // Define a cor de fundo como branco
             verComentarios.FlatStyle = FlatStyle.Flat;
-            verComentarios.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            verComentarios.ForeColor = Color.White;
+            verComentarios.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
             verComentarios.Click += verComentarios_Click;
             pnlContent.Controls.Add(verComentarios);
 
             Button clearPnlContent = new Button();
             clearPnlContent.Text = "Close";
             clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
-            clearPnlContent.Size = new Size(200, 30); // Ajusta o tamanho do botão
+            clearPnlContent.Size = new Size(200, 40); // Ajusta o tamanho do botão
             clearPnlContent.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 50);
-            clearPnlContent.BackColor = Color.White; // Define a cor de fundo como branco
+            clearPnlContent.BackColor = customColor; // Define a cor de fundo como branco
             clearPnlContent.FlatStyle = FlatStyle.Flat;
-            clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            clearPnlContent.ForeColor = Color.White;
+            clearPnlContent.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
             clearPnlContent.Click += ClearPnlContent_Click;
             pnlContent.Controls.Add(clearPnlContent);
 
@@ -1121,14 +1190,43 @@ namespace Proj_BD
             Button allComentarios = new Button();
             allComentarios.Text = "Ver Mais Sobre o Conteúdo";
             allComentarios.Font = new Font(allComentarios.Font, FontStyle.Bold);
-            allComentarios.Size = new Size(200, 30);
-            allComentarios.Location = new Point(pnlContent.Width - 230, 390);
-            allComentarios.BackColor = Color.White;
+            allComentarios.Size = new Size(200, 40);
+            allComentarios.Location = new Point(pnlContent.Width - 230, 400);
+            allComentarios.BackColor = customColor;
             allComentarios.FlatStyle = FlatStyle.Flat;
-            allComentarios.FlatAppearance.BorderColor = Color.Black;
+            allComentarios.ForeColor = Color.White;
+            allComentarios.FlatAppearance.BorderColor = Color.White;
             allComentarios.Click += allComentarios_Click;
             pnlContent.Controls.Add(allComentarios);
         }
+
+        public void viewCid_Click(object sender, EventArgs e)
+        {
+            string idv = viewID.Text;
+
+            if (string.IsNullOrWhiteSpace(idv))
+            {
+                MessageBox.Show("Por favor, preencha todos os campos.");
+                return;
+            }
+
+            int id = int.Parse(idv);
+
+
+            bool sucesso = dataRepository.viewContent(id);
+
+            if (sucesso)
+            {
+                MessageBox.Show("Conteúdo Visualizado!");
+
+            }
+            else
+            {
+                MessageBox.Show("Erro ao identifcar Conteúdo. Por favor, tente novamente.");
+            }
+
+        }
+
         public void enviarComentario_Click(object sender, EventArgs e)
         {
             //apos o user clicar no mentario em vez de dar clear a tudo como fazia antes mostrar o comentario ou seja dar clear dos buttons e das labels e dar print com o codigo do conteudo, nome do conteudo, user que comentou, comentario e data 
@@ -1169,10 +1267,11 @@ namespace Proj_BD
             clearPnlContent = new Button();
             clearPnlContent.Text = "Close";
             clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
-            clearPnlContent.BackColor = Color.White; // Define a cor de fundo como branco
+            clearPnlContent.BackColor = customColor; // Define a cor de fundo como branco
             clearPnlContent.FlatStyle = FlatStyle.Flat;
-            clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
-            clearPnlContent.Size = new Size(80, 30);
+            clearPnlContent.ForeColor = Color.White;
+            clearPnlContent.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
+            clearPnlContent.Size = new Size(80, 40);
             clearPnlContent.Location = new Point(pnlContent.Width - 100, pnlContent.Height - 50);
             clearPnlContent.Click += ClearPnlContent_Click;
             pnlContent.Controls.Add(clearPnlContent);
@@ -1198,10 +1297,11 @@ namespace Proj_BD
             clearPnlContent = new Button();
             clearPnlContent.Text = "Close";
             clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
-            clearPnlContent.BackColor = Color.White; // Define a cor de fundo como branco
+            clearPnlContent.BackColor = customColor; // Define a cor de fundo como branco
             clearPnlContent.FlatStyle = FlatStyle.Flat;
-            clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
-            clearPnlContent.Size = new Size(80, 30);
+            clearPnlContent.ForeColor = Color.White;
+            clearPnlContent.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
+            clearPnlContent.Size = new Size(80, 40);
             clearPnlContent.Location = new Point(pnlContent.Width - 100, pnlContent.Height - 50);
             clearPnlContent.Click += ClearPnlContent_Click;
             pnlContent.Controls.Add(clearPnlContent);
@@ -1339,11 +1439,12 @@ namespace Proj_BD
             Button AddPlaylist = new Button();
             AddPlaylist.Text = "Adicionar a Playlist";
             AddPlaylist.Font = new Font(AddPlaylist.Font, FontStyle.Bold);
-            AddPlaylist.Size = new Size(200, 30); // Ajusta o tamanho do botão
+            AddPlaylist.Size = new Size(200, 40); // Ajusta o tamanho do botão
             AddPlaylist.Location = new Point(pnlContent.Width - 230, 650);
-            AddPlaylist.BackColor = Color.White; // Define a cor de fundo como branco
+            AddPlaylist.BackColor = customColor;
+            AddPlaylist.ForeColor = Color.White;// Define a cor de fundo como branco
             AddPlaylist.FlatStyle = FlatStyle.Flat;
-            AddPlaylist.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            AddPlaylist.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
             AddPlaylist.Click += AddPlaylist_Click;
             pnlContent.Controls.Add(AddPlaylist);
 
@@ -1352,44 +1453,48 @@ namespace Proj_BD
             Button enviarPlayList = new Button();
             enviarPlayList.Text = "Criar PlayList";
             enviarPlayList.Font = new Font(enviarPlayList.Font, FontStyle.Bold);
-            enviarPlayList.Size = new Size(200, 30); // Ajusta o tamanho do botão
-            enviarPlayList.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 280);
-            enviarPlayList.BackColor = Color.White; // Define a cor de fundo como branco
+            enviarPlayList.Size = new Size(200, 40); // Ajusta o tamanho do botão
+            enviarPlayList.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 300);
+            enviarPlayList.BackColor = customColor; // Define a cor de fundo como branco
             enviarPlayList.FlatStyle = FlatStyle.Flat;
-            enviarPlayList.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            enviarPlayList.ForeColor = Color.White;
+            enviarPlayList.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
             enviarPlayList.Click += enviarPlayList_Click;
             pnlContent.Controls.Add(enviarPlayList);
 
             Button verPlayList = new Button();
             verPlayList.Text = "Ver PlayLists Criadas";
             verPlayList.Font = new Font(verPlayList.Font, FontStyle.Bold);
-            verPlayList.Size = new Size(200, 30); // Ajusta o tamanho do botão
-            verPlayList.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 240);
-            verPlayList.BackColor = Color.White; // Define a cor de fundo como branco
+            verPlayList.Size = new Size(200, 40); // Ajusta o tamanho do botão
+            verPlayList.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 250);
+            verPlayList.BackColor = customColor; // Define a cor de fundo como branco
             verPlayList.FlatStyle = FlatStyle.Flat;
-            verPlayList.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            verPlayList.ForeColor = Color.White;
+            verPlayList.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
             verPlayList.Click += verPlayList_Click;
             pnlContent.Controls.Add(verPlayList);
 
             Button clearPnlContent = new Button();
             clearPnlContent.Text = "Close";
             clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
-            clearPnlContent.Size = new Size(200, 30); // Ajusta o tamanho do botão
+            clearPnlContent.Size = new Size(200, 40); // Ajusta o tamanho do botão
             clearPnlContent.Location = new Point(pnlContent.Width - 230, pnlContent.Height / 2 - 200);
-            clearPnlContent.BackColor = Color.White; // Define a cor de fundo como branco
+            clearPnlContent.BackColor = customColor; // Define a cor de fundo como branco
             clearPnlContent.FlatStyle = FlatStyle.Flat;
-            clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
+            clearPnlContent.ForeColor = Color.White;
+            clearPnlContent.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
             clearPnlContent.Click += ClearPnlContent_Click;
             pnlContent.Controls.Add(clearPnlContent);
 
             Button verPlayListCodigo = new Button();
             verPlayListCodigo.Text = "Ver Mais Sobre uma PlayList";
             verPlayListCodigo.Font = new Font(verPlayListCodigo.Font, FontStyle.Bold);
-            verPlayListCodigo.Size = new Size(200, 30);
+            verPlayListCodigo.Size = new Size(200, 40);
             verPlayListCodigo.Location = new Point(pnlContent.Width - 230, 390);
-            verPlayListCodigo.BackColor = Color.White;
+            verPlayListCodigo.BackColor = customColor;
+            verPlayListCodigo.ForeColor = Color.White;
             verPlayListCodigo.FlatStyle = FlatStyle.Flat;
-            verPlayListCodigo.FlatAppearance.BorderColor = Color.Black;
+            verPlayListCodigo.FlatAppearance.BorderColor = Color.White;
             verPlayListCodigo.Click += verPlayListCodigo_Click;
             pnlContent.Controls.Add(verPlayListCodigo);
 
@@ -1471,10 +1576,11 @@ namespace Proj_BD
             Button clearPnlContent = new Button();
             clearPnlContent.Text = "Close";
             clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
-            clearPnlContent.BackColor = Color.White;
+            clearPnlContent.BackColor = customColor;
+            clearPnlContent.ForeColor = Color.White;
             clearPnlContent.FlatStyle = FlatStyle.Flat;
-            clearPnlContent.FlatAppearance.BorderColor = Color.Black;
-            clearPnlContent.Size = new Size(80, 30);
+            clearPnlContent.FlatAppearance.BorderColor = Color.White;
+            clearPnlContent.Size = new Size(80, 40);
             clearPnlContent.Location = new Point(pnlContent.Width - 100, pnlContent.Height - 90);
             clearPnlContent.Click += ClearPnlContent_Click;
             pnlContent.Controls.Add(clearPnlContent);
@@ -1507,10 +1613,11 @@ namespace Proj_BD
             Button clearPnlContent = new Button();
             clearPnlContent.Text = "Close";
             clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
-            clearPnlContent.BackColor = Color.White;
+            clearPnlContent.BackColor = customColor;
+            clearPnlContent.ForeColor = Color.White;
             clearPnlContent.FlatStyle = FlatStyle.Flat;
-            clearPnlContent.FlatAppearance.BorderColor = Color.Black;
-            clearPnlContent.Size = new Size(80, 30);
+            clearPnlContent.FlatAppearance.BorderColor = Color.White;
+            clearPnlContent.Size = new Size(80, 40);
             clearPnlContent.Location = new Point(pnlContent.Width - 100, pnlContent.Height - 90);
             clearPnlContent.Click += ClearPnlContent_Click;
             pnlContent.Controls.Add(clearPnlContent);
@@ -1545,10 +1652,11 @@ namespace Proj_BD
             clearPnlContent = new Button();
             clearPnlContent.Text = "Close";
             clearPnlContent.Font = new Font(clearPnlContent.Font, FontStyle.Bold);
-            clearPnlContent.BackColor = Color.White; // Define a cor de fundo como branco
+            clearPnlContent.BackColor = customColor; // Define a cor de fundo como branco
             clearPnlContent.FlatStyle = FlatStyle.Flat;
-            clearPnlContent.FlatAppearance.BorderColor = Color.Black; // Define a cor da borda como preta
-            clearPnlContent.Size = new Size(80, 30);
+            clearPnlContent.ForeColor = Color.White;
+            clearPnlContent.FlatAppearance.BorderColor = Color.White; // Define a cor da borda como preta
+            clearPnlContent.Size = new Size(80, 40);
             clearPnlContent.Location = new Point(pnlContent.Width - 100, pnlContent.Height - 50);
             clearPnlContent.Click += ClearPnlContent_Click;
             pnlContent.Controls.Add(clearPnlContent);
@@ -1571,5 +1679,6 @@ namespace Proj_BD
         {
             pnlContent.Controls.Clear();
         }
+
     }
 }

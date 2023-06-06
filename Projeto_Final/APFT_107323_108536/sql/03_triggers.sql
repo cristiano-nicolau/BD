@@ -2,7 +2,7 @@ USE p5g2;
 go
 
 
-/*
+
 
 
 CREATE TRIGGER EnforceMaxDuration
@@ -206,7 +206,7 @@ END;
 
 /*  /////////////////////////////////////////////////   */
 
-*/
+
 
 
 CREATE TRIGGER SetEstadoAndCodigoP
@@ -233,6 +233,27 @@ BEGIN
     END;
 END;
 
+/*  /////////////////////////////////////////////////   */
+
+
+CREATE TRIGGER IncrementCodigoContentVisto
+ON Youtube.Historico
+INSTEAD OF INSERT
+AS
+BEGIN
+    DECLARE @MaxCodigoContentVisto INT;
+
+
+    SELECT @MaxCodigoContentVisto = MAX(CodigoContentVisto) FROM Youtube.Historico;
+
+
+    SET @MaxCodigoContentVisto = ISNULL(@MaxCodigoContentVisto, 0) + 1;
+
+
+    INSERT INTO Youtube.Historico (Titulo, Codigo, Data_de_Visualizacao, CodigoContentVisto)
+    SELECT Titulo, Codigo, Data_de_Visualizacao, @MaxCodigoContentVisto + ROW_NUMBER() OVER (ORDER BY (SELECT NULL))
+    FROM inserted;
+END;
 
 
 

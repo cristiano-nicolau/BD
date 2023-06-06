@@ -33,9 +33,6 @@ namespace Proj_BD
 
 
 
-
-
-
         /// /////////////////////////////////////// ////////////////////////////////////////
         /// 
         /// 
@@ -79,17 +76,43 @@ namespace Proj_BD
                         return false;
 
                     string updateQuery = "UPDATE [Youtube].[Conteúdo] SET Num_Likes = Num_Likes + 1 WHERE Codigo = @Codigo";
-                    string insertQuery = "INSERT INTO [Youtube].[Histórico] (Titulo, Codigo, Data_de_Visualização) " +
-                                         "SELECT Titulo, Codigo, GETDATE() FROM [Youtube].[Conteúdo] WHERE Codigo = @Codigo";
 
                     using (SqlCommand command = new SqlCommand(updateQuery, connection))
                     {
                         command.Parameters.AddWithValue("@Codigo", codigo);
                         command.ExecuteNonQuery();
 
+                   
+                    }
+                    return true;
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao dar like no video: " + ex.Message);
+                return false;
+            }
+        }
+
+        public bool viewContent(int id)
+        {
+            try
+            {
+                    if (!verifyConnection())
+                        return false;
+
+                    string updateQuery = "UPDATE [Youtube].[Conteúdo] SET Num_Views = Num_Views+1 WHERE Codigo = @Codigo";
+                    string insertQuery = "INSERT INTO [Youtube].[Historico] (Titulo, Codigo, Data_de_Visualizacao) " +
+                                         "SELECT Titulo, Codigo, GETDATE() FROM [Youtube].[Conteúdo] WHERE Codigo = @Codigo";
+
+                    using (SqlCommand command = new SqlCommand(updateQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@Codigo", id);
+                        command.ExecuteNonQuery();
+
                     
                         SqlCommand insertCommand = new SqlCommand(insertQuery, connection);
-                        insertCommand.Parameters.AddWithValue("@Codigo", codigo);
+                        insertCommand.Parameters.AddWithValue("@Codigo", id);
                         insertCommand.ExecuteNonQuery();
                     }
                     return true;
@@ -97,7 +120,7 @@ namespace Proj_BD
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao verificar as credenciais: " + ex.Message);
+                MessageBox.Show("Erro ao ver Conteúdo: " + ex.Message);
                 return false;
             }
         }
@@ -285,7 +308,7 @@ namespace Proj_BD
                     return null;
                 }
 
-                string query = "SELECT U.Nome_Utilizador, U.Email, U.Senha, U.Nome, U.Data_de_Nascimento, CASE WHEN P.IsPremium = 1 THEN 'Premium' ELSE '' END AS Premium, P.Data_de_Encerramento, P.Valor_a_pagar FROM[p5g2].[Youtube].[Utilizador] U LEFT JOIN[p5g2].[Youtube].[Premium] P ON U.Nome_Utilizador = P.Nome_Utilizador;";
+                string query = "SELECT U.Nome_Utilizador, U.Email, U.Nome, U.Data_de_Nascimento, CASE WHEN P.IsPremium = 1 THEN 'Premium' ELSE '' END AS Premium, P.Data_de_Encerramento, P.Valor_a_pagar FROM[p5g2].[Youtube].[Utilizador] U LEFT JOIN[p5g2].[Youtube].[Premium] P ON U.Nome_Utilizador = P.Nome_Utilizador;";
                
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -618,7 +641,7 @@ namespace Proj_BD
                     return null;
                 }
 
-                string query = "SELECT * FROM [p5g2].[Youtube].[Histórico]";
+                string query = "SELECT Titulo, Codigo, Data_de_Visualizacao FROM[p5g2].[Youtube].[Historico] ORDER BY CodigoContentVisto DESC";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
