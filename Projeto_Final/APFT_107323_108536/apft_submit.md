@@ -53,19 +53,66 @@ Podem ainda subscrever outros utilizadores, dar like, comentar conteúdo, criar 
 
 ## SQL DML - Data Manipulation Language
 
-### Formulario exemplo/Example Form
+### Formulário Utilizadores
 
-![Exemplo Screenshot!](screenshots/screenshot_1.jpg "AnImage")
+![Utilizador](screenshots/Utilizadores.png "Utilizadores")
 
-```sql
--- Show data on the form
-SELECT * FROM MY_TABLE ....;
+<br>
 
--- Insert new element
-INSERT INTO MY_TABLE ....;
+```c#
+//Show data on the form
+string query = "SELECT u.Nome_Utilizador, u.Senha, c.Num_Subscritores, c.Num_Conteudo, c.Descrição_Canal " +
+                "FROM [p5g2].[Youtube].[Utilizador] u " +
+                "INNER JOIN [p5g2].[Youtube].[Canal] c ON u.Nome_Utilizador = c.Nome_Utilizador " +
+                "WHERE u.Nome_Utilizador = c.Nome_Utilizador";
+
+//Listar Utilzadores
+string query = "SELECT U.Nome_Utilizador, U.Email, U.Nome, U.Data_de_Nascimento, CASE WHEN P.IsPremium = 1 THEN 'Premium' ELSE '' END AS Premium,  P.Data_de_Encerramento, P.Valor_a_pagar FROM[p5g2].[Youtube].[Utilizador] U LEFT JOIN[p5g2].[Youtube].[Premium] P ON U.Nome_Utilizador = P.Nome_Utilizador;";
+
+//submeter Premium
+string query = "INSERT INTO Youtube.Premium (Nome_Utilizador, Num_Meses) " +
+                "VALUES (@Nome_Utilizador,@meses)";
+
 ```
+<br>
 
-...
+### Formulário Conteúdo
+
+![Conteudo](screenshots/Conteudo.png "Conteudo")
+<br>
+
+```c#
+
+//Adicionar Conteúdo
+string query = "INSERT INTO [p5g2].[Youtube].[Conteúdo] (Titulo, Autor, Tipo, Estado, Duracao) VALUES(@Titulo, @autor, @Tipo, @estado, @dura);";
+
+//Listar todos os conteúdos
+string query = "SELECT C.Codigo, C.Titulo, C.Autor, C.Tipo, E.state_name AS Estado, C.Duracao, C.Num_Likes, C.Num_Views, C.Data_Pub FROM Youtube.Conteúdo C JOIN Youtube.Estados E ON C.Estado = E.state_id";
+
+//Update ao número de views após visualizaçção do conteúdo
+string updateQuery = "UPDATE [Youtube].[Conteúdo] SET Num_Views = Num_Views+1 WHERE Codigo = @Codigo";
+
+//Inserir conteúdo no Historico
+string insertQuery = "INSERT INTO [Youtube].[Historico] (Titulo, Codigo, Data_de_Visualizacao) " +
+                                         "SELECT Titulo, Codigo, GETDATE() FROM [Youtube].[Conteúdo] WHERE Codigo = @Codigo";
+
+```
+<br>
+
+### Formulário Comentário
+
+![Comentário](screenshots/Comentários.png "Comentário")
+
+<br>
+
+```c#
+//Inserir comentário num certo 
+string query = "INSERT INTO Youtube.Comentários (Autor,Texto,Codigo) " +
+                               "VALUES (@Autor, @Texto, @CódigoV)";
+
+
+
+```
 
 ## Normalização/Normalization
 
